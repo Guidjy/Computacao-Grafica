@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Arquivos de Recurso">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\GUI">
+      <UniqueIdentifier>{d08f65fb-91f9-4188-9e92-009446750da3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GUI\primitives">
+      <UniqueIdentifier>{89337e43-bf3d-4654-bd4b-3895b05a44fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GUI\components">
+      <UniqueIdentifier>{606a5331-093e-499a-98c7-88f771862c98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GUI\events">
+      <UniqueIdentifier>{c12e226f-d519-43f5-9b58-d34ee9b238df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GUI\bitmap">
+      <UniqueIdentifier>{213ba6d4-5bed-4e5d-adba-a5e70f3c8231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\GUI\menu">
+      <UniqueIdentifier>{2a6a916d-1c27-46d4-8fd9-553362ffda17}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_canvas2d.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>src\GUI\components</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>src\GUI\primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Rect.cpp">
+      <Filter>src\GUI\primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>src\GUI\primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="buttonEvents.cpp">
+      <Filter>src\GUI\events</Filter>
+    </ClCompile>
+    <ClCompile Include="bmp.cpp">
+      <Filter>src\GUI\bitmap</Filter>
+    </ClCompile>
+    <ClCompile Include="Slider.cpp">
+      <Filter>src\GUI\components</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckBox.cpp">
+      <Filter>src\GUI\components</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>src\GUI\menu</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="gl_canvas2d.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="mouseStates.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="buttonEvents.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Bmp.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Slider.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckBox.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

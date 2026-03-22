@@ -1,0 +1,76 @@
+﻿C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(538,5): warning MSB8028: The intermediate directory (..\..\__obj\) contains files shared from another project (Texture.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Button.cpp
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\include\compare(12): warning STL4038: The contents of <compare> are available only with C++20 or later.
+  Circle.cpp
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\include\compare(12): warning STL4038: The contents of <compare> are available only with C++20 or later.
+  gl_canvas2d.cpp
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\include\compare(12): warning STL4038: The contents of <compare> are available only with C++20 or later.
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\gl_canvas2d.cpp(89,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\gl_canvas2d.cpp(90,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\gl_canvas2d.cpp(91,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\gl_canvas2d.cpp(92,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  main.cpp
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\include\compare(12): warning STL4038: The contents of <compare> are available only with C++20 or later.
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,51): warning C4305: 'initializing': truncation from 'double' to '_Ty'
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,51): warning C4305:         with
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,51): warning C4305:         [
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,51): warning C4305:             _Ty=float
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,51): warning C4305:         ]
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,56): warning C4305: 'initializing': truncation from 'double' to '_Ty'
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,56): warning C4305:         with
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,56): warning C4305:         [
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,56): warning C4305:             _Ty=float
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,56): warning C4305:         ]
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,61): warning C4305: 'initializing': truncation from 'double' to '_Ty'
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,61): warning C4305:         with
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,61): warning C4305:         [
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,61): warning C4305:             _Ty=float
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(126,61): warning C4305:         ]
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,61): warning C4305: 'initializing': truncation from 'double' to '_Ty'
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,61): warning C4305:         with
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,61): warning C4305:         [
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,61): warning C4305:             _Ty=float
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,61): warning C4305:         ]
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,66): warning C4305: 'initializing': truncation from 'double' to '_Ty'
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,66): warning C4305:         with
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,66): warning C4305:         [
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,66): warning C4305:             _Ty=float
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,66): warning C4305:         ]
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,71): warning C4305: 'initializing': truncation from 'double' to '_Ty'
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,71): warning C4305:         with
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,71): warning C4305:         [
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,71): warning C4305:             _Ty=float
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(127,71): warning C4305:         ]
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(129,52): warning C4305: 'initializing': truncation from 'double' to '_Ty'
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(129,52): warning C4305:         with
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(129,52): warning C4305:         [
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(129,52): warning C4305:             _Ty=float
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(129,52): warning C4305:         ]
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(129,60): warning C4305: 'initializing': truncation from 'double' to '_Ty'
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(129,60): warning C4305:         with
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(129,60): warning C4305:         [
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(129,60): warning C4305:             _Ty=float
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(129,60): warning C4305:         ]
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(131,57): warning C4305: 'initializing': truncation from 'double' to '_Ty'
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(131,57): warning C4305:         with
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(131,57): warning C4305:         [
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(131,57): warning C4305:             _Ty=float
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(131,57): warning C4305:         ]
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(131,62): warning C4305: 'initializing': truncation from 'double' to '_Ty'
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(131,62): warning C4305:         with
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(131,62): warning C4305:         [
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(131,62): warning C4305:             _Ty=float
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\main.cpp(131,62): warning C4305:         ]
+  bmp.cpp
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\include\compare(12): warning STL4038: The contents of <compare> are available only with C++20 or later.
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\bmp.cpp(82,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\bmp.cpp(82,23): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Slider.cpp
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\include\compare(12): warning STL4038: The contents of <compare> are available only with C++20 or later.
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\Slider.cpp(12,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\Slider.cpp(47,16): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\Slider.cpp(51,13): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\canvas_vazia\CanvasGlut\Slider.cpp(54,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Generating Code...
+  GLut.vcxproj -> C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\__bin\CanvasGlut.exe
+          1 file(s) copied.

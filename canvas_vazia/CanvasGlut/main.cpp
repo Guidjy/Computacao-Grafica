@@ -131,7 +131,7 @@ int main(void)
 	//checkBox1->setOnClickCallback(defaultEvent);
 	slider1 = new Slider(Vector2(20, 100), 30, 150, { 0.0, 0.2, 0.8 });
 
-	menu1 = new Menu();
+	menu1 = new Menu(screenHeight, screenWidth, {0.5, 0.5, 0.5});
 	menu1->addComponent(rect1);
 	menu1->addComponent(circle1);
 	menu1->addComponent(btn1);

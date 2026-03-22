@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <stdlib.h>
+#include <time.h>
 #include <vector>
 
 #include "gl_canvas2d.h"

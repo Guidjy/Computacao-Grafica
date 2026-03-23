@@ -106,7 +106,7 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 
 int main(void)
 {
-	CV::init(&screenWidth, &screenHeight, "Pimentel Paint");
+	CV::init(&screenWidth, &screenHeight, "Pimentel's Paint");
 
 	mainMenuInit(mainMenu, screenHeight, screenWidth);
 

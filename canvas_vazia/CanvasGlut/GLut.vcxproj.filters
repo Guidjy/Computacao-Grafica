@@ -66,6 +66,9 @@
     <ClCompile Include="Menu.cpp">
       <Filter>src\GUI\menu</Filter>
     </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>src\GUI\primitives</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gl_canvas2d.h">
@@ -102,6 +105,9 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

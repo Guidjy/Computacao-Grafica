@@ -95,10 +95,12 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 	{
 	case CLICK:
 		mainMenu->onClick(mouseX, mouseY, mouseState);
+	
 		break;
 
 	case RELEASE:
 		mainMenu->onRelease();
+
 		break;
 	}
 

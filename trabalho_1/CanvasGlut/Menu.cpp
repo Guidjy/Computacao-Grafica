@@ -23,6 +23,7 @@ void Menu::onClick(int mouseX, int mouseY, int mouseState)
 		if (components[i]->checkClick(mouseX, mouseY, mouseState))
 		{
 			components[i]->onClick();
+			components[i]->onClick(mouseX, mouseY);
 		}
 	}
 }

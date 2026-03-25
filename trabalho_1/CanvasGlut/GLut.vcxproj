@@ -171,6 +171,7 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="buttonEvents.cpp" />
+    <ClCompile Include="Canvas.cpp" />
     <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="gl_canvas2d.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Bmp.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="buttonEvents.h" />
+    <ClInclude Include="Canvas.h" />
     <ClInclude Include="CheckBox.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="gl_canvas2d.h" />

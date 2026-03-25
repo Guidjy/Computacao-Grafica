@@ -34,6 +34,8 @@ public:
 
 	virtual void onClick() {};
 
+	virtual void onClick(int mouseX, int mouseY) {}
+
 	virtual void onRelease() {};
 
 	virtual void render(int mouseX, int mouseY);

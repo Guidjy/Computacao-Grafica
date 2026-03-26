@@ -75,6 +75,9 @@
     <ClCompile Include="Canvas.cpp">
       <Filter>src\GUI\components</Filter>
     </ClCompile>
+    <ClCompile Include="MovableRect.cpp">
+      <Filter>src\GUI\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gl_canvas2d.h">
@@ -120,6 +123,9 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="Canvas.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MovableRect.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

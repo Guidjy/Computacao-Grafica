@@ -179,6 +179,7 @@
     <ClCompile Include="bmp.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="mainMenu.cpp" />
+    <ClCompile Include="MovableRect.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Slider.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="mouseStates.h" />
+    <ClInclude Include="MovableRect.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Slider.h" />

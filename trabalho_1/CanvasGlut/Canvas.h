@@ -1,7 +1,10 @@
 #pragma once
-#include "Rect.h"
 #include "Vector2.h"
+#include "Rect.h"
 #include <vector>
+
+
+class MovableRect;
 
 
 class Canvas : public Rect
@@ -19,7 +22,7 @@ private:
 
 	Vector2 mouseReleasePos;
 
-	std::vector<Rect*> rects;
+	std::vector<MovableRect*> rects;
 
 public:
 	Canvas(Vector2 _pos, float _height, float _width, std::array<float, 3> _color = { 0, 0, 0 }, bool _isFilled = false);
@@ -39,7 +42,7 @@ public:
 	Vector2 getMouseReleasePos() { return mouseReleasePos; }
 	void setMouseReleasePos(Vector2 _mouseReleasePos) { mouseReleasePos = _mouseReleasePos; }
 
-	void addRect(Rect* _rect) { rects.push_back(_rect); }
+	void addRect(MovableRect* _rect) { rects.push_back(_rect); }
 
 	void onClick(int mouseX, int mouseY) override;
 

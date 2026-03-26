@@ -6,6 +6,7 @@ Canvas::Canvas(Vector2 _pos, float _height, float _width, std::array<float, 3> _
 {
 	canDrawRect = false;
 	isDrawingRect = false;
+	canMoveRect = false;
 	currentMousePos = Vector2(0, 0);
 	mouseClickPos = Vector2(0, 0);
 	mouseReleasePos = Vector2(0, 0);
@@ -22,17 +23,17 @@ void Canvas::setCurrentMousePos(Vector2 _currentMousePos)
 	{
 		currentMousePos.x = pos.x;
 	}
-	else if (currentMousePos.x > pos.x + width)
+	if (currentMousePos.x > pos.x + width)
 	{
 		currentMousePos.x = pos.x + width;
 	}
-	else if (currentMousePos.y < pos.y)
+	if (currentMousePos.y < pos.y)
 	{
-		currentMousePos.y = pos.y;
+		currentMousePos.y = pos.y + 1;
 	}
-	else if (currentMousePos.y > pos.y + height)
+	if (currentMousePos.y > pos.y + height)
 	{
-		currentMousePos.y = pos.y;
+		currentMousePos.y = pos.y + height + 1;
 	}
 }
 
@@ -48,6 +49,7 @@ void Canvas::onClick(int mouseX, int mouseY)
 	if (canDrawRect)
 	{
 		isDrawingRect = true;
+		canMoveRect = false;
 		canDrawRect = false;
 
 		Rect* newRect = new Rect(currentMousePos, 0, 0);
@@ -73,9 +75,10 @@ void Canvas::render(int mouseX, int mouseY)
 		rects[i]->render(mouseX, mouseY);
 	}
 
+	int i = rects.size() - 1;
+
 	if (isDrawingRect)
 	{
-		int i = rects.size() - 1;
 		float height = currentMousePos.y - mouseClickPos.y;
 		float width = currentMousePos.x - mouseClickPos.x;
 

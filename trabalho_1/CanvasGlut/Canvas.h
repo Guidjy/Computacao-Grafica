@@ -11,6 +11,8 @@ private:
 
 	bool isDrawingRect;
 
+	bool canMoveRect;
+
 	Vector2 currentMousePos;
 
 	Vector2 mouseClickPos;

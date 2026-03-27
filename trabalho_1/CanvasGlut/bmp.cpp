@@ -26,6 +26,8 @@ Bmp::Bmp(const char* fileName)
     {
         printf("Error: Invalid BMP filename");
     }
+
+    isGrayscale = false;
 }
 
 uchar* Bmp::getImage()
@@ -76,7 +78,16 @@ void Bmp::render()
             float g = data[idx + 1] / 255.0f;
             float r = data[idx + 2] / 255.0f;
 
-            CV::color(r, g, b);
+            if (isGrayscale)
+            {
+                // luminance:  Y = 0.299*r + 0.587*g + 0.114*b
+                float y = 0.299 * r + 0.587 * g + 0.114 * b;
+                CV::color(y, y, y);
+            }
+            else
+            {
+                CV::color(r, g, b);
+            }
 
             // Flip Y because BMP is upside-down
             CV::point(x, height - y);

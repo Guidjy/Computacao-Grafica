@@ -8,6 +8,8 @@ Canvas::Canvas(Vector2 _pos, float _height, float _width, std::array<float, 3> _
 {
 	canDrawRect = false;
 	isDrawingRect = false;
+	canInsertImage = false;
+	isImageGrayscale = false;
 	currentMousePos = Vector2(0, 0);
 	mouseClickPos = Vector2(0, 0);
 	mouseReleasePos = Vector2(0, 0);
@@ -70,6 +72,11 @@ void Canvas::tryAddImage(int mouseX, int mouseY)
 		canInsertImage = false;
 
 		Image* newImage = new Image(currentMousePos, ".\\images\\carol.bmp", this);
+		if (isImageGrayscale)
+		{
+			newImage->setIsGrayscale(true);
+		}
+
 		addDrawing(newImage);
 	}
 }

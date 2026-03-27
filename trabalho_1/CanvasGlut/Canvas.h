@@ -17,6 +17,8 @@ private:
 
 	bool canInsertImage;
 
+	bool isImageGrayscale;
+
 	Vector2 currentMousePos;
 
 	Vector2 mouseClickPos;
@@ -42,6 +44,9 @@ public:
 
 	bool getCanInsertImage() { return canInsertImage; }
 	void setCanInsertImage(bool _canInsertImage) { canInsertImage = _canInsertImage; }
+
+	bool getIsImageGrayscale() { return isImageGrayscale; }
+	void setIsImageGrayscale(bool _isImageGrayscale) { isImageGrayscale = _isImageGrayscale; }
 
 	Vector2 getCurrentMousePos() { return currentMousePos; }
 	void setCurrentMousePos(Vector2 _currentMousePos);

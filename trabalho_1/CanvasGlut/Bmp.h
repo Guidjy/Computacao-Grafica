@@ -52,6 +52,9 @@ private:
 
 	void load(const char* fileName);
 
+	// my vars and funcs
+	bool isGrayscale;
+
 public:
 	Bmp(const char* fileName);
 	uchar* getImage();
@@ -59,6 +62,10 @@ public:
 	int    getHeight(void);
 	void   convertBGRtoRGB(void);
 	void render();
+
+	// my vars and funcs
+	bool getIsGrayscale() { return isGrayscale; }
+	void setIsGrayscale(bool _isGrayscale) { isGrayscale = _isGrayscale; }
 };
 
 #endif

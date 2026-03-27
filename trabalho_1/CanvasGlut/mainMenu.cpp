@@ -6,6 +6,7 @@
 #include "Slider.h"
 #include "CheckBox.h"
 #include "Text.h"
+#include <iostream>
 
 
 // components
@@ -43,6 +44,7 @@ void mainMenuInit(Menu*& self, int height, int width)
 
 	setGrayscaleCheckBox = new CheckBox(Vector2(navBar->getWidth() / 5 * 3 + margin, buttonY), buttonHeight, { 0.447, 0.537, 0.855 }, true);
 	setGrayscaleCheckBoxText = new Text(Vector2(navBar->getWidth() / 5 * 3 + margin + buttonHeight + 5, buttonY + buttonHeight / 2), "image grayscale", { 1, 1, 1 });
+	setGrayscaleCheckBox->setOnClickCallback(setImageGrayscale);
 
 	focusSlider = new Slider(Vector2(navBar->getWidth() / 5 * 4 + margin, buttonY + buttonHeight / 3), buttonHeight / 4, buttonWidth - margin, { 0.447, 0.537, 0.855 }, true);
 	focusSliderText = new Text(Vector2(navBar->getWidth() / 5 * 4 + margin, buttonY + buttonHeight / 3 + 30), "image focus", { 1, 1, 1 });
@@ -77,4 +79,9 @@ void insertImage()
 {
 	canvasSurface->setCanInsertImage(true);
 	canvasSurface->setCanDrawRect(false);
+}
+
+void setImageGrayscale()
+{
+	canvasSurface->setIsImageGrayscale(!canvasSurface->getIsImageGrayscale());
 }

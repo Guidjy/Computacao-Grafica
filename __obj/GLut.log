@@ -1,10 +1,8 @@
 ﻿C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(538,5): warning MSB8028: The intermediate directory (..\..\__obj\) contains files shared from another project (Texture.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Canvas.cpp
+  bmp.cpp
 C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.44.35207\include\compare(12): warning STL4038: The contents of <compare> are available only with C++20 or later.
-C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\trabalho_1\CanvasGlut\Canvas.cpp(84,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\trabalho_1\CanvasGlut\Canvas.cpp(84,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\trabalho_1\CanvasGlut\Canvas.cpp(118,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\trabalho_1\CanvasGlut\Canvas.cpp(118,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\trabalho_1\CanvasGlut\Canvas.cpp(129,21): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\trabalho_1\CanvasGlut\bmp.cpp(84,25): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\trabalho_1\CanvasGlut\bmp.cpp(93,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\trabalho_1\CanvasGlut\bmp.cpp(93,23): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   GLut.vcxproj -> C:\Users\guipp\OneDrive\Área de Trabalho\cg\Demos\trabalhos\__bin\CanvasGlut.exe
           1 file(s) copied.

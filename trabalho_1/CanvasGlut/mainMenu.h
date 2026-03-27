@@ -29,3 +29,5 @@ void mainMenuInit(Menu*& self, int height, int width);
 void drawRect();
 
 void insertImage();
+
+void setImageGrayscale();

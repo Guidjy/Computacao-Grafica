@@ -28,6 +28,7 @@ Bmp::Bmp(const char* fileName)
     }
 
     isGrayscale = false;
+    rotation = 0;
 }
 
 uchar* Bmp::getImage()
@@ -89,8 +90,31 @@ void Bmp::render()
                 CV::color(r, g, b);
             }
 
-            // Flip Y because BMP is upside-down
-            CV::point(x, height - y);
+            // actual coordinates where the pixel will be drawn after rotation
+            int drawX = x;
+            int drawY = height - y;
+
+            switch (rotation)
+            {
+            case 0:
+                drawX = x;
+                drawY = height - y;
+                break;
+            case 1:
+                drawX = y;
+                drawY = x + 1;
+                break;
+            case 2:
+                drawX = width - 1 - x;
+                drawY = y + 1;
+                break;
+            case 3:
+                drawX = height - 1 - y;
+                drawY = width - x;
+                break;
+            }
+
+            CV::point(drawX, drawY);
         }
     }
 }

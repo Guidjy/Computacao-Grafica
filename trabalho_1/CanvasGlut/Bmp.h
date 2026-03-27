@@ -54,6 +54,7 @@ private:
 
 	// my vars and funcs
 	bool isGrayscale;
+	int rotation;
 
 public:
 	Bmp(const char* fileName);
@@ -66,6 +67,9 @@ public:
 	// my vars and funcs
 	bool getIsGrayscale() { return isGrayscale; }
 	void setIsGrayscale(bool _isGrayscale) { isGrayscale = _isGrayscale; }
+
+	int getRotation() { return rotation; }
+	void setRotation(int _rotation) { rotation = _rotation % 4; }
 };
 
 #endif

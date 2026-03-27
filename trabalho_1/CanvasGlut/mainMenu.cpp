@@ -41,6 +41,7 @@ void mainMenuInit(Menu*& self, int height, int width)
 
 	rotateImageButton = new Button(Vector2(navBar->getWidth() / 5 * 2 + margin, buttonY), buttonHeight, buttonHeight, "", { 0.447, 0.537, 0.855 }, true);
 	rotateImageButtonText = new Text(Vector2(navBar->getWidth() / 5 * 2 + margin + buttonHeight + 5, buttonY + buttonHeight / 2), "rotate image", { 1, 1, 1 });
+	rotateImageButton->setOnClickCallback(rotateImage);
 
 	setGrayscaleCheckBox = new CheckBox(Vector2(navBar->getWidth() / 5 * 3 + margin, buttonY), buttonHeight, { 0.447, 0.537, 0.855 }, true);
 	setGrayscaleCheckBoxText = new Text(Vector2(navBar->getWidth() / 5 * 3 + margin + buttonHeight + 5, buttonY + buttonHeight / 2), "image grayscale", { 1, 1, 1 });
@@ -84,4 +85,9 @@ void insertImage()
 void setImageGrayscale()
 {
 	canvasSurface->setIsImageGrayscale(!canvasSurface->getIsImageGrayscale());
+}
+
+void rotateImage()
+{
+	canvasSurface->rotateImage();
 }

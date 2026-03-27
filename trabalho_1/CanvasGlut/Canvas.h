@@ -57,6 +57,9 @@ public:
 	Vector2 getMouseReleasePos() { return mouseReleasePos; }
 	void setMouseReleasePos(Vector2 _mouseReleasePos) { mouseReleasePos = _mouseReleasePos; }
 
+	// rotates the most recently added image 90 degrees
+	void rotateImage();
+
 	void onClick(int mouseX, int mouseY) override;
 
 	void onRelease() override;

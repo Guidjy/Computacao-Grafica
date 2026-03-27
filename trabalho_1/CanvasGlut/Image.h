@@ -19,6 +19,9 @@ public:
 	bool getIsGrayscale() { return bitMap->getIsGrayscale(); }
 	void setIsGrayscale(bool _isGrayscale) { bitMap->setIsGrayscale(_isGrayscale); }
 
+	int getRotation() { return bitMap->getRotation(); }
+	void setRotation(int _rotation) { bitMap->setRotation(_rotation); }
+
 	void render(int mouseX, int mouseY) override;
 };
 

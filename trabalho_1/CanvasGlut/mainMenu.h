@@ -31,3 +31,5 @@ void drawRect();
 void insertImage();
 
 void setImageGrayscale();
+
+void rotateImage();

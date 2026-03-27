@@ -5,6 +5,7 @@
 
 
 class MovableRect;
+class Image;
 
 
 class Canvas : public Rect
@@ -14,7 +15,7 @@ private:
 
 	bool isDrawingRect;
 
-	bool canMoveRect;
+	bool canInsertImage;
 
 	Vector2 currentMousePos;
 
@@ -22,7 +23,13 @@ private:
 
 	Vector2 mouseReleasePos;
 
-	std::vector<MovableRect*> rects;
+	std::vector<MovableRect*> drawings;
+
+	void addDrawing(MovableRect* drawing);
+
+	void tryAddRect(int mouseX, int mouseY);
+
+	void tryAddImage(int mouseX, int mouseY);
 
 public:
 	Canvas(Vector2 _pos, float _height, float _width, std::array<float, 3> _color = { 0, 0, 0 }, bool _isFilled = false);
@@ -33,6 +40,9 @@ public:
 	bool getIsDrawingRect() { return isDrawingRect; }
 	void setIsDrawingRect(bool _isDrawingRect) { isDrawingRect = _isDrawingRect; }
 
+	bool getCanInsertImage() { return canInsertImage; }
+	void setCanInsertImage(bool _canInsertImage) { canInsertImage = _canInsertImage; }
+
 	Vector2 getCurrentMousePos() { return currentMousePos; }
 	void setCurrentMousePos(Vector2 _currentMousePos);
 
@@ -41,8 +51,6 @@ public:
 
 	Vector2 getMouseReleasePos() { return mouseReleasePos; }
 	void setMouseReleasePos(Vector2 _mouseReleasePos) { mouseReleasePos = _mouseReleasePos; }
-
-	void addRect(MovableRect* _rect) { rects.push_back(_rect); }
 
 	void onClick(int mouseX, int mouseY) override;
 

@@ -22,6 +22,6 @@ public:
 
 	void onRelease() override;
 
-	void render(int mouseX, int mouseY) override;
+	virtual void render(int mouseX, int mouseY) override;
 };
 

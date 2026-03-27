@@ -1,5 +1,7 @@
-#pragma once
+// main menu components, yaout and events
 
+
+#pragma once
 #include "Menu.h"
 #include "Rect.h"
 #include "Button.h"
@@ -25,3 +27,5 @@ void mainMenuInit(Menu*& self, int height, int width);
 // events
 
 void drawRect();
+
+void insertImage();

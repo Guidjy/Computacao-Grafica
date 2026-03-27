@@ -175,6 +175,7 @@
     <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="gl_canvas2d.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="bmp.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="CheckBox.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="gl_canvas2d.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="mouseStates.h" />

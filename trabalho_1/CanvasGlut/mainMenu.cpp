@@ -36,6 +36,7 @@ void mainMenuInit(Menu*& self, int height, int width)
 	insertRectButton->setOnClickCallback(drawRect);
 
 	insertImageButton = new Button(Vector2(navBar->getWidth() / 5 * 1 + margin, buttonY), buttonHeight, buttonWidth, "Image", {0.494, 0.796, 0.580}, true);
+	insertImageButton->setOnClickCallback(insertImage);
 
 	rotateImageButton = new Button(Vector2(navBar->getWidth() / 5 * 2 + margin, buttonY), buttonHeight, buttonHeight, "", { 0.447, 0.537, 0.855 }, true);
 	rotateImageButtonText = new Text(Vector2(navBar->getWidth() / 5 * 2 + margin + buttonHeight + 5, buttonY + buttonHeight / 2), "rotate image", { 1, 1, 1 });
@@ -69,4 +70,11 @@ void mainMenuInit(Menu*& self, int height, int width)
 void drawRect()
 {
 	canvasSurface->setCanDrawRect(true);
+	canvasSurface->setCanInsertImage(false);
+}
+
+void insertImage()
+{
+	canvasSurface->setCanInsertImage(true);
+	canvasSurface->setCanDrawRect(false);
 }

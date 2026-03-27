@@ -1,5 +1,6 @@
 #include "Canvas.h"
 #include "MovableRect.h"
+#include "Image.h"
 
 
 Canvas::Canvas(Vector2 _pos, float _height, float _width, std::array<float, 3> _color, bool _isFilled)
@@ -7,13 +8,11 @@ Canvas::Canvas(Vector2 _pos, float _height, float _width, std::array<float, 3> _
 {
 	canDrawRect = false;
 	isDrawingRect = false;
-	canMoveRect = false;
 	currentMousePos = Vector2(0, 0);
 	mouseClickPos = Vector2(0, 0);
 	mouseReleasePos = Vector2(0, 0);
-	rects = std::vector<MovableRect*>();
+	drawings = std::vector<MovableRect*>();
 }
-
 
 void Canvas::setCurrentMousePos(Vector2 _currentMousePos)
 {
@@ -38,6 +37,43 @@ void Canvas::setCurrentMousePos(Vector2 _currentMousePos)
 	}
 }
 
+void Canvas::addDrawing(MovableRect* drawing)
+{
+	// checks if drawing is an image
+	if (Image* image = dynamic_cast<Image*>(drawing))
+	{
+		// adds it to the beginning of hte list so that rects can be rendered on top of it
+		drawings.insert(drawings.begin(), drawing);
+	}
+	else
+	{
+		drawings.push_back(drawing);
+	}
+}
+
+void Canvas::tryAddRect(int mouseX, int mouseY)
+{
+	if (canDrawRect)
+	{
+		isDrawingRect = true;
+		canDrawRect = false;
+
+		MovableRect* newRect = new MovableRect(currentMousePos, 0, 0, { 0, 0, 0 }, false, this);
+		addDrawing(newRect);
+	}
+}
+
+void Canvas::tryAddImage(int mouseX, int mouseY)
+{
+	if (canInsertImage)
+	{
+		canInsertImage = false;
+
+		Image* newImage = new Image(currentMousePos, ".\\images\\carol.bmp", this);
+		addDrawing(newImage);
+	}
+}
+
 void Canvas::onClick(int mouseX, int mouseY)
 {
 	if (!checkHover(mouseX, mouseY))
@@ -47,24 +83,17 @@ void Canvas::onClick(int mouseX, int mouseY)
 
 	setMouseClickPos(Vector2(mouseX, mouseY));
 
-	if (canDrawRect)
-	{
-		isDrawingRect = true;
-		canMoveRect = false;
-		canDrawRect = false;
+	tryAddRect(mouseX, mouseY);
+	tryAddImage(mouseX, mouseY);
 
-		MovableRect* newRect = new MovableRect(currentMousePos, 0, 0, { 0, 0, 0 }, false, this);
-		addRect(newRect);
-	}
-
-	for (int i = 0; i < rects.size(); i++)
+	for (int i = 0; i < drawings.size(); i++)
 	{
-		if (!isDrawingRect)
+		if (!isDrawingRect && !canInsertImage)
 		{
-			if (rects[i]->checkHover(mouseX, mouseY))
+			if (drawings[i]->checkHover(mouseX, mouseY))
 			{
-				rects[i]->onClick(mouseX, mouseY);
-				// only move on rect on click
+				drawings[i]->onClick(mouseX, mouseY);
+				// only move one drawing on click
 				break;
 			}
 		}
@@ -76,9 +105,9 @@ void Canvas::onRelease()
 	isDrawingRect = false;
 	mouseReleasePos = currentMousePos;
 
-	for (int i = 0; i < rects.size(); i++)
+	for (int i = 0; i < drawings.size(); i++)
 	{
-		rects[i]->onRelease();
+		drawings[i]->onRelease();
 	}
 }
 
@@ -88,20 +117,18 @@ void Canvas::render(int mouseX, int mouseY)
 
 	setCurrentMousePos(Vector2(mouseX, mouseY));
 
-	// render rects that were drawn
-	for (int i = 0; i < rects.size(); i++)
+	for (int i = 0; i < drawings.size(); i++)
 	{
-		rects[i]->render(mouseX, mouseY);
+		drawings[i]->render(mouseX, mouseY);
 	}
-
-	int i = rects.size() - 1;
 
 	if (isDrawingRect)
 	{
 		float height = currentMousePos.y - mouseClickPos.y;
 		float width = currentMousePos.x - mouseClickPos.x;
+		int lastRectIndex = drawings.size() - 1;
 
-		rects[i]->setHeight(height);
-		rects[i]->setWidth(width);
+		drawings[lastRectIndex]->setHeight(height);
+		drawings[lastRectIndex]->setWidth(width);
 	}
 }

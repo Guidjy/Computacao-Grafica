@@ -38,7 +38,7 @@
 int screenWidth = 1280;
 int screenHeight = 720;
 
-int opcao;
+int option;
 // mouse positions and state
 int mouseX;
 int mouseY;
@@ -64,7 +64,7 @@ void keyboard(int key)
 	printf("\nTecla: %d" , key);
 	if( key < 200 )
 	{
-		opcao = key;
+		option = key;
 	}
 
 	switch(key)
@@ -78,7 +78,6 @@ void keyboard(int key)
 // called on key release
 void keyboardUp(int key)
 {
-	printf("\nLiberou: %d" , key);
 }
 
 // called on mouse click, movement or drag
@@ -88,8 +87,6 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 	mouseX = x;
 	mouseY = y;
 	mouseState = state;
-
-	//printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
 
 	switch (state)
 	{

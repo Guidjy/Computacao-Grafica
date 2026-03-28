@@ -41,8 +41,12 @@ void Canvas::setCurrentMousePos(Vector2 _currentMousePos)
 
 void Canvas::rotateImage()
 {
-	// images are always added to the beggining of the list
-	Image* image = dynamic_cast<Image*>(drawings[0]);
+	Image* image = nullptr;
+	if (drawings.size() > 0)
+	{
+		// images are always added to the beggining of the list
+		image = dynamic_cast<Image*>(drawings[0]);
+	}
 	
 	if (image)
 	{

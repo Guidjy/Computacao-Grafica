@@ -29,6 +29,7 @@ Bmp::Bmp(const char* fileName)
 
     isGrayscale = false;
     rotation = 0;
+    scale = 1;
 }
 
 uchar* Bmp::getImage()
@@ -91,8 +92,8 @@ void Bmp::render()
             }
 
             // actual coordinates where the pixel will be drawn after rotation
-            int drawX = x;
-            int drawY = height - y;
+            int drawX{};
+            int drawY{};
 
             switch (rotation)
             {
@@ -114,7 +115,13 @@ void Bmp::render()
                 break;
             }
 
-            CV::point(drawX, drawY);
+            // image scaling (nearest neighbor scaling)
+            int x1 = drawX * scale;
+            int y1 = drawY * scale;
+            int x2 = x1 + scale;
+            int y2 = y1 + scale;
+
+            CV::rectFill(x1, y1, x2, y2);
         }
     }
 }

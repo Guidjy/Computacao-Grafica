@@ -9,7 +9,17 @@ Image::Image(Vector2 _pos, std::string _imagePath, Canvas* _parentCanvas)
 	bitMap = new Bmp(imagePath.c_str());
 
 	setWidth(bitMap->getWidth());
+	originalWidth = width;
 	setHeight(bitMap->getHeight());
+	originalHeight = height;
+}
+
+void Image::setScale(int _scale)
+{
+	bitMap->setScale(_scale);
+
+	setHeight(originalHeight * _scale);
+	setWidth(originalWidth * _scale);
 }
 
 void Image::render(int mouseX, int mouseY)

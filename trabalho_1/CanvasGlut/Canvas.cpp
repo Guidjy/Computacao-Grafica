@@ -50,6 +50,17 @@ void Canvas::rotateImage()
 	}
 }
 
+void Canvas::setImageScale(int scale)
+{
+	// images are always added to the beggining of the list
+	Image* image = dynamic_cast<Image*>(drawings[0]);
+
+	if (image)
+	{
+		image->setScale(scale);
+	}
+}
+
 void Canvas::addDrawing(MovableRect* drawing)
 {
 	// checks if drawing is an image

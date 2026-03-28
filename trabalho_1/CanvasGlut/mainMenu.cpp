@@ -7,6 +7,7 @@
 #include "CheckBox.h"
 #include "Text.h"
 #include <iostream>
+#include <math.h>
 
 
 // components
@@ -17,8 +18,8 @@ Button* rotateImageButton = nullptr;
 Text* rotateImageButtonText = nullptr;
 CheckBox* setGrayscaleCheckBox = nullptr;
 Text* setGrayscaleCheckBoxText = nullptr;
-Slider* focusSlider = nullptr;
-Text* focusSliderText = nullptr;
+Slider* scaleSlider = nullptr;
+Text* scaleSliderText = nullptr;
 Canvas* canvasSurface = nullptr;
 
 
@@ -47,8 +48,9 @@ void mainMenuInit(Menu*& self, int height, int width)
 	setGrayscaleCheckBoxText = new Text(Vector2(navBar->getWidth() / 5 * 3 + margin + buttonHeight + 5, buttonY + buttonHeight / 2), "image grayscale", { 1, 1, 1 });
 	setGrayscaleCheckBox->setOnClickCallback(setImageGrayscale);
 
-	focusSlider = new Slider(Vector2(navBar->getWidth() / 5 * 4 + margin, buttonY + buttonHeight / 3), buttonHeight / 4, buttonWidth - margin, { 0.447, 0.537, 0.855 }, true);
-	focusSliderText = new Text(Vector2(navBar->getWidth() / 5 * 4 + margin, buttonY + buttonHeight / 3 + 30), "image focus", { 1, 1, 1 });
+	scaleSlider = new Slider(Vector2(navBar->getWidth() / 5 * 4 + margin, buttonY + buttonHeight / 3), buttonHeight / 4, buttonWidth - margin, { 0.447, 0.537, 0.855 }, true);
+	scaleSliderText = new Text(Vector2(navBar->getWidth() / 5 * 4 + margin, buttonY + buttonHeight / 3 + 30), "image scale", { 1, 1, 1 });
+	scaleSlider->setOnDragCallback(setImageScale);
 
 	self->addComponent(navBar);
 	self->addComponent(insertRectButton);
@@ -57,8 +59,8 @@ void mainMenuInit(Menu*& self, int height, int width)
 	self->addComponent(rotateImageButtonText);
 	self->addComponent(setGrayscaleCheckBox);
 	self->addComponent(setGrayscaleCheckBoxText);
-	self->addComponent(focusSlider);
-	self->addComponent(focusSliderText);
+	self->addComponent(scaleSlider);
+	self->addComponent(scaleSliderText);
 
 	// canvas
 	float canvasX = width / 16;
@@ -80,11 +82,22 @@ void insertImage()
 {
 	canvasSurface->setCanInsertImage(true);
 	canvasSurface->setCanDrawRect(false);
+	// image scale = 1
+	scaleSlider->setHolderX(0);
 }
 
 void setImageGrayscale()
 {
 	canvasSurface->setIsImageGrayscale(!canvasSurface->getIsImageGrayscale());
+}
+
+void setImageScale()
+{
+	float sliderValue = scaleSlider->getSliderValue();
+	
+	// 4 differents scales
+	int scale = ceil(sliderValue * 4);
+	canvasSurface->setImageScale(scale);
 }
 
 void rotateImage()

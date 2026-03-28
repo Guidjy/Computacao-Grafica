@@ -18,8 +18,8 @@ extern Button* rotateImageButton;
 extern Text* rotateImageButtonText;
 extern CheckBox* setGrayscaleCheckBox;
 extern Text* setGrayscaleCheckBoxText;
-extern Slider* focusSlider;
-extern Text* focusSliderText;
+extern Slider* scaleSlider;
+extern Text* scaleSliderText;
 extern Canvas* canvasSurface;
 
 void mainMenuInit(Menu*& self, int height, int width);
@@ -31,5 +31,7 @@ void drawRect();
 void insertImage();
 
 void setImageGrayscale();
+
+void setImageScale();
 
 void rotateImage();

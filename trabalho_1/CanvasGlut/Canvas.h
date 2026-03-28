@@ -60,6 +60,9 @@ public:
 	// rotates the most recently added image 90 degrees
 	void rotateImage();
 
+	// changes the scale of the most recently added image
+	void setImageScale(int scale);
+
 	void onClick(int mouseX, int mouseY) override;
 
 	void onRelease() override;

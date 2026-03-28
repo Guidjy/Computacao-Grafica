@@ -2,7 +2,7 @@
 #include "gl_canvas2d.h"
 
 
-Slider::Slider(Vector2 _pos, float _height, float _width, std::array<float, 3> _color, bool _isFilled)
+Slider::Slider(Vector2 _pos, float _height, float _width, std::array<float, 3> _color, bool _isFilled, std::function<void()> _onReleaseCallback)
 	:Rect(_pos, _height, _width, _color, _isFilled)
 {
 	Vector2 holderPos;
@@ -11,21 +11,32 @@ Slider::Slider(Vector2 _pos, float _height, float _width, std::array<float, 3> _
 
 	float holderRadius = height / 2 * 1.5;
 	std::array<float, 3> holderColor = { color[0] * 0.7f, color[1] * 0.7f, color[2] * 0.7f };
-
 	holder = new Circle(holderPos, holderRadius, 20, holderColor, true);
 
 	isClicked = false;
+	onDragCallback = _onReleaseCallback;
 }
 
-void Slider::render(int mouseX, int mouseY)
+void Slider::setHolderX(float _holderX)
 {
-	Rect::render(mouseX, mouseY);
-	holder->render(mouseX, mouseY);
-
-	if (isClicked)
+	if (_holderX < pos.x)
 	{
-		onDrag(mouseX);
+		_holderX = pos.x;
 	}
+	else if (_holderX > pos.x + width)
+	{
+		_holderX = pos.x + width;
+	}
+
+	Vector2 newPos = holder->getPos();
+	newPos.x = _holderX;
+	holder->setPos(newPos);
+}
+
+float Slider::getSliderValue()
+{
+	float relativeHolderX = holder->getPos().x - pos.x;
+	return relativeHolderX / width;
 }
 
 void Slider::onClick()
@@ -52,4 +63,20 @@ void Slider::onDrag(int mouseX)
 	}
 
 	holder->setPos(Vector2(newX, holder->getPos().y));
+
+	if (onDragCallback)
+	{
+		onDragCallback();
+	}
+}
+
+void Slider::render(int mouseX, int mouseY)
+{
+	Rect::render(mouseX, mouseY);
+	holder->render(mouseX, mouseY);
+
+	if (isClicked)
+	{
+		onDrag(mouseX);
+	}
 }

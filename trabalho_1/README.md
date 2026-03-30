@@ -12,7 +12,7 @@ O programa conta com as seguintes funcionalidades:
 	- Deixar em tons de cinza
 	- Diminuir e aumentar de tamanho
 
-	![PimenPaint](images/PimenPaint.png)
+	![PimenPaint](CanvasGlut/images/PimenPaint.png)
 
 #### **Como usar**
 - Retângulo: 

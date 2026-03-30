@@ -56,6 +56,11 @@ void Canvas::rotateImage()
 
 void Canvas::setImageScale(int scale)
 {
+	if (drawings.size() == 0)
+	{
+		return;
+	}
+
 	// images are always added to the beggining of the list
 	Image* image = dynamic_cast<Image*>(drawings[0]);
 

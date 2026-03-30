@@ -1,3 +1,29 @@
+/*
+Quesitos Obrigatórios implementados:
+- Botões:
+	1) desenhar retângulo
+	2) Inserir imagem
+	3) rotacionar imagem
+- Checkbox:
+	1) Deixar imagem em tons de cinza
+- Slider:
+	1) Aumentar tamanho da imagem
+- Componentes:
+	1) Retângulos: possível desenhar e mover com o mouse
+	2) Imagem: possível carregar e mover com o mouse
+
+Bônus:
+1) Tons de cinza
+2) rotação em 90 graus
+3) redimensionamento
+4) sistema de gerenciamento de GUI (Menu.h, mainMenu.cpp)
+	- O sistema de gerenciamento de GUI conciste em uma calsse Menu que contém uma lista de componentes (retângulos, círculos, 
+	  sliders, imagens...), a qual ele usa para gerenciar os componentes. Atravez dessa classe, é possível renderizar e gerenciar
+	  eventos de click e teclado de todos os componentes com apenas uma chamada de função (ver main(), mouse() e render())
+*/
+
+
+
 /*********************************************************************
 // Canvas para desenho, criada sobre a API OpenGL. Nao eh necessario conhecimentos de OpenGL para usar.
 //  Autor: Cesar Tadeu Pozzer

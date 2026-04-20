@@ -173,6 +173,7 @@
     <ClCompile Include="buttonEvents.cpp" />
     <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Frames.cpp" />
     <ClCompile Include="gl_canvas2d.cpp" />
     <ClCompile Include="Laser.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="buttonEvents.h" />
     <ClInclude Include="CheckBox.h" />
     <ClInclude Include="Circle.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Frames.h" />
     <ClInclude Include="gl_canvas2d.h" />
     <ClInclude Include="Key.h" />

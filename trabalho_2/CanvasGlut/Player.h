@@ -2,10 +2,14 @@
 #include "SpaceShip.h"
 #include "Vector2.h"
 
-class Player : SpaceShip
+#define COOLDOWN 15;
+
+class Player : public SpaceShip
 {
 private:
 	void shoot() override;
+
+	void update() override;
 
 public:
 	Player(float _height, float _width, float _acceleration = 1, Vector2 _pos = { 0, 0 }, Vector2 _direction = { 0, 0 },

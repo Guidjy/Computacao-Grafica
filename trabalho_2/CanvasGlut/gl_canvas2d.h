@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <array>
 
 #include <GL/glut.h>
 #include <GL/freeglut_ext.h> //callback da wheel do mouse.
@@ -37,7 +38,7 @@ public:
     static void polygon(float vx[], float vy[], int n_elems);
 
     static void triangleFill(float vx[], float vy[]);
-    static void triangleFill(Vector2 v[]);
+    static void triangleFill(std::array<Vector2, 3> v);
 
     //centro e raio do circulo
     static void circle( float x, float y, float radius, int div );

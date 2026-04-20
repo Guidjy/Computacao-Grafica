@@ -3,7 +3,7 @@
 #include <windows.h>
 #include <string>
 
-double Frames::deltaTime = 0.0;
+Frames* Frames::instance = NULL;
 
 Frames::Frames(int _targetFPS, bool _shouldDisplayCurrentFPS)
 {
@@ -40,9 +40,14 @@ void Frames::calculateCurrentFPS()
 	}
 }
 
-void Frames::update()
+void Frames::render(int screenWidth, int screenHeight)
 {
 	calculateCurrentFPS();
+
+	if (shouldDisplayCurrentFPS)
+	{
+		displayCurrentFPS(screenWidth, screenHeight);
+	}
 
 	clock_t endRenderTime = clock();
 	double timeTakenToRender = (double)(endRenderTime - currentFrameTime) / CLOCKS_PER_SEC;

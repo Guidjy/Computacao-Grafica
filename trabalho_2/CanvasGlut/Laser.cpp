@@ -3,15 +3,16 @@
 #include "gl_canvas2d.h"
 
 
-Laser::Laser(Vector2 _direction, Vector2 _pos)
+Laser::Laser(Vector2 _direction, Vector2 _pos, bool _isFriendly)
 {
 	direction = _direction;
 	pos = _pos;
+	isFriendly = _isFriendly;
 }
 
 void Laser::update()
 {
-	double dt = Frames::getDeltaTime();
+	double dt = Frames::getInstance()->getDeltaTime();
 
 	pos = pos + direction * velocity * dt;
 }

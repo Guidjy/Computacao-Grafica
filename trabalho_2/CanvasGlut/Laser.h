@@ -4,7 +4,6 @@
 class Laser
 {
 private:
-	Vector2 pos; // tip of the laser
 
 	Vector2 direction;
 	
@@ -13,7 +12,11 @@ private:
 	const float length = 20;
 
 public:
-	Laser(Vector2 _direction, Vector2 _pos);
+	Vector2 pos; // tip of the laser
+
+	Laser(Vector2 _direction, Vector2 _pos, bool _isFriendly);
+
+	bool isFriendly;
 
 	void update();
 

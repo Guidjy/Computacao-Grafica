@@ -31,6 +31,7 @@
 #include "Menu.h"
 #include "mainMenu.h"
 #include "Player.h"
+#include "Enemy.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
@@ -54,6 +55,7 @@ int currentFPS = 0;
 
 // entities
 Player* player = NULL;
+Enemy* enemy1 = NULL;
 
 
 // Called continuously. Objects to be drawn should be controlled by global variables.
@@ -66,12 +68,17 @@ void render()
 	mainMenu->render(mouseX, mouseY);
 
 	player->render();
+	enemy1->render();
 
-	frames->update();
-	if (frames->shouldDisplayCurrentFPS)
+	for (int i = 0; i < enemy1->shots.size(); i++)
 	{
-		frames->displayCurrentFPS(screenWidth, screenHeight);
+		if (player->checkCollision(enemy1->shots[i].pos))
+		{
+			std::cout << "HIT\n";
+		}
 	}
+
+	frames->render(screenWidth, screenHeight);
 }
 
 // called on key press
@@ -110,11 +117,13 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 
 int main(void)
 {
-	frames = new Frames();
+	frames = Frames::getInstance();
 
 	mainMenuInit(mainMenu, screenHeight, screenWidth);
 
-	player = new Player(60, 60, 2000.0f, Vector2(100, 100), Vector2(0, 0), 0.05f, 1600.0f);
+	player = new Player(60, 60, 2000.0f, Vector2(screenWidth / 2, screenHeight - 100), Vector2(0, 0), 0.05f, 1600.0f);
+	enemy1 = new Enemy(40, 40, 2000.0f, Vector2(screenWidth / 2, 100), Vector2(0, 0), 0.05f, 1600.0f);
+	
 
 	CV::init(&screenWidth, &screenHeight, "Pimentel's Dogfight");
 	CV::run();

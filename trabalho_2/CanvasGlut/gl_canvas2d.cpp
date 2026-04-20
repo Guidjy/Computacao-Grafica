@@ -143,7 +143,7 @@ void CV::triangleFill(float vx[], float vy[])
 
 }
 
-void CV::triangleFill(Vector2 v[])
+void CV::triangleFill(std::array<Vector2, 3> v)
 {
     float vx[3] = { v[0].x, v[1].x, v[2].x };
     float vy[3] = { v[0].y, v[1].y, v[2].y };

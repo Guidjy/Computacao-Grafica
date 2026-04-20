@@ -5,6 +5,8 @@
 class Frames
 {
 private:
+	static Frames* instance;
+
 	int targetFPS;
 
 	double targetFrameDuration; // measured in seconds
@@ -13,7 +15,7 @@ private:
 
 	clock_t lastFrameTime;
 
-	static double deltaTime;
+	double deltaTime;
 
 	int frameCount;
 
@@ -23,16 +25,22 @@ private:
 
 	void calculateCurrentFPS();
 
-public:
-	bool shouldDisplayCurrentFPS;
+	Frames(int _targetFPS = 60, bool _shouldDisplayCurrentFPS = true);
 
-	Frames(int _targetFPS=60, bool _shouldDisplayCurrentFPS=true);
+public:
+	static Frames* getInstance()
+	{
+		if (instance == NULL) instance = new Frames();
+		return instance;
+	}
+
+	bool shouldDisplayCurrentFPS;
 
 	void calculateDeltaTime();
 
-	void update();
+	void render(int screenWidth, int screenHeight);
 
-	static double getDeltaTime() { return deltaTime; }
+	double getDeltaTime() { return deltaTime; }
 
 	int getCurrentFPS() { return currentFPS; }
 

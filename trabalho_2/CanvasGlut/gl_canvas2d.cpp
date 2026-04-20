@@ -143,6 +143,13 @@ void CV::triangleFill(float vx[], float vy[])
 
 }
 
+void CV::triangleFill(Vector2 v[])
+{
+    float vx[3] = { v[0].x, v[1].x, v[2].x };
+    float vy[3] = { v[0].y, v[1].y, v[2].y };
+    triangleFill(vx, vy);
+}
+
 
 //existem outras fontes de texto que podem ser usadas
 //  GLUT_BITMAP_9_BY_15

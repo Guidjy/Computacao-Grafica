@@ -3,6 +3,8 @@
 #include <windows.h>
 #include <string>
 
+double Frames::deltaTime = 0.0;
+
 Frames::Frames(int _targetFPS, bool _shouldDisplayCurrentFPS)
 {
 	targetFPS = _targetFPS;
@@ -40,8 +42,6 @@ void Frames::calculateCurrentFPS()
 
 void Frames::update()
 {
-	calculateDeltaTime();
-
 	calculateCurrentFPS();
 
 	clock_t endRenderTime = clock();

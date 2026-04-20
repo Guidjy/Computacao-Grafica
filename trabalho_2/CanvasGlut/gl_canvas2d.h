@@ -37,6 +37,7 @@ public:
     static void polygon(float vx[], float vy[], int n_elems);
 
     static void triangleFill(float vx[], float vy[]);
+    static void triangleFill(Vector2 v[]);
 
     //centro e raio do circulo
     static void circle( float x, float y, float radius, int div );

@@ -30,6 +30,7 @@
 #include "buttonEvents.h"
 #include "Menu.h"
 #include "mainMenu.h"
+#include "Player.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
@@ -51,13 +52,20 @@ Menu* mainMenu = NULL;
 Frames* frames = NULL;
 int currentFPS = 0;
 
+// entities
+Player* player = NULL;
+
 
 // Called continuously. Objects to be drawn should be controlled by global variables.
 // All of the method calls for drawing objects should be done here.
 // Should be kept as simple as possible.
 void render()
 {
+	frames->calculateDeltaTime();
+
 	mainMenu->render(mouseX, mouseY);
+
+	player->render();
 
 	frames->update();
 	if (frames->shouldDisplayCurrentFPS)
@@ -69,24 +77,14 @@ void render()
 // called on key press
 void keyboard(int key)
 {
-	printf("\nTecla: %d" , key);
-	if( key < 200 )
-	{
-		opcao = key;
-	}
-
-	switch(key)
-	{
-		case 27:
-			exit(0);
-		break;
-	}
+	//printf("\nTecla: %d", key);
+	player->handleKeyPress(key);
 }
 
 // called on key release
 void keyboardUp(int key)
 {
-	printf("\nLiberou: %d" , key);
+	player->handleKeyRelease(key);
 }
 
 // called on mouse click, movement or drag
@@ -115,6 +113,8 @@ int main(void)
 	frames = new Frames();
 
 	mainMenuInit(mainMenu, screenHeight, screenWidth);
+
+	player = new Player(60, 60, 2000.0f, Vector2(100, 100), Vector2(0, 0), 0.05f, 1600.0f);
 
 	CV::init(&screenWidth, &screenHeight, "Pimentel's Dogfight");
 	CV::run();

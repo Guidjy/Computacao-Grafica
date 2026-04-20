@@ -34,6 +34,15 @@
     <Filter Include="src\Frames">
       <UniqueIdentifier>{3db268aa-efcc-4c83-a0f9-470c48cb8625}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Game">
+      <UniqueIdentifier>{568ca16d-8678-45a9-96c3-c68916413c62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\Entities">
+      <UniqueIdentifier>{4f262060-3524-473d-8a5b-c1fe52314e0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Game\Objects">
+      <UniqueIdentifier>{ecffce65-f341-44ce-a266-df1fb139fde4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -77,6 +86,15 @@
     </ClCompile>
     <ClCompile Include="Frames.cpp">
       <Filter>src\Frames</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>src\Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceShip.cpp">
+      <Filter>src\Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>src\Game\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +141,18 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="Frames.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceShip.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Key.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

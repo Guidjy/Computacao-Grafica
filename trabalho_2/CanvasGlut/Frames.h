@@ -13,15 +13,13 @@ private:
 
 	clock_t lastFrameTime;
 
-	double deltaTime;
+	static double deltaTime;
 
 	int frameCount;
 
 	double timeAccumulator; // adds up deltaTime until it reaches 1 second 
 
 	int currentFPS;
-
-	void calculateDeltaTime();
 
 	void calculateCurrentFPS();
 
@@ -30,12 +28,13 @@ public:
 
 	Frames(int _targetFPS=60, bool _shouldDisplayCurrentFPS=true);
 
+	void calculateDeltaTime();
+
 	void update();
 
-	double getDeltaTime() { return deltaTime; }
+	static double getDeltaTime() { return deltaTime; }
 
 	int getCurrentFPS() { return currentFPS; }
 
 	void displayCurrentFPS(int screenWidth, int screenHeight);
 };
-

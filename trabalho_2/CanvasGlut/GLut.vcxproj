@@ -175,13 +175,16 @@
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Frames.cpp" />
     <ClCompile Include="gl_canvas2d.cpp" />
+    <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="bmp.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="SpaceShip.cpp" />
     <ClCompile Include="Text.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -192,12 +195,16 @@
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Frames.h" />
     <ClInclude Include="gl_canvas2d.h" />
+    <ClInclude Include="Key.h" />
+    <ClInclude Include="Laser.h" />
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="mouseStates.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Slider.h" />
+    <ClInclude Include="SpaceShip.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>

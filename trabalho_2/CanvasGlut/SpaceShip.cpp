@@ -19,7 +19,7 @@ SpaceShip::SpaceShip(float _height, float _width, float _acceleration, Vector2 _
 	maxSpeed = _maxSpeed;
 
 	isShooting = false;	
-	cooldown = 0;
+	shootCooldown = 0;
 }
 
 bool SpaceShip::checkCollision(Vector2 p)
@@ -49,22 +49,25 @@ bool SpaceShip::checkCollision(Vector2 p)
 	return wA >= 0.0f && wB >= 0.0f && wC >= 0.0f;
 }
 
-void SpaceShip::update()
+void SpaceShip::update(int screenWidth, int screenHeight)
 {
 	// shoots
-	if (cooldown > 0) cooldown--;
-	if (isShooting && cooldown <= 0)
+	if (shootCooldown > 0) shootCooldown--;
+	if (isShooting && shootCooldown <= 0)
 	{
 		shoot();
 	}
 
 	// updates shots
-	for (int i = 0; i < shots.size(); i++) shots[i].update();
+	for (int i = 0; i < shots.size(); i++)
+	{
+		shots[i].update();
+	}
 }
 
-void SpaceShip::render()
+void SpaceShip::render(int screenWidth, int screenHeight)
 {
-	update();
+	update(screenWidth, screenHeight);
 
 	for (int i = 0; i < shots.size(); i++)
 	{

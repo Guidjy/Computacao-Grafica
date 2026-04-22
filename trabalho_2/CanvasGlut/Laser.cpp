@@ -8,6 +8,18 @@ Laser::Laser(Vector2 _direction, Vector2 _pos, bool _isFriendly)
 	direction = _direction;
 	pos = _pos;
 	isFriendly = _isFriendly;
+	shouldBeDeleted = false;
+}
+
+bool Laser::isOutOfBounds(int screenWidth, int screenHeight)
+{
+	if (pos.x < 0 || pos.x > screenWidth || pos.y < 0 || pos.y > screenHeight)
+	{
+		shouldBeDeleted = true;
+		return true;
+	}
+
+	return false;
 }
 
 void Laser::update()

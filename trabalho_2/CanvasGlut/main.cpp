@@ -66,15 +66,15 @@ void render()
 	frames->calculateDeltaTime();
 
 	mainMenu->render(mouseX, mouseY);
+	player->render(screenWidth, screenHeight);
+	enemy1->render(screenWidth, screenHeight);
 
-	player->render();
-	enemy1->render();
-
+	// checks colision for player
 	for (int i = 0; i < enemy1->shots.size(); i++)
 	{
 		if (player->checkCollision(enemy1->shots[i].pos))
 		{
-			std::cout << "HIT\n";
+			player->onHit();
 		}
 	}
 

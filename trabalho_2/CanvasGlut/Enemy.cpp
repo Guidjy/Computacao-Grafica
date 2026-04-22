@@ -6,7 +6,7 @@ Enemy::Enemy(float _height, float _width, float _acceleration, Vector2 _pos, Vec
 {
 	color = { 1, 0, 0 };
 	isShooting = true;
-	cooldown = COOLDOWN;
+	shootCooldown = SHOOT_COOLDOWN;
 }
 
 void Enemy::shoot()
@@ -17,17 +17,17 @@ void Enemy::shoot()
 
 	shots.push_back(l);
 
-	cooldown = COOLDOWN;
+	shootCooldown = SHOOT_COOLDOWN;
 }
 
-void Enemy::update()
+void Enemy::update(int screenWidth, int screenHeight)
 {
-	SpaceShip::update();
+	SpaceShip::update(screenWidth, screenHeight);
 }
 
-void Enemy::render()
+void Enemy::render(int screenWidth, int screenHeight)
 {
-	SpaceShip::render();
+	SpaceShip::render(screenWidth, screenHeight);
 
 	float hw = width / 2;
 	float hh = height / 2;

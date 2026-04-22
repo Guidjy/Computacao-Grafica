@@ -3,11 +3,15 @@
 #include "gl_canvas2d.h"
 #include "Frames.h"
 #include <vector>
+#include <iostream>
 
 
 Player::Player(float _height, float _width, float _acceleration, Vector2 _pos, Vector2 _direction, float _friction, float _maxSpeed)
 	: SpaceShip(_height, _width, _acceleration, _pos, _direction, _friction, _maxSpeed)
 {
+	hp = 0;
+	isHitable = true;
+	hitableCooldown = 0;
 	color = { 0, 0, 1 };
 }
 
@@ -23,12 +27,22 @@ void Player::shoot()
 	shots.push_back(l2);
 	shots.push_back(l3);
 
-	cooldown = COOLDOWN;
+	shootCooldown = SHOOT_COOLDOWN;
 }
 
-void Player::update()
+void Player::update(int screenWidth, int screenHeight)
 {
-	SpaceShip::update();
+	SpaceShip::update(screenWidth, screenHeight);
+
+	if (hitableCooldown > 0)
+	{
+		hitableCooldown--;
+	}
+	else
+	{
+		isHitable = true;
+	}
+
 
 	double dt = Frames::getInstance()->getDeltaTime();
 
@@ -95,9 +109,28 @@ void Player::handleKeyRelease(int key)
 	}
 }
 
-void Player::render()
+void Player::onHit()
 {
-	SpaceShip::render();
+	if (!isHitable)
+	{
+		return;
+	}
+
+	hitableCooldown = HITABLE_COOLDOWN;
+	isHitable = false;
+
+	hp--;
+	if (hp == 0)
+	{
+		std::cout << "Game over\n";
+	}
+
+	std::cout << "HIT\n";
+}
+
+void Player::render(int screenWidth, int screenHeight)
+{
+	SpaceShip::render(screenWidth, screenHeight);
 
 	float hw = width / 2;
 	float hh = height / 2;

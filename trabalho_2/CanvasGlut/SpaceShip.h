@@ -8,6 +8,9 @@
 
 class SpaceShip
 {
+private:
+	void lateUpdate();
+
 protected:
 	Vector2 pos;  // center of the spaceship
 	std::array<Vector2, 3> vertices;
@@ -24,9 +27,9 @@ protected:
 	std::array<float, 3> color;
 
 	bool isShooting;
-	int cooldown;
+	int shootCooldown;
 
-	virtual void update();
+	virtual void update(int screenWidth, int screenHeight);
 
 	virtual void shoot() = 0;
 
@@ -39,7 +42,7 @@ public:
 	// checks if a point is inside of the spaceship
 	bool checkCollision(Vector2 p);
 
-	virtual void render();
+	virtual void render(int screenWidth, int screenHeight);
 
 };
 

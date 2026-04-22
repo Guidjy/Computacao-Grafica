@@ -11,12 +11,18 @@ private:
 
 	const float length = 20;
 
+	bool shouldBeDeleted;
+
 public:
 	Vector2 pos; // tip of the laser
 
+	bool isFriendly;
+
 	Laser(Vector2 _direction, Vector2 _pos, bool _isFriendly);
 
-	bool isFriendly;
+	bool getShouldBeDeleted() { return shouldBeDeleted; }
+
+	bool isOutOfBounds(int screenWidth, int screenHeight);
 
 	void update();
 

@@ -1,6 +1,7 @@
 #include "SpaceShip.h"
 #include "gl_canvas2d.h"
 #include "Frames.h"
+#include "LaserManager.h"
 #include <cmath>  // for converting a vector into an angle
 
 
@@ -57,22 +58,11 @@ void SpaceShip::update(int screenWidth, int screenHeight)
 	{
 		shoot();
 	}
-
-	// updates shots
-	for (int i = 0; i < shots.size(); i++)
-	{
-		shots[i].update();
-	}
 }
 
 void SpaceShip::render(int screenWidth, int screenHeight)
 {
 	update(screenWidth, screenHeight);
-
-	for (int i = 0; i < shots.size(); i++)
-	{
-		shots[i].render();
-	}
 
 	CV::color(color[0], color[1], color[2]);
 }

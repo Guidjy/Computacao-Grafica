@@ -2,6 +2,7 @@
 #include "Key.h"
 #include "gl_canvas2d.h"
 #include "Frames.h"
+#include "LaserManager.h"
 #include <vector>
 #include <iostream>
 
@@ -9,7 +10,7 @@
 Player::Player(float _height, float _width, float _acceleration, Vector2 _pos, Vector2 _direction, float _friction, float _maxSpeed)
 	: SpaceShip(_height, _width, _acceleration, _pos, _direction, _friction, _maxSpeed)
 {
-	hp = 0;
+	hp = 3;
 	isHitable = true;
 	hitableCooldown = 0;
 	color = { 0, 0, 1 };
@@ -23,9 +24,9 @@ void Player::shoot()
 	Laser l2 = Laser(Vector2(0, -1), Vector2(pos.x, pos.y - hh), true);
 	Laser l3 = Laser(Vector2(1, -1), Vector2(pos.x, pos.y - hh), true);
 
-	shots.push_back(l1);
-	shots.push_back(l2);
-	shots.push_back(l3);
+	LaserManager::getInstance()->spawnLaser(l1);
+	LaserManager::getInstance()->spawnLaser(l2);
+	LaserManager::getInstance()->spawnLaser(l3);
 
 	shootCooldown = SHOOT_COOLDOWN;
 }
@@ -42,7 +43,6 @@ void Player::update(int screenWidth, int screenHeight)
 	{
 		isHitable = true;
 	}
-
 
 	double dt = Frames::getInstance()->getDeltaTime();
 
@@ -120,7 +120,7 @@ void Player::onHit()
 	isHitable = false;
 
 	hp--;
-	if (hp == 0)
+	if (hp <= 0)
 	{
 		std::cout << "Game over\n";
 	}

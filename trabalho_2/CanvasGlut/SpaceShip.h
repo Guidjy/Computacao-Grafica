@@ -8,9 +8,6 @@
 
 class SpaceShip
 {
-private:
-	void lateUpdate();
-
 protected:
 	Vector2 pos;  // center of the spaceship
 	std::array<Vector2, 3> vertices;
@@ -36,8 +33,6 @@ protected:
 public:
 	SpaceShip(float _height, float _width, float _acceleration = 1, Vector2 _pos = { 0, 0 }, Vector2 _direction = { 0, 0 },
 		float _friction = 0.9f, float _maxSpeed = 7);
-
-	std::vector<Laser> shots;
 
 	// checks if a point is inside of the spaceship
 	bool checkCollision(Vector2 p);

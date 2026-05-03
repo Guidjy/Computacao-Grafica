@@ -99,6 +99,12 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>src\Game\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyWave.cpp">
+      <Filter>src\Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserManager.cpp">
+      <Filter>src\Game\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gl_canvas2d.h">
@@ -159,6 +165,21 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyWave.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Dificulties.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ISubject.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="IObserver.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserManager.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

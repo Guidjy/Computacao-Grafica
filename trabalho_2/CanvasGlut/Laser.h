@@ -4,7 +4,6 @@
 class Laser
 {
 private:
-
 	Vector2 direction;
 	
 	const float velocity = 400;

@@ -32,6 +32,8 @@
 #include "mainMenu.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "EnemyWave.h"
+#include "LaserManager.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
@@ -55,7 +57,10 @@ int currentFPS = 0;
 
 // entities
 Player* player = NULL;
-Enemy* enemy1 = NULL;
+EnemyWave* enemyWave = NULL;
+
+// Projectiles
+LaserManager* laserManager = NULL;
 
 
 // Called continuously. Objects to be drawn should be controlled by global variables.
@@ -67,15 +72,12 @@ void render()
 
 	mainMenu->render(mouseX, mouseY);
 	player->render(screenWidth, screenHeight);
-	enemy1->render(screenWidth, screenHeight);
+	enemyWave->render(screenWidth, screenHeight);
+	laserManager->render();
 
-	// checks colision for player
-	for (int i = 0; i < enemy1->shots.size(); i++)
+	if (enemyWave->isOver())
 	{
-		if (player->checkCollision(enemy1->shots[i].pos))
-		{
-			player->onHit();
-		}
+		enemyWave->spawnWave(screenWidth);
 	}
 
 	frames->render(screenWidth, screenHeight);
@@ -117,13 +119,16 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 
 int main(void)
 {
+	srand(time(0));
+
 	frames = Frames::getInstance();
+	laserManager = LaserManager::getInstance();
 
 	mainMenuInit(mainMenu, screenHeight, screenWidth);
 
 	player = new Player(60, 60, 2000.0f, Vector2(screenWidth / 2, screenHeight - 100), Vector2(0, 0), 0.05f, 1600.0f);
-	enemy1 = new Enemy(40, 40, 2000.0f, Vector2(screenWidth / 2, 100), Vector2(0, 0), 0.05f, 1600.0f);
-	
+	enemyWave = new EnemyWave(EASY);
+	enemyWave->spawnWave(screenWidth);
 
 	CV::init(&screenWidth, &screenHeight, "Pimentel's Dogfight");
 	CV::run();

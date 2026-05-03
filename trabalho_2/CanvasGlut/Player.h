@@ -24,6 +24,8 @@ public:
 
 	int getHp() { return hp; }
 
+	bool isAlive() { return hp > 0; }
+
 	void handleKeyPress(int key);
 
 	void handleKeyRelease(int key);

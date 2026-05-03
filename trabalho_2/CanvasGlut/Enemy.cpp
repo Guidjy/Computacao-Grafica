@@ -31,6 +31,7 @@ void Enemy::update(int screenWidth, int screenHeight)
 {
 	SpaceShip::update(screenWidth, screenHeight);
 
+	// checks collision with lasers
 	for (Laser* l : LaserManager::getInstance()->getLasers())
 	{
 		if (checkCollision(l->pos) && l->isFriendly)
@@ -41,6 +42,8 @@ void Enemy::update(int screenWidth, int screenHeight)
 			break;
 		}
 	}
+
+
 }
 
 void Enemy::render(int screenWidth, int screenHeight)

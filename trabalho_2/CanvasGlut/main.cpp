@@ -71,6 +71,7 @@ void render()
 	frames->calculateDeltaTime();
 
 	mainMenu->render(mouseX, mouseY);
+
 	player->render(screenWidth, screenHeight);
 	enemyWave->render(screenWidth, screenHeight);
 	laserManager->render(screenWidth, screenHeight);
@@ -78,6 +79,11 @@ void render()
 	if (enemyWave->isOver())
 	{
 		enemyWave->spawnWave(screenWidth);
+	}
+
+	if (!player->isAlive())
+	{
+		std::cout << "GAME OVER!\n";
 	}
 
 	frames->render(screenWidth, screenHeight);

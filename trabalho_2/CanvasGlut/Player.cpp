@@ -44,6 +44,17 @@ void Player::update(int screenWidth, int screenHeight)
 		isHitable = true;
 	}
 
+	// checks collision with lasers
+	for (Laser* l : LaserManager::getInstance()->getLasers())
+	{
+		if (checkCollision(l->pos) && !l->isFriendly && isHitable)
+		{
+			hp--;
+			hitableCooldown = HITABLE_COOLDOWN;
+			isHitable = false;
+		}
+	}
+
 	double dt = Frames::getInstance()->getDeltaTime();
 
 	// accelerates

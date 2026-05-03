@@ -9,6 +9,8 @@ class EnemyWave : public IObserver
 private:
 	Dificulties dificulty;
 
+	int spawnCooldown;
+
 	int enemyCount;
 
 public:
@@ -19,6 +21,8 @@ public:
 	void removeDeadEnemies();
 
 	void spawnWave(int screenWidth);
+
+	bool canSpawnWave() { return spawnCooldown <= 0; }
 
 	bool isOver() { return enemyCount <= 0; }
 

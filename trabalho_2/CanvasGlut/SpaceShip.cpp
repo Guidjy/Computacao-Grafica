@@ -50,6 +50,23 @@ bool SpaceShip::checkCollision(Vector2 p)
 	return wA >= 0.0f && wB >= 0.0f && wC >= 0.0f;
 }
 
+void SpaceShip::move()
+{
+	double dt = Frames::getInstance()->getDeltaTime();
+
+	// accelerates
+	velocity = velocity + direction * acceleration * dt;
+
+	// caps velocity
+	if (velocity.x > maxSpeed) velocity.x = maxSpeed;
+	if (velocity.x < -maxSpeed) velocity.x = -maxSpeed;
+	if (velocity.y > maxSpeed) velocity.y = maxSpeed;
+	if (velocity.y < -maxSpeed) velocity.y = -maxSpeed;
+
+	// moves
+	pos = pos + velocity * dt;
+}
+
 void SpaceShip::update(int screenWidth, int screenHeight)
 {
 	// shoots
@@ -58,6 +75,8 @@ void SpaceShip::update(int screenWidth, int screenHeight)
 	{
 		shoot();
 	}
+
+	move();
 }
 
 void SpaceShip::render(int screenWidth, int screenHeight)

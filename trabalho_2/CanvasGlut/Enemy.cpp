@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "gl_canvas2d.h"
 #include "LaserManager.h"
+#include "Frames.h"
 
 int Enemy::instanceCount = 0;
 
@@ -43,7 +44,10 @@ void Enemy::update(int screenWidth, int screenHeight)
 		}
 	}
 
-
+	if (pos.y > screenHeight / 3 * 2)
+	{
+		pos.y = screenHeight / 3 * 2;
+	}
 }
 
 void Enemy::render(int screenWidth, int screenHeight)

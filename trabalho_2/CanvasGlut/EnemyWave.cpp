@@ -2,12 +2,16 @@
 #include <stdlib.h>
 #include <string>
 
+#define ENEMY_HEIGHT 40;
+#define ENEMY_WIDTH 40;
+#define SPAWN_COOLDOWN 240;
 
 EnemyWave::EnemyWave(Dificulties _dificulty)
 {
 	dificulty = _dificulty;
 	enemies = std::list<Enemy*>();
 	enemyCount = 0;
+	spawnCooldown = SPAWN_COOLDOWN;
 }
 
 // the message consits of a single number which represents the id of an enemy yhat has died
@@ -41,14 +45,19 @@ void EnemyWave::spawnWave(int screenWidth)
 		break;
 	}
 
+	int ew = ENEMY_WIDTH;
+	int eh = ENEMY_HEIGHT;
 	for (int i = 0; i < enemyCount; i++)
 	{
-		float xPos = rand() % (screenWidth - 40) + 20;
-		Enemy* enemy = new Enemy(40, 40, 2000.0f, Vector2(xPos, 100), Vector2(0, 0), 0.05f, 1600.0f);
+		float xPos = rand() % (screenWidth - ew) + ew/2;
+		float yPos = eh * i - eh * enemyCount;
+		Enemy* enemy = new Enemy(ew, eh, 10.0f, Vector2(xPos, yPos), Vector2(0, 1), 0.05f, 1600.0f);
 		enemy->attach(this);
 
 		enemies.push_back(enemy);
 	}
+
+	spawnCooldown = SPAWN_COOLDOWN;
 }
 
 void EnemyWave::removeDeadEnemies()
@@ -77,6 +86,11 @@ void EnemyWave::render(int screenWidth, int screenHeight)
 	for (Enemy* enemy : enemies)
 	{
 		enemy->render(screenWidth, screenHeight);
+	}
+
+	if (spawnCooldown > 0 && isOver())
+	{
+		spawnCooldown--;
 	}
 
 	removeDeadEnemies();

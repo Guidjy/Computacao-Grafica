@@ -25,7 +25,7 @@ public:
 	bool isDead;
 
 	Enemy(float _height, float _width, float _acceleration = 1, Vector2 _pos = { 0, 0 }, Vector2 _direction = { 0, 0 },
-		float _friction = 0.9f, float _maxSpeed = 7);
+		float _friction = 0.9f, float _maxSpeed = 5);
 
 	int getId() { return id; }
 

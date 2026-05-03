@@ -76,7 +76,7 @@ void render()
 	enemyWave->render(screenWidth, screenHeight);
 	laserManager->render(screenWidth, screenHeight);
 
-	if (enemyWave->isOver())
+	if (enemyWave->isOver() && enemyWave->canSpawnWave())
 	{
 		enemyWave->spawnWave(screenWidth);
 	}
@@ -132,7 +132,7 @@ int main(void)
 
 	mainMenuInit(mainMenu, screenHeight, screenWidth);
 
-	player = new Player(60, 60, 2000.0f, Vector2(screenWidth / 2, screenHeight - 100), Vector2(0, 0), 0.05f, 1600.0f);
+	player = new Player(60, 60, 500.0f, Vector2(screenWidth / 2, screenHeight - 100), Vector2(0, 0), 0.05f, 1600.0f);
 	enemyWave = new EnemyWave(EASY);
 	enemyWave->spawnWave(screenWidth);
 

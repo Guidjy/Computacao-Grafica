@@ -8,9 +8,9 @@ class LaserManager
 private:
 	static LaserManager* instane;
 
-	LaserManager();
-
 	std::list<Laser*> lasers;
+
+	LaserManager();
 
 public:
 	static LaserManager* getInstance()
@@ -29,8 +29,10 @@ public:
 
 	void removeLaser(Laser* laser) { lasers.remove(laser); }
 
-	void update();
+	void removeOutOfBoundsLasers();
 
-	void render();
+	void update(int screenWidth, int screenHeight);
+
+	void render(int screenWidth, int screenHeight);
 };
 

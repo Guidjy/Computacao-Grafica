@@ -51,9 +51,8 @@ void EnemyWave::spawnWave(int screenWidth)
 	}
 }
 
-void EnemyWave::update()
+void EnemyWave::removeDeadEnemies()
 {
-	// removes dead enemies
 	for (auto it = enemies.begin(); it != enemies.end(); )
 	{
 		if ((*it)->isDead)
@@ -80,5 +79,5 @@ void EnemyWave::render(int screenWidth, int screenHeight)
 		enemy->render(screenWidth, screenHeight);
 	}
 
-	update();
+	removeDeadEnemies();
 }

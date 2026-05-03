@@ -22,11 +22,16 @@ bool Laser::isOutOfBounds(int screenWidth, int screenHeight)
 	return false;
 }
 
-void Laser::update()
+void Laser::update(int screenWidth, int screenHeight)
 {
 	double dt = Frames::getInstance()->getDeltaTime();
 
 	pos = pos + direction * velocity * dt;
+
+	if (isOutOfBounds(screenWidth, screenHeight))
+	{
+		shouldBeDeleted = true;
+	}
 }
 
 void Laser::render()

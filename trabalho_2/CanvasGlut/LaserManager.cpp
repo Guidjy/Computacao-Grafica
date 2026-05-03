@@ -19,20 +19,41 @@ void LaserManager::spawnLaser(Laser laser)
 	addLaser(l);
 }
 
-void LaserManager::update()
-{ 
-	for (Laser* l : lasers)
+void LaserManager::removeOutOfBoundsLasers()
+{
+	for (auto it = lasers.begin(); it != lasers.end(); )
 	{
-		l->update();
+		if ((*it)->getShouldBeDeleted())
+		{
+			Laser* l = *it;
+			// removes from list and increment iterator
+			it = lasers.erase(it);
+			// safely deletes laser afterwards
+			delete l;
+		}
+		else
+		{
+			it++;
+		}
 	}
 }
 
-void LaserManager::render()
+void LaserManager::update(int screenWidth, int screenHeight)
+{ 
+	for (Laser* l : lasers)
+	{
+		l->update(screenWidth, screenHeight);
+	}
+}
+
+void LaserManager::render(int screenWidth, int screenHeight)
 {
-	update();
+	update(screenWidth, screenHeight);
 
 	for (Laser* l : lasers)
 	{
 		l->render();
 	}
+
+	removeOutOfBoundsLasers();
 }

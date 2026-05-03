@@ -73,7 +73,7 @@ void render()
 	mainMenu->render(mouseX, mouseY);
 	player->render(screenWidth, screenHeight);
 	enemyWave->render(screenWidth, screenHeight);
-	laserManager->render();
+	laserManager->render(screenWidth, screenHeight);
 
 	if (enemyWave->isOver())
 	{

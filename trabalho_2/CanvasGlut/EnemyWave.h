@@ -16,11 +16,11 @@ public:
 
 	EnemyWave(Dificulties _dificulty);
 
+	void removeDeadEnemies();
+
 	void spawnWave(int screenWidth);
 
 	bool isOver() { return enemyCount <= 0; }
-
-	void update();
 
 	void render(int screenWidth, int screenHeight);
 

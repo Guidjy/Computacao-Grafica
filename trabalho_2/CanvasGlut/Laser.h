@@ -23,7 +23,7 @@ public:
 
 	bool isOutOfBounds(int screenWidth, int screenHeight);
 
-	void update();
+	void update(int screenWidth, int screenHeight);
 
 	void render();
 };

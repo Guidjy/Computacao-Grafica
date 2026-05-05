@@ -2,6 +2,8 @@
 #include "gl_canvas2d.h"
 #include "LaserManager.h"
 #include "Frames.h"
+#include <stdlib.h>
+#include <iostream>
 
 int Enemy::instanceCount = 0;
 
@@ -19,7 +21,7 @@ Enemy::Enemy(float _height, float _width, float _acceleration, Vector2 _pos, Vec
 
 void Enemy::shoot()
 {
-	// shoots in one directions: south
+	// shoots in one directions: south (regular shot)
 	float hh = height / 2;
 	Laser l = Laser(Vector2(0, 1), Vector2(pos.x, pos.y + hh), false);
 

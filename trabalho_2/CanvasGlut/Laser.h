@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2.h"
+#include <array>
 
 class Laser
 {
@@ -8,9 +9,15 @@ private:
 	
 	const float velocity = 400;
 
-	const float length = 20;
+	float length;
 
 	bool shouldBeDeleted;
+
+	bool isCurved;
+
+	std::array<Vector2, 3> curvedShotControlPoints;
+
+	float t;
 
 public:
 	Vector2 pos; // tip of the laser
@@ -20,6 +27,8 @@ public:
 	Laser(Vector2 _direction, Vector2 _pos, bool _isFriendly);
 
 	bool getShouldBeDeleted() { return shouldBeDeleted; }
+
+	bool getIsCurved() { return isCurved; }
 
 	bool isOutOfBounds(int screenWidth, int screenHeight);
 

@@ -34,6 +34,7 @@
 #include "Enemy.h"
 #include "EnemyWave.h"
 #include "LaserManager.h"
+#include "Dificulties.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
@@ -58,9 +59,10 @@ int currentFPS = 0;
 // entities
 Player* player = NULL;
 EnemyWave* enemyWave = NULL;
-
-// Projectiles
 LaserManager* laserManager = NULL;
+
+// settings
+int difficulty = EASY;
 
 
 // Called continuously. Objects to be drawn should be controlled by global variables.
@@ -134,7 +136,6 @@ int main(void)
 
 	player = new Player(60, 60, 500.0f, Vector2(screenWidth / 2, screenHeight - 100), Vector2(0, 0), 0.05f, 1600.0f);
 	enemyWave = new EnemyWave(EASY);
-	enemyWave->spawnWave(screenWidth);
 
 	CV::init(&screenWidth, &screenHeight, "Pimentel's Dogfight");
 	CV::run();

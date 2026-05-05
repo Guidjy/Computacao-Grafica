@@ -36,6 +36,8 @@ public:
 	SpaceShip(float _height, float _width, float _acceleration = 1, Vector2 _pos = { 0, 0 }, Vector2 _direction = { 0, 0 },
 		float _friction = 0.9f, float _maxSpeed = 7);
 
+	Vector2 getPos() { return pos; }
+
 	// checks if a point is inside of the spaceship
 	bool checkCollision(Vector2 p);
 

@@ -2,6 +2,7 @@
 #include "gl_canvas2d.h"
 #include <vector>
 
+MenuOptions currentMenu = MAIN_MENU;
 
 Menu::Menu(float _height, float _width, std::array<float, 3> _backgroundColor)
 {

@@ -35,6 +35,7 @@
 #include "EnemyWave.h"
 #include "LaserManager.h"
 #include "Dificulties.h"
+#include "mainMenu.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
@@ -50,6 +51,7 @@ int mouseY;
 int mouseState;
 
 // menus
+Menu* mainMenu = NULL;
 Menu* gameHUD = NULL;
 
 // fps control
@@ -61,10 +63,6 @@ Player* player = NULL;
 EnemyWave* enemyWave = NULL;
 LaserManager* laserManager = NULL;
 
-// settings
-Dificulties difficulty = HARD;
-
-
 // Called continuously. Objects to be drawn should be controlled by global variables.
 // All of the method calls for drawing objects should be done here.
 // Should be kept as simple as possible.
@@ -72,20 +70,28 @@ void render()
 {
 	frames->calculateDeltaTime();
 
-	gameHUD->render(mouseX, mouseY);
-
-	player->render(screenWidth, screenHeight);
-	enemyWave->render(screenWidth, screenHeight);
-	laserManager->render(screenWidth, screenHeight);
-
-	if (enemyWave->isOver() && enemyWave->canSpawnWave())
+	if (currentMenu == MAIN_MENU)
 	{
-		enemyWave->spawnWave(screenWidth);
+		mainMenu->render(mouseX, mouseY);
+		mainMenu->onClick(mouseX, mouseY, mouseState);
 	}
-
-	if (!player->isAlive())
+	else
 	{
-		std::cout << "GAME OVER!\n";
+		gameHUD->render(mouseX, mouseY);
+
+		player->render(screenWidth, screenHeight);
+		enemyWave->render(screenWidth, screenHeight);
+		laserManager->render(screenWidth, screenHeight);
+
+		if (enemyWave->isOver() && enemyWave->canSpawnWave())
+		{
+			enemyWave->spawnWave(screenWidth);
+		}
+
+		if (!player->isAlive())
+		{
+			std::cout << "GAME OVER!\n";
+		}
 	}
 
 	frames->render(screenWidth, screenHeight);
@@ -132,6 +138,7 @@ int main(void)
 	frames = Frames::getInstance();
 	laserManager = LaserManager::getInstance();
 
+	mainMenuInit(mainMenu, screenHeight, screenWidth);
 	gameHUDInit(gameHUD, screenHeight, screenWidth);
 
 	player = new Player(60, 60, 500.0f, Vector2(screenWidth / 2, screenHeight - 100), Vector2(0, 0), 0.05f, 1600.0f);

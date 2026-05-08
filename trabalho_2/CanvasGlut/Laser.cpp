@@ -69,6 +69,6 @@ void Laser::render()
 {
 	Vector2 start = Vector2(pos.x - direction.x * length, pos.y - direction.y * length);
 
-	CV::color(1, 1, 1);
+	CV::color(1, 1, 0);
 	CV::line(start, pos);
 }

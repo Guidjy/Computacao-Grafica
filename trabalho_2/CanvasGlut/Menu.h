@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Shape.h"
 #include <vector>
 #include <array>
@@ -35,3 +34,10 @@ public:
 	void render(int mouseX, int mouseY);
 };
 
+enum MenuOptions
+{
+	MAIN_MENU,
+	GAME,
+};
+
+extern MenuOptions currentMenu;

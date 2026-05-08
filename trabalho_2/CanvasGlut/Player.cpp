@@ -3,6 +3,7 @@
 #include "gl_canvas2d.h"
 #include "Frames.h"
 #include "LaserManager.h"
+#include "gameHUD.h"
 #include <vector>
 #include <iostream>
 
@@ -49,9 +50,7 @@ void Player::update(int screenWidth, int screenHeight)
 	{
 		if (checkCollision(l->pos) && !l->isFriendly && isHitable)
 		{
-			hp--;
-			hitableCooldown = HITABLE_COOLDOWN;
-			isHitable = false;
+			onHit();
 		}
 	}
 
@@ -136,7 +135,7 @@ void Player::onHit()
 		std::cout << "Game over\n";
 	}
 
-	std::cout << "HIT\n";
+	HUDSetLives(hp);
 }
 
 void Player::render(int screenWidth, int screenHeight)

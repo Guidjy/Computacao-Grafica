@@ -2,6 +2,7 @@
 #include "gl_canvas2d.h"
 #include "LaserManager.h"
 #include "Frames.h"
+#include "gameHUD.h"
 #include <stdlib.h>
 #include <iostream>
 
@@ -42,6 +43,9 @@ void Enemy::update(int screenWidth, int screenHeight)
 			// sends the id of the recently destroyed enemy to EnemyWave
 			currentMessage = std::to_string(id);
 			notify();
+
+			HUDSetPoints(10);
+
 			break;
 		}
 	}

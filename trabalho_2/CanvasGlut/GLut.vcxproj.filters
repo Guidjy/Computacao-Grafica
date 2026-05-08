@@ -43,11 +43,11 @@
     <Filter Include="src\Game\Objects">
       <UniqueIdentifier>{ecffce65-f341-44ce-a266-df1fb139fde4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\GUI\backgrounds">
+      <UniqueIdentifier>{82ede32d-e610-4076-8aab-a20376337c10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="gl_canvas2d.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -81,7 +81,7 @@
     <ClCompile Include="Text.cpp">
       <Filter>src\GUI\primitives</Filter>
     </ClCompile>
-    <ClCompile Include="mainMenu.cpp">
+    <ClCompile Include="gameHUD.cpp">
       <Filter>src\GUI\menu</Filter>
     </ClCompile>
     <ClCompile Include="Frames.cpp">
@@ -104,6 +104,15 @@
     </ClCompile>
     <ClCompile Include="LaserManager.cpp">
       <Filter>src\Game\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>src\GUI\primitives</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceBackground.cpp">
+      <Filter>src\GUI\backgrounds</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,7 +155,7 @@
     <ClInclude Include="Text.h">
       <Filter>headers</Filter>
     </ClInclude>
-    <ClInclude Include="mainMenu.h">
+    <ClInclude Include="gameHUD.h">
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="Frames.h">
@@ -180,6 +189,12 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="LaserManager.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceBackground.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

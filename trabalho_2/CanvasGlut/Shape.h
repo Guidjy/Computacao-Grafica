@@ -10,7 +10,7 @@ class Shape
 {
 protected:
 	// - Rectangle: Upper right vertix
-	// - Circle: Center
+	// - Circle, Triangle: Center
 	Vector2 pos;
 	std::array<float, 3> color;
 	bool isFilled;

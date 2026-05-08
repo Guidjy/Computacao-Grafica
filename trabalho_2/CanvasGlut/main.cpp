@@ -29,7 +29,7 @@
 #include "mouseStates.h"
 #include "buttonEvents.h"
 #include "Menu.h"
-#include "mainMenu.h"
+#include "gameHUD.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "EnemyWave.h"
@@ -50,7 +50,7 @@ int mouseY;
 int mouseState;
 
 // menus
-Menu* mainMenu = NULL;
+Menu* gameHUD = NULL;
 
 // fps control
 Frames* frames = NULL;
@@ -62,7 +62,7 @@ EnemyWave* enemyWave = NULL;
 LaserManager* laserManager = NULL;
 
 // settings
-int difficulty = EASY;
+Dificulties difficulty = HARD;
 
 
 // Called continuously. Objects to be drawn should be controlled by global variables.
@@ -72,7 +72,7 @@ void render()
 {
 	frames->calculateDeltaTime();
 
-	mainMenu->render(mouseX, mouseY);
+	gameHUD->render(mouseX, mouseY);
 
 	player->render(screenWidth, screenHeight);
 	enemyWave->render(screenWidth, screenHeight);
@@ -132,10 +132,10 @@ int main(void)
 	frames = Frames::getInstance();
 	laserManager = LaserManager::getInstance();
 
-	mainMenuInit(mainMenu, screenHeight, screenWidth);
+	gameHUDInit(gameHUD, screenHeight, screenWidth);
 
 	player = new Player(60, 60, 500.0f, Vector2(screenWidth / 2, screenHeight - 100), Vector2(0, 0), 0.05f, 1600.0f);
-	enemyWave = new EnemyWave(EASY);
+	enemyWave = new EnemyWave(difficulty);
 
 	CV::init(&screenWidth, &screenHeight, "Pimentel's Dogfight");
 	CV::run();

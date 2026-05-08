@@ -20,6 +20,8 @@ public:
 
 	void removeDeadEnemies();
 
+	void setDifficulty(Dificulties _dificulty) { dificulty = _dificulty; }
+
 	void spawnWave(int screenWidth);
 
 	bool canSpawnWave() { return spawnCooldown <= 0; }

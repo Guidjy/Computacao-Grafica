@@ -74,6 +74,7 @@ void render()
 	{
 		mainMenu->render(mouseX, mouseY);
 		mainMenu->onClick(mouseX, mouseY, mouseState);
+		enemyWave->setDifficulty(difficulty);
 	}
 	else
 	{

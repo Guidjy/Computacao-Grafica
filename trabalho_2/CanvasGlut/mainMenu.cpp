@@ -6,7 +6,7 @@ Button* easyButton = nullptr;
 Text* easyText = nullptr;
 Button* hardButton = nullptr;
 Text* hardText = nullptr;
-Dificulties difficulty = EASY;
+Dificulties difficulty;
 
 void mainMenuInit(Menu*& self, int height, int width)
 {

@@ -36,6 +36,7 @@
 #include "LaserManager.h"
 #include "Dificulties.h"
 #include "mainMenu.h"
+#include "overMenu.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
@@ -53,6 +54,7 @@ int mouseState;
 // menus
 Menu* mainMenu = NULL;
 Menu* gameHUD = NULL;
+Menu* overMenu = NULL;
 
 // fps control
 Frames* frames = NULL;
@@ -76,7 +78,7 @@ void render()
 		mainMenu->onClick(mouseX, mouseY, mouseState);
 		enemyWave->setDifficulty(difficulty);
 	}
-	else
+	else if (currentMenu == GAME)
 	{
 		gameHUD->render(mouseX, mouseY);
 
@@ -91,8 +93,13 @@ void render()
 
 		if (!player->isAlive())
 		{
-			std::cout << "GAME OVER!\n";
+			currentMenu = OVER;
+			getLeaderboard(points);
 		}
+	}
+	else
+	{
+		overMenu->render(mouseX, mouseY);
 	}
 
 	frames->render(screenWidth, screenHeight);
@@ -141,6 +148,7 @@ int main(void)
 
 	mainMenuInit(mainMenu, screenHeight, screenWidth);
 	gameHUDInit(gameHUD, screenHeight, screenWidth);
+	overMenuInit(overMenu, screenHeight, screenWidth);
 
 	player = new Player(60, 60, 500.0f, Vector2(screenWidth / 2, screenHeight - 100), Vector2(0, 0), 0.05f, 1600.0f);
 	enemyWave = new EnemyWave(difficulty);

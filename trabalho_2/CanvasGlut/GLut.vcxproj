@@ -184,6 +184,7 @@
     <ClCompile Include="gameHUD.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="overMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Shape.cpp" />
@@ -213,6 +214,7 @@
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="mouseStates.h" />
+    <ClInclude Include="overMenu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Shape.h" />

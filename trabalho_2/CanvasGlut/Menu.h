@@ -38,6 +38,7 @@ enum MenuOptions
 {
 	MAIN_MENU,
 	GAME,
+	OVER,
 };
 
 extern MenuOptions currentMenu;

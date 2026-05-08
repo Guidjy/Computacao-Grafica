@@ -61,7 +61,7 @@ void Frames::render(int screenWidth, int screenHeight)
 
 void Frames::displayCurrentFPS(int screenWidth, int screenHeight)
 {
-	CV::color(1, 1, 1);
+	CV::color(1, 1, 0);
 	std::string FPS = "FPS: " + std::to_string(currentFPS);
 	CV::text(Vector2(screenWidth - 75, 20), FPS.c_str());
 }

@@ -14,6 +14,8 @@ private:
 
 	int hitableCooldown;
 
+	int flash;
+
 	void shoot() override;
 
 	void update(int screenWidth, int screenHeight) override;

@@ -13,9 +13,9 @@ void gameHUDInit(Menu*& self, int height, int width)
 	// background
 	background = new SpaceBackground(height, width);
 	// lives
-	lives = new Text(Vector2(0, 20), "Lives: 3", { 1, 1, 1 });
+	lives = new Text(Vector2(0, 20), "Lives: 3", { 1, 1, 0 });
 	// points
-	pointsText = new Text(Vector2(0, 40), "points: 0", { 1, 1, 1 });
+	pointsText = new Text(Vector2(0, 40), "points: 0", { 1, 1, 0 });
 
 	self->addComponent(background);
 	self->addComponent(lives);

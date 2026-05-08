@@ -15,6 +15,8 @@ Player::Player(float _height, float _width, float _acceleration, Vector2 _pos, V
 	isHitable = true;
 	hitableCooldown = 0;
 	color = { 0, 0, 1 };
+
+	flash = 0;
 }
 
 void Player::shoot()
@@ -142,6 +144,24 @@ void Player::onHit()
 
 void Player::render(int screenWidth, int screenHeight)
 {
+	if (!isHitable)
+	{
+		flash++;
+		if (flash % 5 == 0)
+		{
+			color = { 1, 1, 1 };
+		}
+		else
+		{
+			color = { 0, 0, 1 };
+		}
+	}
+	else
+	{
+		flash = 0;
+		color = { 0, 0, 1 };
+	}
+
 	SpaceShip::render(screenWidth, screenHeight);
 
 	float hw = width / 2;

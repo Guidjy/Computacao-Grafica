@@ -93,12 +93,15 @@ void render()
 
 		if (!player->isAlive())
 		{
+			CV::color(1, 1, 0);
+			CV::text(Vector2(screenWidth / 2 - 40, screenHeight / 3), "Game Over!");
 			currentMenu = OVER;
 			getLeaderboard(points);
 		}
 	}
 	else
 	{
+		Sleep(4000);
 		overMenu->render(mouseX, mouseY);
 	}
 

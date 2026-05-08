@@ -13,6 +13,12 @@ private:
 
 	int id;
 
+	float initialX;
+
+	bool isSpecial;
+
+	float t;
+
 	void shoot() override;
 
 	void update(int screenWidth, int screenHeight) override;

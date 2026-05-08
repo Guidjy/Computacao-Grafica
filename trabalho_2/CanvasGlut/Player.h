@@ -16,8 +16,6 @@ private:
 
 	void shoot() override;
 
-	void keepInBounds();
-
 	void update(int screenWidth, int screenHeight) override;
 
 public:

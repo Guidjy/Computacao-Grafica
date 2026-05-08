@@ -85,3 +85,19 @@ void SpaceShip::render(int screenWidth, int screenHeight)
 
 	CV::color(color[0], color[1], color[2]);
 }
+
+void SpaceShip::keepInBounds()
+{
+	if (pos.x < 0)
+	{
+		pos.x = 0;
+	}
+	if (pos.x > 500)
+	{
+		pos.x = 500;
+	}
+	if (pos.y > 700)
+	{
+		pos.y = 700;
+	}
+}

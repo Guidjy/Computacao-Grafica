@@ -149,23 +149,3 @@ void Player::render(int screenWidth, int screenHeight)
 	vertices = {pos + Vector2(0, -hh), pos + Vector2(hw, hh), pos + Vector2(-hw, hh)};
 	CV::triangleFill(vertices);
 }
-
-void Player::keepInBounds()
-{
-	if (pos.x < 0)
-	{
-		pos.x = 0;
-	}
-	if (pos.x > 500)
-	{
-		pos.x = 500;
-	}
-	if (pos.y < 0)
-	{
-		pos.y = 0;
-	}
-	if (pos.y > 700)
-	{
-		pos.y = 700;
-	}
-}

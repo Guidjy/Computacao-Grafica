@@ -18,6 +18,19 @@ Enemy::Enemy(float _height, float _width, float _acceleration, Vector2 _pos, Vec
 
 	id = instanceCount;
 	instanceCount++;
+
+	int special = rand() % 4;
+	if (special == 0)
+	{
+		isSpecial = true;
+	}
+	else
+	{
+		isSpecial = false;
+	}
+
+	initialX = pos.x;
+	t = 0 + id;
 }
 
 void Enemy::shoot()
@@ -54,6 +67,14 @@ void Enemy::update(int screenWidth, int screenHeight)
 	{
 		pos.y = screenHeight / 3 * 2;
 	}
+
+	if (isSpecial)
+	{
+		t += 0.05;
+		pos.x = initialX + sin(t) * 100;
+	}
+
+	keepInBounds();
 }
 
 void Enemy::render(int screenWidth, int screenHeight)

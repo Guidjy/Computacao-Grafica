@@ -2,7 +2,6 @@
 #include "Menu.h"
 #include "SpaceBackground.h"
 #include "Button.h"
-#include "CheckBox.h"
 #include "Text.h"
 #include "Dificulties.h"
 

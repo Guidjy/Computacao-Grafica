@@ -170,8 +170,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="buttonEvents.cpp" />
-    <ClCompile Include="CheckBox.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyWave.cpp" />
@@ -180,7 +178,6 @@
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="LaserManager.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="bmp.cpp" />
     <ClCompile Include="gameHUD.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -188,17 +185,12 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="Shape.cpp" />
-    <ClCompile Include="Slider.cpp" />
     <ClCompile Include="SpaceBackground.cpp" />
     <ClCompile Include="SpaceShip.cpp" />
     <ClCompile Include="Text.cpp" />
-    <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bmp.h" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="buttonEvents.h" />
-    <ClInclude Include="CheckBox.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Dificulties.h" />
     <ClInclude Include="Enemy.h" />
@@ -218,11 +210,9 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="Shape.h" />
-    <ClInclude Include="Slider.h" />
     <ClInclude Include="SpaceBackground.h" />
     <ClInclude Include="SpaceShip.h" />
     <ClInclude Include="Text.h" />
-    <ClInclude Include="Triangle.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

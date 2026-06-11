@@ -169,34 +169,16 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="buttonEvents.cpp" />
-    <ClCompile Include="CheckBox.cpp" />
-    <ClCompile Include="Circle.cpp" />
     <ClCompile Include="gl_canvas2d.cpp" />
     <ClCompile Include="lab.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Rect.cpp" />
-    <ClCompile Include="Shape.cpp" />
-    <ClCompile Include="Slider.cpp" />
-    <ClCompile Include="Text.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Bmp.h" />
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="buttonEvents.h" />
-    <ClInclude Include="CheckBox.h" />
-    <ClInclude Include="Circle.h" />
     <ClInclude Include="gl_canvas2d.h" />
     <ClInclude Include="lab.h" />
-    <ClInclude Include="Menu.h" />
     <ClInclude Include="mouseStates.h" />
-    <ClInclude Include="Rect.h" />
-    <ClInclude Include="Shape.h" />
-    <ClInclude Include="Slider.h" />
-    <ClInclude Include="Text.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

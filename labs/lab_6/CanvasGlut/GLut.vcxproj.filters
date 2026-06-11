@@ -25,9 +25,6 @@
     <Filter Include="src\GUI\events">
       <UniqueIdentifier>{c12e226f-d519-43f5-9b58-d34ee9b238df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\GUI\bitmap">
-      <UniqueIdentifier>{213ba6d4-5bed-4e5d-adba-a5e70f3c8231}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\GUI\menu">
       <UniqueIdentifier>{2a6a916d-1c27-46d4-8fd9-553362ffda17}</UniqueIdentifier>
     </Filter>
@@ -56,9 +53,6 @@
     </ClCompile>
     <ClCompile Include="buttonEvents.cpp">
       <Filter>src\GUI\events</Filter>
-    </ClCompile>
-    <ClCompile Include="bmp.cpp">
-      <Filter>src\GUI\bitmap</Filter>
     </ClCompile>
     <ClCompile Include="Slider.cpp">
       <Filter>src\GUI\components</Filter>

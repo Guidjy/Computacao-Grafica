@@ -9,7 +9,9 @@ class Camera
 private:
 	static std::unique_ptr<Camera> instance;
 
-	static const float speed;
+	const float SPEED = 0.1f;
+
+	const float SENSITIVITY = 0.005f;
 
 	// câmera vectors
 	Vector3 eye;     // camera position

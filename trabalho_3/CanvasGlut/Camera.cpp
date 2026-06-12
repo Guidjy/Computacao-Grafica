@@ -8,7 +8,6 @@
 
 
 std::unique_ptr<Camera> Camera::instance = nullptr;
-const float Camera::speed = 0.1f;
 
 
 Camera::Camera(Vector3 _eye, Vector3 _target, Vector3 _up, float _d)
@@ -102,7 +101,7 @@ Vector2 Camera::handleMouseInput()
 	int deltaX = mouseX - oldMouseX;
 	int deltaY = mouseY - oldMouseY;
 
-	return Vector2(deltaX, deltaY);
+	return Vector2(deltaX, -deltaY);
 }
 
 void Camera::update()
@@ -124,7 +123,7 @@ void Camera::update()
 
 	// updates camera position
 	Vector2 movementDir = handleKeyboardInput();
-	eye = eye + forward * movementDir.x * speed;
+	eye = eye + forward * movementDir.x * SPEED;
 	Vector3 right = (up.crossProduct(forward)).normalize();
-	eye = eye + right * movementDir.y * speed;
+	eye = eye + right * movementDir.y * SPEED;
 }

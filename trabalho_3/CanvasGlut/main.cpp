@@ -30,6 +30,7 @@
 #include "mouseStates.h"
 #include "Camera.h"
 #include "Cube.h"
+#include "Terrain.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
@@ -40,6 +41,9 @@ int opcao;
 Camera* cam = Camera::getInstance();
 std::vector<Vector3> cube = modelCube(1.0f, 0.0f);
 float offset = 0.0f;
+
+// t3
+Terrain* terrain = nullptr;
 
 // Called continuously. Objects to be drawn should be controlled by global variables.
 // All of the method calls for drawing objects should be done here.
@@ -54,6 +58,8 @@ void render()
 	offset += 0.01f;
 	cube = modelCube(1.0f, offset);
 	renderCube(cube);
+
+	terrain->render();
 
 	cam->update();
 
@@ -131,6 +137,8 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 
 int main(void)
 {
+	terrain = new Terrain();
+
 	CV::init(&screenWidth, &screenHeight, "Titulo da Janela: Canvas 2D - Pressione 1, 2, 3");
 	CV::run();
 }

@@ -19,6 +19,9 @@
     <Filter Include="src\shared">
       <UniqueIdentifier>{4c482958-42ef-4d85-9882-61f12173b144}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\terrain">
+      <UniqueIdentifier>{5e8456de-dfb2-45e6-a5c7-4cfc66794dd0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -32,6 +35,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>src\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>src\terrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +63,9 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="Keys.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

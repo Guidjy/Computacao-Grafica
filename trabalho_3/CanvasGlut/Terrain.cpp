@@ -52,6 +52,23 @@ Vector3 Terrain::calculateSplinePoint(int patchX, int patchZ, float s, float t)
 	return p;
 }
 
+Vector3 Terrain::applyRotation(Vector3 p)
+{
+	Vector3 temp = p;
+
+	float y1 = temp.y * cos(pitch) - temp.z * sin(pitch);
+	float z1 = temp.y * sin(pitch) + temp.z * cos(pitch);
+	temp.y = y1;
+	temp.z = z1;
+
+	float x2 = temp.x * cos(yaw) + temp.z * sin(yaw);
+	float z2 = -temp.x * sin(yaw) + temp.z * cos(yaw);
+	temp.x = x2;
+	temp.z = z2;
+
+	return temp;
+}
+
 void Terrain::render()
 {
 	// Each segment of a B-Sline line requires 4 control points to be drawn.
@@ -78,6 +95,11 @@ void Terrain::render()
 					Vector3 p2 = calculateSplinePoint(i, j, s, t + step);         // bottom-right
 					Vector3 p3 = calculateSplinePoint(i, j, s + step, t + step);  // top-right
 
+					p0 = applyRotation(p0);
+					p1 = applyRotation(p1);
+					p2 = applyRotation(p2);
+					p3 = applyRotation(p3);
+
 					p0 = cam->alignPoint(p0);
 					p1 = cam->alignPoint(p1);
 					p2 = cam->alignPoint(p2);
@@ -101,3 +123,16 @@ void Terrain::render()
 	}
 }
 
+void Terrain::update()
+{
+	if (canRotate)
+	{
+		int deltaX = mouseX - oldMouseX;
+		int deltaY = mouseY - oldMouseY;
+
+		yaw += deltaX * SENSITIVITY;
+		pitch += deltaY * SENSITIVITY;
+	}
+
+	render();
+}

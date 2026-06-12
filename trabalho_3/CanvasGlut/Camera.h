@@ -18,8 +18,8 @@ private:
 	Vector3 target;  // point to which the camera is looking at
 	Vector3 up;		 // defines which direction is up so that the camera isn't on its side
 
-	float yaw;	  // horizontal camera viewing angle
-	float pitch;  // vertical camera viewing angle
+	float pitch;  // horizontal camera viewing angle
+	float yaw;	  // vertical camera viewing angle
 
 	// transformation vectors
 	Vector3 n;

@@ -101,7 +101,7 @@ Vector2 Camera::handleMouseInput()
 	int deltaX = mouseX - oldMouseX;
 	int deltaY = mouseY - oldMouseY;
 
-	return Vector2(deltaX, -deltaY);
+	return Vector2(deltaX, deltaY);
 }
 
 void Camera::update()

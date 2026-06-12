@@ -59,7 +59,7 @@ void render()
 	cube = modelCube(1.0f, offset);
 	renderCube(cube);
 
-	terrain->render();
+	terrain->update();
 
 	cam->update();
 
@@ -123,6 +123,7 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 	case CLICK:
 		mouseState = CLICK;
 		cam->canLookAround = false;
+		terrain->canRotate = true;
 		break;
 	case HOVER:
 		mouseState = HOVER;
@@ -130,6 +131,7 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 	case RELEASE:
 		mouseState = HOVER;
 		cam->canLookAround = true;	
+		terrain->canRotate = false;
 		break;
 	}
 

@@ -29,7 +29,6 @@
 #include "GlobalSettings.h"
 #include "mouseStates.h"
 #include "Camera.h"
-#include "Cube.h"
 #include "Terrain.h"
 #include "Vehicle.h"
 #include "Frames.h"
@@ -42,8 +41,6 @@ int opcao;
 
 // camera
 Camera* cam = Camera::getInstance();
-std::vector<Vector3> cube = modelCube(1.0f, 0.0f);
-float offset = 0.0f;
 
 // fps control
 Frames* frames = nullptr;
@@ -59,23 +56,15 @@ void render()
 {
 	frames->calculateDeltaTime();
 
-	CV::color(0, 0, 0);
-	CV::rectFill(0, 0, screenWidth, screenHeight);
+	renderBackground();
+	renderHUD();
 
-	CV::translate(screenWidth / 2, screenHeight / 2);
-
-	offset += 0.01f;
-	cube = modelCube(1.0f, offset);
-	renderCube(cube);
+	cam->changeBasis();
 
 	terrain->update();
-
 	car->update();
-
 	cam->update();
-
-	oldMouseX = mouseX;
-	oldMouseY = mouseY;
+	updateMousePosition();
 
 	frames->render();
 }

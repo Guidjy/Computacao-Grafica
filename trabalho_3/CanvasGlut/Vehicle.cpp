@@ -115,25 +115,31 @@ void Vehicle::render()
 {
 	Camera* cam = Camera::getInstance();
 
+	CV::color(0.5, 1, 0.3);
+
 	// makes sure the wheels stick to the terrain even if its rotated
 	for (int i = 0; i < wheels.size(); i++)
 	{
 		wheels[i] = terrainReference->applyRotation(wheels[i]);
 	}
 
-	Vector2 p1 = cam->projectPoint(cam->alignPoint(wheels[0]));
-	Vector2 p2 = cam->projectPoint(cam->alignPoint(wheels[1]));
-	Vector2 p3 = cam->projectPoint(cam->alignPoint(wheels[2]));
-
-	CV::color(0.5, 1, 0.3);
 	// wheels
-	CV::circleFill(p1, 10, 10);
-	CV::circleFill(p2, 10, 10);
-	CV::circleFill(p3, 10, 10);
+	Vector2 frontWheel = cam->projectPoint(cam->alignPoint(wheels[0]));
+	Vector2 leftRearWheel = cam->projectPoint(cam->alignPoint(wheels[1]));
+	Vector2 rightRearWheel = cam->projectPoint(cam->alignPoint(wheels[2]));
+
+	CV::circleFill(frontWheel, 10, 10);
+	CV::circleFill(leftRearWheel, 10, 10);
+	CV::circleFill(rightRearWheel, 10, 10);
+
 	// body
-	CV::line(p1, p2);
-	CV::line(p2, p3);
-	CV::line(p3, p1);
+	Vector2 front = cam->projectPoint(cam->alignPoint(Vector3(wheels[0].x, wheels[0].y - 2, wheels[0].z)));
+	Vector2 backLeft = cam->projectPoint(cam->alignPoint(Vector3(wheels[1].x, wheels[1].y - 2, wheels[1].z)));
+	Vector2 backRight = cam->projectPoint(cam->alignPoint(Vector3(wheels[2].x, wheels[2].y - 2, wheels[2].z)));
+
+	CV::line(front, backLeft);
+	CV::line(backLeft, backRight);
+	CV::line(backRight, front);
 }
 
 void Vehicle::update()

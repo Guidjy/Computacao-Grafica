@@ -3,6 +3,7 @@
 
 enum Keys
 {
+	SPACE = 32,
 	A = 97,
 	D = 100,
 	S = 115,

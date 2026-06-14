@@ -19,3 +19,9 @@ extern std::list<int> pressedKeys;
 
 // terrain settings
 extern const int TERRAIN_WIDTH;
+
+void updateMousePosition();
+
+void renderBackground();
+
+void renderHUD();

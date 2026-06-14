@@ -67,6 +67,11 @@ Vector2 Camera::projectPoint(Vector3 p3d)
 	return p2d;
 }
 
+void Camera::facePoint(Vector3 p)
+{
+	target = eye;
+}
+
 Vector2 Camera::handleKeyboardInput()
 {
 	// horizontal camera direction

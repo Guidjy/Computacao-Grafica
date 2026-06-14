@@ -52,6 +52,8 @@ public:
 	// projects a point in 3d space onto the projection plane
 	Vector2 projectPoint(Vector3 p3d);
 
+	void facePoint(Vector3 p);
+
 	void update();
 };
 

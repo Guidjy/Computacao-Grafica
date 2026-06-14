@@ -33,6 +33,7 @@
 #include "Terrain.h"
 #include "Vehicle.h"
 #include "Frames.h"
+#include "Keys.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
@@ -98,6 +99,12 @@ void keyboard(int key)
 	{
 		case 27:
 			exit(0);
+		case Z:
+			terrain->changeHillSize(true);
+			break;
+		case X:
+			terrain->changeHillSize(false);
+			break;
 		break;
 	}
 }

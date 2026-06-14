@@ -5,7 +5,17 @@
 #include <time.h>
 #include <array>
 
-Terrain::Terrain()
+Terrain::Terrain(int _deltaY)
+{
+	deltaY = _deltaY;
+
+	float hw = TERRAIN_WIDTH / 2.0f;
+	float step = (float)TERRAIN_WIDTH / (controlPoints.size() - 1);
+
+	generateTerrain();
+}
+
+void Terrain::generateTerrain()
 {
 	float hw = TERRAIN_WIDTH / 2.0f;
 	float step = (float)TERRAIN_WIDTH / (controlPoints.size() - 1);
@@ -17,7 +27,7 @@ Terrain::Terrain()
 			auto controlPoint = Vector3();
 
 			controlPoint.x = step * i - hw;
-			controlPoint.y = rand() % DELTA_Y;
+			controlPoint.y = rand() % deltaY;
 			controlPoint.z = step * j - hw;
 
 			controlPoints[i][j] = controlPoint;
@@ -50,6 +60,22 @@ Vector3 Terrain::calculateSplinePoint(int patchX, int patchZ, float s, float t)
 	}
 	
 	return p;
+}
+
+void Terrain::changeHillSize(bool grow)
+{
+	if (grow)
+	{
+		if (deltaY >= MAX_DELTA_Y) return;
+		deltaY += 10;
+	}
+	else
+	{
+		if (deltaY <= MIN_DELTA_Y) return;
+		deltaY -= 10;
+	}
+
+	generateTerrain();
 }
 
 Vector3 Terrain::applyRotation(Vector3 p)

@@ -7,6 +7,8 @@ enum Keys
 	D = 100,
 	S = 115,
 	W = 119,
+	Z = 122,
+	X = 120,
 	LEFT = 200,
 	UP = 201,
 	RIGHT = 202,

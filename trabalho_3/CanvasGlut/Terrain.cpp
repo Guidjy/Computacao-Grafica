@@ -136,6 +136,45 @@ void Terrain::render()
 	}
 }
 
+Vector3 Terrain::getSurfacePoint(float x, float z)
+{
+	float hw = TERRAIN_WIDTH / 2.0f;
+	float step = (float)TERRAIN_WIDTH / (controlPoints.size() - 1);
+
+	// normalizes global coords to the grid space
+	float gridX = (x + hw) / step - 1.0f;  // -1 because the B-Spline doesn't actually touch the edges
+	float gridZ = (z + hw) / step - 1.0f;
+
+	// gets the patch that the point is in
+	int patchX = (int)floor(gridX);
+	int patchZ = (int)floor(gridZ);
+
+	// getsh the parameters of that patch for (x, z)
+	float s = gridX - patchX;
+	float t = gridZ - patchZ;
+
+	// makes sure that an out of bounds control points won't be accessed by the window
+	int maxPatch = controlPoints.size() - 4;
+	if (patchX < 0) 
+	{ 
+		patchX = 0; s = 0.0f; 
+	}
+	else if (patchX > maxPatch) 
+	{ 
+		patchX = maxPatch; s = 1.0f; 
+	}
+	if (patchZ < 0) 
+	{ 
+		patchZ = 0; t = 0.0f; 
+	}
+	else if (patchZ > maxPatch)
+	{ 
+		patchZ = maxPatch; t = 1.0f; 
+	}
+	
+	return calculateSplinePoint(patchX, patchZ, s, t);
+}
+
 void Terrain::update()
 {
 	if (canRotate)

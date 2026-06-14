@@ -161,6 +161,11 @@ void CV::text(float x, float y, const char *t)
     }
 }
 
+void CV::text(Vector2 pos, const char* t)
+{
+    text(pos.x, pos.y, t);
+}
+
 void CV::clear(float r, float g, float b)
 {
    glClearColor( r, g, b, 1 );

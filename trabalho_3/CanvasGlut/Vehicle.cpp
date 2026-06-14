@@ -3,13 +3,20 @@
 #include "Camera.h"
 #include "GlobalSettings.h"
 #include "Keys.h"
+#include "Frames.h"
 
 
-Vehicle::Vehicle()
+Vehicle::Vehicle(Terrain* _terrainReference)
 {
 	pos = Vector3(0, 0, 0);
 	velocity = Vector2(0, 0);
 	direction = Vector2(0, 1);
+	vertices = std::array<Vector3, 3>({
+		Vector3(pos.x, pos.y, pos.z + lenght / 2),
+		Vector3(pos.x - width / 2, pos.y, pos.z - lenght / 2),
+		Vector3(pos.x + width / 2, pos.y, pos.z - lenght / 2)
+	});
+	terrainReference = _terrainReference;
 }
 
 void Vehicle::handleKeyboardInput()
@@ -39,31 +46,65 @@ void Vehicle::handleKeyboardInput()
 	}
 }
 
+void Vehicle::rotate()
+{
+	// rotates vehicle based on the velocity vector if it's moving
+	if (abs(velocity.x) > 0.01 || abs(velocity.y) > 0.01)
+	{
+		// Subtract PI/2 because the vehicle's tip defaults to +Z, but atan2 defaults 0 radians to +X. (maybe rethink this later)
+		currentHorizontalAngle = atan2(velocity.y, velocity.x) - PI/2;
+	}
+
+	float cosA = cos(currentHorizontalAngle);
+	float sinA = sin(currentHorizontalAngle);
+
+	// Local unrotated vertices
+	std::array<Vector3, 3> localVertices = std::array<Vector3, 3>({
+		Vector3(0, 0, lenght / 2),            // Tip
+		Vector3(-width / 2, 0, -lenght / 2),  // rear Left
+		Vector3(width / 2, 0, -lenght / 2)    // rear Right
+	});
+
+	for (int i = 0; i < localVertices.size(); i++)
+	{
+		// Rotate the local vertices
+		float rotatedX = localVertices[i].x * cosA - localVertices[i].z * sinA;
+		float rotatedZ = localVertices[i].x * sinA + localVertices[i].z * cosA;
+
+		// Apply the rotation, and translate to pos
+		vertices[i] = Vector3(pos.x + rotatedX, pos.y, pos.z + rotatedZ);
+	}
+}
+
+void Vehicle::move()
+{
+	double dt = Frames::getInstance()->getDeltaTime();
+
+	velocity = velocity + direction * acceleration * dt;
+	velocity = velocity * friction * dt;
+
+	if (velocity.x > MAX_VELOCITY) velocity.x = MAX_VELOCITY;
+	if (velocity.x < -MAX_VELOCITY) velocity.x = -MAX_VELOCITY;
+	if (velocity.y > MAX_VELOCITY) velocity.y = MAX_VELOCITY;
+	if (velocity.y < -MAX_VELOCITY) velocity.y = -MAX_VELOCITY;
+
+	pos.x += velocity.x;
+	pos.z += velocity.y;
+}
+
 void Vehicle::render()
 {
-	Vector3 rearAxlePos = pos;
-	rearAxlePos.z -= lenght / 2;
-
-	Vector3 rearLeftWheelPos = rearAxlePos;
-	rearLeftWheelPos.x -= width / 2;
-
-	Vector3 rearRightWheelPos = rearAxlePos;
-	rearRightWheelPos.x += width / 2;
-
-	Vector3 frontWheelPos = pos;
-	frontWheelPos.z += lenght / 2;
-
 	Camera* cam = Camera::getInstance();
 
-	Vector2 p1 = cam->projectPoint(cam->alignPoint(rearLeftWheelPos));
-	Vector2 p2 = cam->projectPoint(cam->alignPoint(rearRightWheelPos));
-	Vector2 p3 = cam->projectPoint(cam->alignPoint(frontWheelPos));
+	Vector2 p1 = cam->projectPoint(cam->alignPoint(vertices[0]));
+	Vector2 p2 = cam->projectPoint(cam->alignPoint(vertices[1]));
+	Vector2 p3 = cam->projectPoint(cam->alignPoint(vertices[2]));
 
 	CV::color(0.5, 1, 0.3);
 	// wheels
-	CV::circleFill(p1, 5, 10);
-	CV::circleFill(p2, 5, 10);
-	CV::circleFill(p3, 5, 10);
+	CV::circleFill(p1, 10, 10);
+	CV::circleFill(p2, 10, 10);
+	CV::circleFill(p3, 10, 10);
 	// body
 	CV::line(p1, p2);
 	CV::line(p2, p3);
@@ -74,10 +115,16 @@ void Vehicle::update()
 {
 	handleKeyboardInput();
 
-	velocity = velocity + direction * acceleration;
-	velocity = velocity * friction;
-	pos.x += velocity.x;
-	pos.z += velocity.y;
+	move();
+
+	rotate();
+
+	// makes the vehicle wheels actually stand on the terrain surface
+	for (int i = 0; i < vertices.size(); i++)
+	{
+		float wheelYPos = terrainReference->getSurfacePoint(vertices[i].x, vertices[i].z).y;
+		vertices[i].y = wheelYPos;
+	}
 
 	render();
 }

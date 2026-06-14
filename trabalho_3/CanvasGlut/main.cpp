@@ -32,6 +32,7 @@
 #include "Cube.h"
 #include "Terrain.h"
 #include "Vehicle.h"
+#include "Frames.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
@@ -43,6 +44,9 @@ Camera* cam = Camera::getInstance();
 std::vector<Vector3> cube = modelCube(1.0f, 0.0f);
 float offset = 0.0f;
 
+// fps control
+Frames* frames = nullptr;
+
 // t3
 Terrain* terrain = nullptr;
 Vehicle* car = nullptr;
@@ -52,6 +56,8 @@ Vehicle* car = nullptr;
 // Should be kept as simple as possible.
 void render()
 {
+	frames->calculateDeltaTime();
+
 	CV::color(0, 0, 0);
 	CV::rectFill(0, 0, screenWidth, screenHeight);
 
@@ -67,11 +73,10 @@ void render()
 
 	cam->update();
 
-	// limits frame rate
-	Sleep(10);
-
 	oldMouseX = mouseX;
 	oldMouseY = mouseY;
+
+	frames->render();
 }
 
 // called on key press
@@ -143,8 +148,12 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 
 int main(void)
 {
+	srand(time(0));
+
+	frames = Frames::getInstance();
+
 	terrain = new Terrain();
-	car = new Vehicle();
+	car = new Vehicle(terrain);
 
 	CV::init(&screenWidth, &screenHeight, "Titulo da Janela: Canvas 2D - Pressione 1, 2, 3");
 	CV::run();

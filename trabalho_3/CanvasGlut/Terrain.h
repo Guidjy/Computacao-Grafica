@@ -31,6 +31,9 @@ public:
 	// Returns an interpolated point in the B-Spline surface.
 	Vector3 calculateSplinePoint(int patchX, int patchZ, float s, float t);
 
+	// Returns a point in the surface given global (x, z) coordinates
+	Vector3 getSurfacePoint(float x, float z);
+
 	void update();
 
 	void render();

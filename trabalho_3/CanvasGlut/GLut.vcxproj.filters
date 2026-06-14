@@ -36,6 +36,12 @@
     <ClCompile Include="GlobalSettings.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="Vehicle.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Frames.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gl_canvas2d.h">
@@ -63,6 +69,12 @@
       <Filter>headers</Filter>
     </ClInclude>
     <ClInclude Include="Terrain.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Vehicle.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Frames.h">
       <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>

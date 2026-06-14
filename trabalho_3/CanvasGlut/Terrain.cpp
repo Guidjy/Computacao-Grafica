@@ -5,9 +5,9 @@
 #include <time.h>
 #include <array>
 
-Terrain::Terrain(int _deltaY)
+Terrain::Terrain()
 {
-	deltaY = _deltaY;
+	deltaY = MIN_DELTA_Y;
 
 	float hw = TERRAIN_WIDTH / 2.0f;
 	float step = (float)TERRAIN_WIDTH / (controlPoints.size() - 1);

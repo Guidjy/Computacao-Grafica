@@ -10,7 +10,7 @@ class Vehicle
 private:
 	const float width = 3;
 	const float lenght = 5;
-	std::array<Vector3, 3> vertices;
+	std::array<Vector3, 3> wheels;
 	float currentHorizontalAngle; 
 
 	Vector3 pos;

@@ -4,6 +4,7 @@
 #include "GlobalSettings.h"
 #include "Keys.h"
 #include "Frames.h"
+#include <math.h>
 
 
 Vehicle::Vehicle(Terrain* _terrainReference)
@@ -11,11 +12,12 @@ Vehicle::Vehicle(Terrain* _terrainReference)
 	pos = Vector3(0, 0, 0);
 	velocity = Vector2(0, 0);
 	direction = Vector2(0, 1);
-	vertices = std::array<Vector3, 3>({
+	wheels = std::array<Vector3, 3>({
 		Vector3(pos.x, pos.y, pos.z + lenght / 2),
 		Vector3(pos.x - width / 2, pos.y, pos.z - lenght / 2),
 		Vector3(pos.x + width / 2, pos.y, pos.z - lenght / 2)
 	});
+	currentHorizontalAngle = 0.0f;
 	terrainReference = _terrainReference;
 }
 
@@ -72,7 +74,17 @@ void Vehicle::rotate()
 		float rotatedZ = localVertices[i].x * sinA + localVertices[i].z * cosA;
 
 		// Apply the rotation, and translate to pos
-		vertices[i] = Vector3(pos.x + rotatedX, pos.y, pos.z + rotatedZ);
+		wheels[i] = Vector3(pos.x + rotatedX, pos.y, pos.z + rotatedZ);
+	}
+
+	// keeps vehicle proportions
+	wheels[0] = pos + (wheels[0] - pos).normalize() * (lenght / 2);
+
+	// makes the vehicle wheels actually stand on the terrain surface
+	for (int i = 0; i < wheels.size(); i++)
+	{
+		float wheelYPos = terrainReference->getSurfacePoint(wheels[i].x, wheels[i].z).y;
+		wheels[i].y = wheelYPos;
 	}
 }
 
@@ -90,15 +102,28 @@ void Vehicle::move()
 
 	pos.x += velocity.x;
 	pos.z += velocity.y;
+
+	// keeps vehicle in bounds
+	float hw = TERRAIN_WIDTH / 2 - 10;
+	if (pos.x < -hw) pos.x = -hw;
+	if (pos.x > hw) pos.x = hw;
+	if (pos.z < -hw) pos.z = -hw;
+	if (pos.z > hw) pos.z = hw;
 }
 
 void Vehicle::render()
 {
 	Camera* cam = Camera::getInstance();
 
-	Vector2 p1 = cam->projectPoint(cam->alignPoint(vertices[0]));
-	Vector2 p2 = cam->projectPoint(cam->alignPoint(vertices[1]));
-	Vector2 p3 = cam->projectPoint(cam->alignPoint(vertices[2]));
+	// makes sure the wheels stick to the terrain even if its rotated
+	for (int i = 0; i < wheels.size(); i++)
+	{
+		wheels[i] = terrainReference->applyRotation(wheels[i]);
+	}
+
+	Vector2 p1 = cam->projectPoint(cam->alignPoint(wheels[0]));
+	Vector2 p2 = cam->projectPoint(cam->alignPoint(wheels[1]));
+	Vector2 p3 = cam->projectPoint(cam->alignPoint(wheels[2]));
 
 	CV::color(0.5, 1, 0.3);
 	// wheels
@@ -118,13 +143,6 @@ void Vehicle::update()
 	move();
 
 	rotate();
-
-	// makes the vehicle wheels actually stand on the terrain surface
-	for (int i = 0; i < vertices.size(); i++)
-	{
-		float wheelYPos = terrainReference->getSurfacePoint(vertices[i].x, vertices[i].z).y;
-		vertices[i].y = wheelYPos;
-	}
 
 	render();
 }

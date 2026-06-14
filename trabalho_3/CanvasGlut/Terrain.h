@@ -15,7 +15,7 @@ private:
 	const float SENSITIVITY = 0.005f;
 	int deltaY;  // control point y-axis variation
 	const int MIN_DELTA_Y = 10;
-	const int MAX_DELTA_Y = 70;
+	const int MAX_DELTA_Y = 50;
 
 	// B(t) B-Spline base functions
 	float b0(float t) { return 1.0f / 6.0f * pow(1 - t, 3); }
@@ -25,12 +25,10 @@ private:
 
 	void generateTerrain();
 
-	Vector3 applyRotation(Vector3 p);
-
 public:
 	bool canRotate = false;
 
-	Terrain(int _deltaY=20);
+	Terrain();
 
 	// Returns an interpolated point in the B-Spline surface.
 	Vector3 calculateSplinePoint(int patchX, int patchZ, float s, float t);
@@ -40,6 +38,8 @@ public:
 
 	// increases terrain hill size if true is passed, otherwise decreases
 	void changeHillSize(bool grow);
+
+	Vector3 applyRotation(Vector3 p);
 
 	void update();
 

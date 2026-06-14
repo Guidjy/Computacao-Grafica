@@ -28,7 +28,7 @@ private:
 
 	float d;  // distance from the projection plane
 
-	Camera(Vector3 _eye=Vector3(0, -2, 3), Vector3 _target=Vector3(0, 0, 0), Vector3 _up=Vector3(0, 1, 0), float _d=200);
+	Camera(Vector3 _eye=Vector3(0, -10, -20), Vector3 _target=Vector3(0, 0, 0), Vector3 _up=Vector3(0, 1, 0), float _d=200);
 
 	// Returns a horizontal direction vector based on the keys that are currently pressed.
 	// Used to make the camera move forwards/backwards and sideways

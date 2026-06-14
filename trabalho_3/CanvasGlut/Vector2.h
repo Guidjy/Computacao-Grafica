@@ -60,6 +60,11 @@ public:
        return (x == v.x && y == v.y);
    }
 
+   Vector2 operator*(float value)
+   {
+       return Vector2(x * value, y * value);
+   }
+
 };
 
 #endif

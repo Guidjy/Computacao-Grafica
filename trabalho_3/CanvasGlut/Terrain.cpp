@@ -79,6 +79,7 @@ void Terrain::render()
 
 	CV::color(1, 1, 1);
 
+	// renders terrain
 	// Iterates over patches
 	for (int i = 0; i < controlPoints.size() - 3; i++)
 	{
@@ -119,6 +120,18 @@ void Terrain::render()
 					CV::line(pA, pD);
 				}
 			}
+		}
+	}
+
+	// renders control points
+	CV::color(1, 0, 0);
+	for (int i = 0; i < controlPoints.size(); i++)
+	{
+		for (int j = 0; j < controlPoints[i].size(); j++)
+		{
+			Vector3 p = applyRotation(controlPoints[i][j]);
+			p = cam->alignPoint(p);
+			CV::circleFill(cam->projectPoint(p), 3, 10);
 		}
 	}
 }

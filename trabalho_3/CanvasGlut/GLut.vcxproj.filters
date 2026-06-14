@@ -16,9 +16,6 @@
     <Filter Include="src\camera">
       <UniqueIdentifier>{0b0a1c5e-300a-4f59-9f0b-c97e7c9a8695}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\shared">
-      <UniqueIdentifier>{4c482958-42ef-4d85-9882-61f12173b144}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\terrain">
       <UniqueIdentifier>{5e8456de-dfb2-45e6-a5c7-4cfc66794dd0}</UniqueIdentifier>
     </Filter>
@@ -30,14 +27,14 @@
     <ClCompile Include="gl_canvas2d.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="GlobalSettings.cpp">
-      <Filter>src\shared</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>src\camera</Filter>
     </ClCompile>
     <ClCompile Include="Terrain.cpp">
       <Filter>src\terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalSettings.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

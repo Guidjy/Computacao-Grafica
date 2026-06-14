@@ -31,6 +31,7 @@
 #include "Camera.h"
 #include "Cube.h"
 #include "Terrain.h"
+#include "Vehicle.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
@@ -44,6 +45,7 @@ float offset = 0.0f;
 
 // t3
 Terrain* terrain = nullptr;
+Vehicle* car = nullptr;
 
 // Called continuously. Objects to be drawn should be controlled by global variables.
 // All of the method calls for drawing objects should be done here.
@@ -60,6 +62,8 @@ void render()
 	renderCube(cube);
 
 	terrain->update();
+
+	car->update();
 
 	cam->update();
 
@@ -140,6 +144,7 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 int main(void)
 {
 	terrain = new Terrain();
+	car = new Vehicle();
 
 	CV::init(&screenWidth, &screenHeight, "Titulo da Janela: Canvas 2D - Pressione 1, 2, 3");
 	CV::run();

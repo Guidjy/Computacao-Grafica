@@ -119,6 +119,70 @@ void Vehicle::move()
 	if (pos.z > hw) pos.z = hw;
 }
 
+void Vehicle::drawWheel(Vector3 p, float radius)
+{
+	Camera* cam = Camera::getInstance();
+	CV::color(0.5, 1, 0.3);
+
+	const int RESOLUTION = 8;
+
+	// renders vertical lines
+	for (int i = 0; i < RESOLUTION; i++)
+	{
+		float theta = (float)i / RESOLUTION * PI_2;
+		for (int j = 0; j < RESOLUTION; j++)
+		{
+			float phi1 = (float)j / RESOLUTION * PI;
+			float phi2 = (float)(j + 1) / RESOLUTION * PI;
+
+			Vector3 v1(
+				p.x + radius * sin(phi1) * cos(theta),
+				p.y + radius * cos(phi1),
+				p.z + radius * sin(phi1) * sin(theta)
+			);
+
+			Vector3 v2(
+				p.x + radius * sin(phi2) * cos(theta),
+				p.y + radius * cos(phi2),
+				p.z + radius * sin(phi2) * sin(theta)
+			);
+
+			Vector2 pA = cam->projectPoint(cam->alignPoint(v1));
+			Vector2 pB = cam->projectPoint(cam->alignPoint(v2));
+
+			CV::line(pA, pB);
+		}
+	}
+
+	// renders horizontal lines
+	for (int j = 1; j < RESOLUTION; j++)
+	{
+		float phi = (float)j / RESOLUTION * PI;
+		for (int i = 0; i < RESOLUTION; i++)
+		{
+			float theta1 = (float)i / RESOLUTION * PI_2;
+			float theta2 = (float)(i + 1) / RESOLUTION * PI_2;
+
+			Vector3 v1(
+				p.x + radius * sin(phi) * cos(theta1),
+				p.y + radius * cos(phi),
+				p.z + radius * sin(phi) * sin(theta1)
+			);
+
+			Vector3 v2(
+				p.x + radius * sin(phi) * cos(theta2),
+				p.y + radius * cos(phi),
+				p.z + radius * sin(phi) * sin(theta2)
+			);
+
+			Vector2 pA = cam->projectPoint(cam->alignPoint(v1));
+			Vector2 pB = cam->projectPoint(cam->alignPoint(v2));
+
+			CV::line(pA, pB);
+		}
+	}
+}
+
 void Vehicle::render()
 {
 	Camera* cam = Camera::getInstance();
@@ -132,15 +196,12 @@ void Vehicle::render()
 	}
 
 	// wheels
-	Vector2 frontWheel = cam->projectPoint(cam->alignPoint(wheels[0]));
-	Vector2 leftRearWheel = cam->projectPoint(cam->alignPoint(wheels[1]));
-	Vector2 rightRearWheel = cam->projectPoint(cam->alignPoint(wheels[2]));
+	for (auto wheel : wheels)
+	{
+		drawWheel(wheel, 0.5f);
+	}
 
-	CV::circleFill(frontWheel, 10, 10);
-	CV::circleFill(leftRearWheel, 10, 10);
-	CV::circleFill(rightRearWheel, 10, 10);
-
-	// body
+	// base
 	Vector2 front = cam->projectPoint(cam->alignPoint(Vector3(wheels[0].x, wheels[0].y - 2, wheels[0].z)));
 	Vector2 backLeft = cam->projectPoint(cam->alignPoint(Vector3(wheels[1].x, wheels[1].y - 2, wheels[1].z)));
 	Vector2 backRight = cam->projectPoint(cam->alignPoint(Vector3(wheels[2].x, wheels[2].y - 2, wheels[2].z)));
@@ -148,6 +209,17 @@ void Vehicle::render()
 	CV::line(front, backLeft);
 	CV::line(backLeft, backRight);
 	CV::line(backRight, front);
+	
+	// roof
+	Vector3 baseCenter = (wheels[0] + wheels[1] + wheels[2]) * (1.0f / 3.0f);
+	Vector3 upDirection = (wheels[1] - wheels[0]).crossProduct(wheels[2] - wheels[0]).normalize() * 3.0f;
+	Vector3 roofPos = baseCenter + upDirection;
+
+	Vector2 roof = cam->projectPoint(cam->alignPoint(roofPos));
+
+	CV::line(front, roof);
+	CV::line(backLeft, roof);
+	CV::line(backRight, roof);
 }
 
 void Vehicle::update()

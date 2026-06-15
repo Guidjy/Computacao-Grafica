@@ -14,6 +14,11 @@
 //    Programa cheio de numeros magicos. Nao use isso nunca.
 // *********************************************************************/
 
+/*
+- Requisitos básicos implementados: todos
+- Extras: Remoção de faces ocultas
+*/
+
 #include <GL/glut.h>
 #include <GL/freeglut_ext.h> // mouse wheel callback
 

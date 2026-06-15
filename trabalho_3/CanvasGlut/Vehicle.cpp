@@ -50,41 +50,49 @@ void Vehicle::handleKeyboardInput()
 
 void Vehicle::rotate()
 {
-	// rotates vehicle based on the velocity vector if it's moving
+	// do not ask me abt this bih
+
+	pos.y = terrainReference->getSurfacePoint(pos.x, pos.z).y;
+
+	// rotates vehicle based on the velocity vector
 	if (abs(velocity.x) > 0.01 || abs(velocity.y) > 0.01)
 	{
-		// Subtract PI/2 because the vehicle's tip defaults to +Z, but atan2 defaults 0 radians to +X. (maybe rethink this later)
-		currentHorizontalAngle = atan2(velocity.y, velocity.x) - PI/2;
+		currentHorizontalAngle = atan2(velocity.y, velocity.x) - PI / 2;
 	}
-
 	float cosA = cos(currentHorizontalAngle);
 	float sinA = sin(currentHorizontalAngle);
 
-	// Local unrotated vertices
+	// vnot-yet rotated vehicle vertices
 	std::array<Vector3, 3> localVertices = std::array<Vector3, 3>({
-		Vector3(0, 0, lenght / 2),            // Tip
-		Vector3(-width / 2, 0, -lenght / 2),  // rear Left
-		Vector3(width / 2, 0, -lenght / 2)    // rear Right
-	});
+		Vector3(0, 0, lenght / 2),            // tip
+		Vector3(-width / 2, 0, -lenght / 2),  // left back
+		Vector3(width / 2, 0, -lenght / 2)    // right back
+		});
 
-	for (int i = 0; i < localVertices.size(); i++)
+	// gets terrain position for the vertices
+	std::array<Vector3, 3> rotatedVertices;
+	for (int i = 0; i < 3; i++)
 	{
-		// Rotate the local vertices
 		float rotatedX = localVertices[i].x * cosA - localVertices[i].z * sinA;
 		float rotatedZ = localVertices[i].x * sinA + localVertices[i].z * cosA;
 
-		// Apply the rotation, and translate to pos
-		wheels[i] = Vector3(pos.x + rotatedX, pos.y, pos.z + rotatedZ);
+		float hitY = terrainReference->getSurfacePoint(pos.x + rotatedX, pos.z + rotatedZ).y;
+
+		rotatedVertices[i] = Vector3(pos.x + rotatedX, hitY, pos.z + rotatedZ);
 	}
 
-	// keeps vehicle proportions
-	wheels[0] = pos + (wheels[0] - pos).normalize() * (lenght / 2);
+	// defins vehicle bodyy
+	Vector3 rearMidpoint = (rotatedVertices[1] + rotatedVertices[2]) / 2;
+	Vector3 forwardVec = (rotatedVertices[0] - rearMidpoint).normalize();
+	Vector3 approxRight = (rotatedVertices[2] - rotatedVertices[1]).normalize();
+	Vector3 upVec = forwardVec.crossProduct(approxRight).normalize();
+	Vector3 rightVec = upVec.crossProduct(forwardVec).normalize();
 
-	// makes the vehicle wheels actually stand on the terrain surface
-	for (int i = 0; i < wheels.size(); i++)
+	for (int i = 0; i < localVertices.size(); i++)
 	{
-		float wheelYPos = terrainReference->getSurfacePoint(wheels[i].x, wheels[i].z).y;
-		wheels[i].y = wheelYPos;
+		Vector3 rotatedPoint = (rightVec * localVertices[i].x) + (upVec * localVertices[i].y) + (forwardVec * localVertices[i].z);
+
+		wheels[i] = pos + rotatedPoint;
 	}
 }
 

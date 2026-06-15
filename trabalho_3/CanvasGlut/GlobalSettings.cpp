@@ -45,5 +45,6 @@ void renderHUD()
 	CV::text(-hw + 10, 20 - hh, "Move Camera: WASD");
 	CV::text(-hw + 10, 40 - hh, "Move Vehicle: Arrow Keys");
 	CV::text(-hw + 10, 60 - hh, "Increase/Decrease Hill Size: Z/X");
-	CV::text(-hw + 10, 80 - hh, "Rotate Surface: Mouse Drag");
+	CV::text(-hw + 10, 80 - hh, "Toggle Backface Culling: C");
+	CV::text(-hw + 10, 100 - hh, "Rotate Surface: Mouse Drag");
 }

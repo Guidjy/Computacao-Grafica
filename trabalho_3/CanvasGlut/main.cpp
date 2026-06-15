@@ -88,6 +88,9 @@ void keyboard(int key)
 	{
 		case 27:
 			exit(0);
+		case C:
+			terrain->shouldCull = !terrain->shouldCull;
+			break;
 		case Z:
 			terrain->changeHillSize(true);
 			break;

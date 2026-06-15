@@ -23,6 +23,9 @@ private:
 
 	Terrain* terrainReference;
 
+	// renders a sphere around a point p
+	void drawWheel(Vector3 p, float radius=5.0f);
+
 	void handleKeyboardInput();
 
 	// rotates the vehicle based on its velocity vector

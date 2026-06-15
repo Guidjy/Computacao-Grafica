@@ -97,21 +97,13 @@ Vector3 Terrain::applyRotation(Vector3 p)
 
 void Terrain::render()
 {
-	// Each segment of a B-Sline line requires 4 control points to be drawn.
-	// For a 3d B-Spline surface, a 4x4 block is then required. A sliding window algorithm
-	// can be used to draw each patch (ex: for a 10x10 patch, [0, 1, 2, 3], [1, 2, 3 ,4], ..., [6, 7, 8, 9])
-
 	Camera* cam = Camera::getInstance();
-
 	CV::color(1, 1, 1);
 
-	// renders terrain
-	// Iterates over patches
 	for (int i = 0; i < controlPoints.size() - 3; i++)
 	{
 		for (int j = 0; j < controlPoints[i].size() - 3; j++)
 		{
-			// Interpolates s and t points over a [0, 1] range
 			float step = 0.25f;
 			for (float s = 0.0f; s < 1.0f; s += step)
 			{
@@ -127,10 +119,25 @@ void Terrain::render()
 					p2 = applyRotation(p2);
 					p3 = applyRotation(p3);
 
+					// Alinhamento para o View Space (Câmera na origem 0,0,0)
 					p0 = cam->alignPoint(p0);
 					p1 = cam->alignPoint(p1);
 					p2 = cam->alignPoint(p2);
 					p3 = cam->alignPoint(p3);
+
+					// backface culling (doesn't render polygons that are facing away from the camera since they
+					// would be hidden by other polygons in front of it (only kinda half true without a z-buffer))
+					if (shouldCull)
+					{
+						Vector3 edge1 = p1 - p0;
+						Vector3 edge2 = p2 - p0;
+						Vector3 normal = edge2.crossProduct(edge1);
+						Vector3 viewDir = p0;
+						if (normal.dot(viewDir) > 0.0f)
+						{
+							continue;
+						}
+					}
 
 					Vector2 pA = cam->projectPoint(p0);
 					Vector2 pB = cam->projectPoint(p1);
@@ -146,18 +153,6 @@ void Terrain::render()
 					CV::line(pA, pD);
 				}
 			}
-		}
-	}
-
-	// renders control points
-	CV::color(1, 0, 0);
-	for (int i = 0; i < controlPoints.size(); i++)
-	{
-		for (int j = 0; j < controlPoints[i].size(); j++)
-		{
-			Vector3 p = applyRotation(controlPoints[i][j]);
-			p = cam->alignPoint(p);
-			CV::circleFill(cam->projectPoint(p), 3, 10);
 		}
 	}
 }

@@ -26,7 +26,8 @@ private:
 	void generateTerrain();
 
 public:
-	bool canRotate = false;
+	bool canRotate = false;   
+	bool shouldCull = false;
 
 	Terrain();
 

@@ -79,6 +79,12 @@ public:
         return(aux);
     }
 
+    Vector3 operator / (const Vector3& v)
+    {
+        Vector3 aux(x / v.x, y / v.y, z / v.z);
+        return(aux);
+    }
+
     bool operator==(const Vector3& v) const
     {
         return (x == v.x && y == v.y && z == v.z);
@@ -87,6 +93,11 @@ public:
     Vector3 operator*(float value)
     {
         return Vector3(x * value, y * value, z * value);
+    }
+
+    Vector3 operator/(float value)
+    {
+        return Vector3(x / value, y / value, z / value);
     }
 
     // my funcs

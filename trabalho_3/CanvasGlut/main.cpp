@@ -16,7 +16,9 @@
 
 /*
 - Requisitos básicos implementados: todos
-- Extras: Remoção de faces ocultas
+- Extras: 
+	- Geometria volumétrica para rodas e corpo do veículo
+	- Remoção de faces ocultas
 */
 
 #include <GL/glut.h>

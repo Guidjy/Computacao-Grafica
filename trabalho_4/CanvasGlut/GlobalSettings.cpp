@@ -4,8 +4,8 @@
 
 
 // screen settings
-int screenWidth = 1920;
-int screenHeight = 1080;
+int screenWidth = 720;
+int screenHeight = 720;
 
 // mouse state
 int mouseX = 0;
@@ -21,6 +21,16 @@ std::list<int> pressedKeys = std::list<int>();
 // terrain settings
 const int TERRAIN_WIDTH = 100.0f;
 
+// lighting
+GLfloat lightPosition[] = { 0, 20, 0, 0 };
+GLfloat lightDifuse[] = { 1, 1, 1 };
+GLfloat lightSpecular[] = { 1, 1, 1 };
+
+int polygonMode = GL_FILL;
+int cullingMode = GL_BACK;
+int faceMode = GL_CW;
+
+float radToDeg = 180.0f / 3.14159265f;
 
 void updateMousePosition()
 {
@@ -47,4 +57,11 @@ void renderHUD()
 	CV::text(-hw + 10, 60 - hh, "Increase/Decrease Hill Size: Z/X");
 	CV::text(-hw + 10, 80 - hh, "Toggle Backface Culling: C");
 	CV::text(-hw + 10, 100 - hh, "Rotate Surface: Mouse Drag");
+}
+
+Vector3 normalVector(Vector3 p0, Vector3 p1, Vector3 p2)
+{
+	Vector3 edge1 = p2 - p0;
+	Vector3 edge2 = p1 - p0;
+	return edge1.crossProduct(edge2).normalize();
 }

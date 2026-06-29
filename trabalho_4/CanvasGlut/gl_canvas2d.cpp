@@ -40,12 +40,13 @@ float Colors[14][3]=
 void ConvertMouseCoord(int button, int state, int wheel, int direction, int x, int y);
 
 //funcoes de CALLBACK da biblioteca Glut
+/*
 void keyboard(int key);
 void keyboardUp(int key);
 void mouse(int bt, int st, int wheel, int direction, int x, int y);
 void mouseWheelCB(int wheel, int direction, int x, int y);
 void render();
-
+*/
 
 void CV::point(float x, float y)
 {
@@ -244,22 +245,22 @@ void CV::color(float r, float g, float b, float alpha)
 
 void special(int key, int , int )
 {
-   keyboard(key+100);
+   // keyboard(key+100);
 }
 
 void specialUp(int key, int , int )
 {
-   keyboardUp(key+100);
+   // keyboardUp(key+100);
 }
 
 void keyb(unsigned char key, int , int )
 {
-   keyboard(key);
+   // keyboard(key);
 }
 
 void keybUp(unsigned char key, int , int )
 {
-   keyboardUp(key);
+   // keyboardUp(key);
 }
 
 void mouseClick(int button, int state, int x, int y)
@@ -284,32 +285,13 @@ void ConvertMouseCoord(int button, int state, int wheel, int direction, int x, i
 #else
    //nao faz nada.
 #endif
-   mouse(button, state, wheel, direction, x, y);
+   // mouse(button, state, wheel, direction, x, y);
 }
 
 
 //funcao chamada sempre que a tela for redimensionada.
-void reshape (int w, int h)
-{
-   *scrHeight = h; //atualiza as variaveis da main() com a nova dimensao da tela.
-   *scrWidth = w;
+// void reshape (int w, int h)
 
-   glViewport (0, 0, (GLsizei) w, (GLsizei) h);
-   glMatrixMode (GL_PROJECTION);
-   glLoadIdentity ();
-
-   //cria uma projecao ortografica com z entre (-1, 1).
-#if Y_CANVAS_CRESCE_PARA_CIMA == TRUE
-   //parametros: left, right, bottom, top
-   gluOrtho2D (0.0, w, 0.0, h); //o eixo y cresce para cima.
-#else
-   //parametros: left, right, bottom, top
-   gluOrtho2D (0.0, w, h, 0.0); //o eixo y cresce para baixo
-#endif
-
-   glMatrixMode(GL_MODELVIEW);
-   glLoadIdentity ();
-}
 
 //definicao de valores para limpar buffers
 void inicializa()
@@ -318,6 +300,7 @@ void inicializa()
    glPolygonMode(GL_FRONT, GL_FILL);
 }
 
+/*
 void display (void)
 {
    glClear(GL_COLOR_BUFFER_BIT );
@@ -325,11 +308,12 @@ void display (void)
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
 
-   render();
+   // render();
 
    glFlush();
    glutSwapBuffers();
 }
+*/
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //  inicializa o OpenGL
@@ -353,14 +337,14 @@ void CV::init(int *w, int *h, const char *title)
 
    inicializa();
 
-   glutReshapeFunc(reshape);
-   glutDisplayFunc(display);
+   //glutReshapeFunc(reshape);
+   //glutDisplayFunc(display);
    glutKeyboardFunc(keyb);
    glutKeyboardUpFunc(keybUp);
    glutSpecialUpFunc(specialUp);
    glutSpecialFunc(special);
 
-   glutIdleFunc(display);
+   // glutIdleFunc(display);
    glutMouseFunc(mouseClick);
    glutPassiveMotionFunc(motion);
    glutMotionFunc(motion);

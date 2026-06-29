@@ -10,8 +10,9 @@ private:
 	static std::unique_ptr<Camera> instance;
 
 	const float SPEED = 0.1f;
-
 	const float SENSITIVITY = 0.005f;
+	const float FOV_Y = 20.0;
+
 
 	// câmera vectors
 	Vector3 eye;     // camera position
@@ -28,7 +29,7 @@ private:
 
 	float d;  // distance from the projection plane
 
-	Camera(Vector3 _eye=Vector3(0, -10, -20), Vector3 _target=Vector3(0, 0, 0), Vector3 _up=Vector3(0, 1, 0), float _d=200);
+	Camera(Vector3 _eye=Vector3(0, 100, -200), Vector3 _target=Vector3(0, 0, 0), Vector3 _up=Vector3(0, 1, 0), float _d=200);
 
 	// Returns a horizontal direction vector based on the keys that are currently pressed.
 	// Used to make the camera move forwards/backwards and sideways
@@ -42,6 +43,9 @@ public:
 	bool canLookAround = true;
 
 	static Camera* getInstance();
+
+	// fixed camera transformations
+	void applyTransformations();
 
 	// aligns camera and world space axes
 	void changeBasis();

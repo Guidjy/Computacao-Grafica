@@ -3,6 +3,7 @@
 #include "Vector3.h"
 #include <array>
 #include <math.h>
+#include <GL/glut.h>
 
 class Terrain
 {
@@ -16,6 +17,11 @@ private:
 	int deltaY;  // control point y-axis variation
 	const int MIN_DELTA_Y = 10;
 	const int MAX_DELTA_Y = 50;
+
+	// terrain material
+	const GLfloat matDiffuse[4] = { 0, 1, 0, 1 };
+	const GLfloat matSpecular[4] = { 1, 1, 1, 1 };
+	const GLfloat matShininess[4] = { 20 };
 
 	// B(t) B-Spline base functions
 	float b0(float t) { return 1.0f / 6.0f * pow(1 - t, 3); }

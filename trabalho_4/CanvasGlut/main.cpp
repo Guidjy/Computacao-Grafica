@@ -14,13 +14,6 @@
 //    Programa cheio de numeros magicos. Nao use isso nunca.
 // *********************************************************************/
 
-/*
-- Requisitos básicos implementados: todos
-- Extras: 
-	- Geometria volumétrica para rodas e corpo do veículo
-	- Remoção de faces ocultas
-*/
-
 #include <GL/glut.h>
 #include <GL/freeglut_ext.h> // mouse wheel callback
 
@@ -32,7 +25,6 @@
 #include <vector>
 #include <algorithm>
 
-#include "gl_canvas2d.h"
 #include "GlobalSettings.h"
 #include "mouseStates.h"
 #include "Camera.h"
@@ -59,39 +51,45 @@ Vehicle* car = nullptr;
 // Called continuously. Objects to be drawn should be controlled by global variables.
 // All of the method calls for drawing objects should be done here.
 // Should be kept as simple as possible.
-void render()
+void display()
 {
 	frames->calculateDeltaTime();
 
-	renderBackground();
-	renderHUD();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	cam->changeBasis();
+	cam->update();
+
+	// renderHUD();
+
+	glutSolidTeapot(1.2);
 
 	terrain->update();
 	car->update();
-	cam->update();
 	updateMousePosition();
+
+	glutSwapBuffers();
 
 	frames->render();
 }
 
 // called on key press
-void keyboard(int key)
+void keyboard(unsigned char key, int, int)
 {
-	auto iterator = std::find(pressedKeys.begin(), pressedKeys.end(), key);
+	int k = (int)key;
+
+	auto iterator = std::find(pressedKeys.begin(), pressedKeys.end(), k);
 	if (iterator == pressedKeys.end())
 	{
-		pressedKeys.push_back(key);
+		pressedKeys.push_back(k);
 	}
 
-	printf("\nTecla: %d" , key);
-	if( key < 200 )
+	printf("\nTecla: %d" , k);
+	if(k < 200 )
 	{
-		opcao = key;
+		opcao = k;
 	}
 
-	switch(key)
+	switch(k)
 	{
 		case 27:
 			exit(0);
@@ -109,19 +107,21 @@ void keyboard(int key)
 }
 
 // called on key release
-void keyboardUp(int key)
+void keyboardUp(unsigned char key, int , int )
 {
-	auto iterator = std::find(pressedKeys.begin(), pressedKeys.end(), key);
+	int k = (int)key;
+
+	auto iterator = std::find(pressedKeys.begin(), pressedKeys.end(), k);
 	if (iterator != pressedKeys.end())
 	{
-		pressedKeys.remove(key);
+		pressedKeys.remove(k);
 	}
 
-	printf("\nLiberou: %d" , key);
+	printf("\nLiberou: %d" , k);
 }
 
 // called on mouse click, movement or drag
-void mouse(int button, int state, int wheel, int direction, int x, int y)
+void mouse(int button, int state, int x, int y)
 {
 	// stores mouse coordinates to be displayed inside render()
 	oldMouseX = mouseX;
@@ -129,8 +129,6 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 	mouseX = x;
 	mouseY = y;
 	mouseState = state;
-
-	printf("\nmouse %d %d %d %d %d %d", button, state, wheel, direction,  x, y);
 
 	oldMouseState = mouseState;
 	switch (state)
@@ -145,22 +143,77 @@ void mouse(int button, int state, int wheel, int direction, int x, int y)
 		break;
 	case RELEASE:
 		mouseState = HOVER;
-		cam->canLookAround = true;	
+		cam->canLookAround = false;
 		terrain->canRotate = false;
 		break;
 	}
-
 }
 
-int main(void)
+void reshape(int w, int h)
 {
+	// updates viewport size
+    screenHeight = h;
+    screenWidth = w;
+    glViewport(0, 0, (GLsizei)w, (GLsizei)h); 
+    
+	// updates aspect ration
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(60.0, (GLfloat)w / (GLfloat)h, 0.1, 1000.0); 
+
+    // goes back to editing the modelview
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+}
+
+int main(int argc, char** argv)
+{
+	glutInit(&argc, argv);
+
+	// specifies number of buffers being used and their params
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
+
+	glutInitWindowPosition(50, 50);
+
+	glutInitWindowSize(screenWidth, screenHeight);
+
+	glutCreateWindow("Trabalho Prático - Computação Gráfica UFSM");
+
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+	// callbacks
+	glutDisplayFunc(display);       
+	glutIdleFunc(display);
+	glutKeyboardFunc(keyboard);  
+	glutKeyboardUpFunc(keyboardUp);
+	glutMouseFunc(mouse);
+	glutReshapeFunc(reshape);
+
+	// backface culling
+	glPolygonMode(GL_FRONT, GL_FILL);
+	glPolygonMode(GL_BACK, GL_LINE);
+	glEnable(GL_CULL_FACE);
+	glFrontFace(faceMode);
+	glCullFace(cullingMode);
+
+	// enables lighting
+	glShadeModel(GL_SMOOTH);
+	glEnable(GL_LIGHTING);
+
+	// creates light source
+	glEnable(GL_LIGHT0);
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDifuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, lightSpecular);
+
+	// game
 	srand(time(0));
 
 	frames = Frames::getInstance();
-
 	terrain = new Terrain();
 	car = new Vehicle(terrain);
 
-	CV::init(&screenWidth, &screenHeight, "Titulo da Janela: Canvas 2D - Pressione 1, 2, 3");
-	CV::run();
+	glutMainLoop();
+
+	return 0;
 }

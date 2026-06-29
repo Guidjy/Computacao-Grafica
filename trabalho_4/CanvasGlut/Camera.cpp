@@ -1,6 +1,7 @@
 #include "Camera.h"
 #include "GlobalSettings.h"
 #include "mouseStates.h"
+#include <GL/glut.h>
 #include "Keys.h"
 #include <memory>
 #include <math.h>
@@ -28,6 +29,23 @@ Camera* Camera::getInstance()
 	}
 
 	return instance.get();
+}
+
+void Camera::applyTransformations()
+{
+	// configures perspective projection
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(FOV_Y, screenWidth / screenHeight, 0.1f, 1000.0f);
+
+	// camera position
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluLookAt(
+		eye.x, eye.y, eye.z,
+		target.x, target.y, target.z,
+		up.x, up.y, up.z
+	);
 }
 
 void Camera::changeBasis()
@@ -111,24 +129,5 @@ Vector2 Camera::handleMouseInput()
 
 void Camera::update()
 {
-	// updates camera target
-	if (canLookAround)
-	{
-		Vector2 viewDir = handleMouseInput();
-		yaw += viewDir.x * SENSITIVITY;
-		pitch += viewDir.y * SENSITIVITY;
-	}
-
-	auto forward = Vector3();
-	forward.x = sin(pitch) * sin(yaw);
-	forward.y = -cos(pitch);
-	forward.z = sin(pitch) * cos(yaw);
-
-	target = eye + forward;
-
-	// updates camera position
-	Vector2 movementDir = handleKeyboardInput();
-	eye = eye + forward * movementDir.x * SPEED;
-	Vector3 right = (up.crossProduct(forward)).normalize();
-	eye = eye + right * movementDir.y * SPEED;
+	applyTransformations();
 }

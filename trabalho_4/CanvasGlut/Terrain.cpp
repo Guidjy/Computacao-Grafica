@@ -97,64 +97,64 @@ Vector3 Terrain::applyRotation(Vector3 p)
 
 void Terrain::render()
 {
-	Camera* cam = Camera::getInstance();
-	CV::color(1, 1, 1);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, matDiffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, matSpecular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, matShininess);
 
-	for (int i = 0; i < controlPoints.size() - 3; i++)
-	{
-		for (int j = 0; j < controlPoints[i].size() - 3; j++)
+	// Draws wireframe
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	// saves transformation state
+	glPushMatrix();
+
+	// Aplica a rotação nos eixos X (pitch) e Y (yaw)
+	glRotatef(pitch * radToDeg, 1.0f, 0.0f, 0.0f);
+	glRotatef(yaw * radToDeg, 0.0f, 1.0f, 0.0f);
+
+	glBegin(GL_TRIANGLES);
+		for (int i = 0; i < controlPoints.size() - 3; i++)
 		{
-			float step = 0.25f;
-			for (float s = 0.0f; s < 1.0f; s += step)
+			for (int j = 0; j < controlPoints[i].size() - 3; j++)
 			{
-				for (float t = 0.0f; t < 1.0f; t += step)
+				float step = 0.25f;
+				for (float s = 0.0f; s < 1.0f; s += step)
 				{
-					Vector3 p0 = calculateSplinePoint(i, j, s, t);			      // bottom-left
-					Vector3 p1 = calculateSplinePoint(i, j, s + step, t);         // top-left
-					Vector3 p2 = calculateSplinePoint(i, j, s, t + step);         // bottom-right
-					Vector3 p3 = calculateSplinePoint(i, j, s + step, t + step);  // top-right
-
-					p0 = applyRotation(p0);
-					p1 = applyRotation(p1);
-					p2 = applyRotation(p2);
-					p3 = applyRotation(p3);
-
-					// Alinhamento para o View Space (Câmera na origem 0,0,0)
-					p0 = cam->alignPoint(p0);
-					p1 = cam->alignPoint(p1);
-					p2 = cam->alignPoint(p2);
-					p3 = cam->alignPoint(p3);
-
-					// backface culling (doesn't render polygons that are facing away from the camera since they
-					// would be hidden by other polygons in front of it (only kinda half true without a z-buffer))
-					if (shouldCull)
+					for (float t = 0.0f; t < 1.0f; t += step)
 					{
-						Vector3 edge1 = p1 - p0;
-						Vector3 edge2 = p2 - p0;
-						Vector3 normal = edge2.crossProduct(edge1);
-						Vector3 viewDir = p0;
-						if (normal.dot(viewDir) > 0.0f)
-						{
-							continue;
-						}
+						Vector3 p0 = calculateSplinePoint(i, j, s, t);                // bottom-left
+						Vector3 p1 = calculateSplinePoint(i, j, s + step, t);         // top-left
+						Vector3 p2 = calculateSplinePoint(i, j, s, t + step);         // bottom-right
+						Vector3 p3 = calculateSplinePoint(i, j, s + step, t + step);  // top-right
+
+						Vector3 edge1 = p2 - p0;
+						Vector3 edge2 = p1 - p0;
+						Vector3 normal = edge2.crossProduct(edge1).normalize();
+						glNormal3f(normal.x, normal.y, normal.z);
+
+						// Draws triangles counter-clockwise (important for backface culling)
+						glVertex3f(p0.x, p0.y, p0.z);
+						glVertex3f(p2.x, p2.y, p2.z);
+						glVertex3f(p1.x, p1.y, p1.z);
+
+						edge1 = p2 - p0;
+						edge2 = p1 - p0;
+						normal = edge2.crossProduct(edge1).normalize();
+						glNormal3f(normal.x, normal.y, normal.z);
+
+						glVertex3f(p1.x, p1.y, p1.z);
+						glVertex3f(p2.x, p2.y, p2.z);
+						glVertex3f(p3.x, p3.y, p3.z);
 					}
-
-					Vector2 pA = cam->projectPoint(p0);
-					Vector2 pB = cam->projectPoint(p1);
-					Vector2 pC = cam->projectPoint(p2);
-					Vector2 pD = cam->projectPoint(p3);
-
-					// Square perimeter (same as two vertexes)
-					CV::line(pA, pB);
-					CV::line(pB, pD);
-					CV::line(pD, pC);
-					CV::line(pC, pA);
-					// Diagonal line
-					CV::line(pA, pD);
 				}
 			}
 		}
-	}
+	glEnd();
+
+	// Restores transformation state
+	glPopMatrix();
+
+	// Restores GL_FILL
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 Vector3 Terrain::getSurfacePoint(float x, float z)

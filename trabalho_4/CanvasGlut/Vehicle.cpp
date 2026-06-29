@@ -192,7 +192,7 @@ void Vehicle::render()
 	// makes sure the wheels stick to the terrain even if its rotated
 	for (int i = 0; i < wheels.size(); i++)
 	{
-		wheels[i] = terrainReference->applyRotation(wheels[i]);
+		// wheels[i] = terrainReference->applyRotation(wheels[i]);
 	}
 
 	// wheels

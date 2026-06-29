@@ -3,7 +3,6 @@
 #include <GL/glut.h>
 #include "Vector3.h"
 
-
 // screen settings
 extern int screenWidth;
 extern int screenHeight;
@@ -32,6 +31,11 @@ extern int cullingMode;
 extern int faceMode;
 
 extern float radToDeg;
+
+// world transformations
+extern float scenePitch;  // horizontal rotation
+extern float sceneYaw;	  // vertical rotation
+extern const float ROTATION_SENSITIVITY;
 
 void updateMousePosition();
 

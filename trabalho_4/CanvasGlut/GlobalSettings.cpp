@@ -32,6 +32,11 @@ int faceMode = GL_CW;
 
 float radToDeg = 180.0f / 3.14159265f;
 
+// world transformations
+float scenePitch = 0.0f;  // horizontal rotation
+float sceneYaw = 0.0f;	  // vertical rotation
+const float ROTATION_SENSITIVITY = 0.005f;  // rotation sensitivity
+
 void updateMousePosition()
 {
 	oldMouseX = mouseX;

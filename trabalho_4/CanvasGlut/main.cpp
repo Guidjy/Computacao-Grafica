@@ -63,8 +63,14 @@ void display()
 
 	glutSolidTeapot(1.2);
 
-	terrain->update();
-	car->update();
+	glPushMatrix();
+		glRotatef(scenePitch * radToDeg, 1.0f, 0.0f, 0.0f);
+		glRotatef(sceneYaw * radToDeg, 0.0f, 1.0f, 0.0f);
+
+		terrain->update();
+		car->update();
+	glPopMatrix();
+
 	updateMousePosition();
 
 	glutSwapBuffers();
@@ -83,31 +89,42 @@ void keyboard(unsigned char key, int, int)
 		pressedKeys.push_back(k);
 	}
 
-	printf("\nTecla: %d" , k);
-	if(k < 200 )
+	printf("\nTecla: %d", k);
+	if (k < 200)
 	{
 		opcao = k;
 	}
 
-	switch(k)
+	switch (k)
 	{
-		case 27:
-			exit(0);
-		case C:
-			terrain->shouldCull = !terrain->shouldCull;
-			break;
-		case Z:
-			terrain->changeHillSize(true);
-			break;
-		case X:
-			terrain->changeHillSize(false);
-			break;
+	case 27:
+		exit(0);
+	case C:
+		terrain->shouldCull = !terrain->shouldCull;
+		if (terrain->shouldCull)
+		{
+			glEnable(GL_CULL_FACE);
+		}
+		else
+		{
+			glDisable(GL_CULL_FACE);
+		}
+		break;
+	case V:
+		terrain->isSmooth = !terrain->isSmooth;
+		break;
+	case Z:
+		terrain->changeHillSize(true);
+		break;
+	case X:
+		terrain->changeHillSize(false);
+		break;
 		break;
 	}
 }
 
 // called on key release
-void keyboardUp(unsigned char key, int , int )
+void keyboardUp(unsigned char key, int, int)
 {
 	int k = (int)key;
 
@@ -117,7 +134,7 @@ void keyboardUp(unsigned char key, int , int )
 		pressedKeys.remove(k);
 	}
 
-	printf("\nLiberou: %d" , k);
+	printf("\nLiberou: %d", k);
 }
 
 // called on mouse click, movement or drag
@@ -147,6 +164,23 @@ void mouse(int button, int state, int x, int y)
 		terrain->canRotate = false;
 		break;
 	}
+}
+
+void mouseDrag(int x, int y)
+{
+	if (mouseState == CLICK)
+	{
+		int deltaX = x - oldMouseX;
+		int deltaY = y - oldMouseY;
+
+		sceneYaw += deltaX * ROTATION_SENSITIVITY;
+		scenePitch += deltaY * ROTATION_SENSITIVITY;
+	}
+
+	oldMouseX = mouseX;
+	oldMouseY = mouseY;
+	mouseX = x;
+	mouseY = y;
 }
 
 void reshape(int w, int h)
@@ -187,14 +221,15 @@ int main(int argc, char** argv)
 	glutKeyboardFunc(keyboard);  
 	glutKeyboardUpFunc(keyboardUp);
 	glutMouseFunc(mouse);
+	glutMotionFunc(mouseDrag);
 	glutReshapeFunc(reshape);
 
 	// backface culling
 	glPolygonMode(GL_FRONT, GL_FILL);
 	glPolygonMode(GL_BACK, GL_LINE);
-	glEnable(GL_CULL_FACE);
 	glFrontFace(faceMode);
 	glCullFace(cullingMode);
+	// glEnable(GL_CULL_FACE);
 
 	// enables lighting
 	glShadeModel(GL_SMOOTH);

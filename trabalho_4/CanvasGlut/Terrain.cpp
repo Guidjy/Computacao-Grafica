@@ -78,6 +78,7 @@ void Terrain::changeHillSize(bool grow)
 	generateTerrain();
 }
 
+/*
 Vector3 Terrain::applyRotation(Vector3 p)
 {
 	Vector3 temp = p;
@@ -94,6 +95,7 @@ Vector3 Terrain::applyRotation(Vector3 p)
 
 	return temp;
 }
+*/
 
 void Terrain::render()
 {
@@ -101,15 +103,17 @@ void Terrain::render()
 	glMaterialfv(GL_FRONT, GL_SPECULAR, matSpecular);
 	glMaterialfv(GL_FRONT, GL_SHININESS, matShininess);
 
-	// Draws wireframe
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	if (isSmooth)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+	else
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
 
-	// saves transformation state
-	glPushMatrix();
-
-	// Aplica a rotação nos eixos X (pitch) e Y (yaw)
-	glRotatef(pitch * radToDeg, 1.0f, 0.0f, 0.0f);
-	glRotatef(yaw * radToDeg, 0.0f, 1.0f, 0.0f);
+	// glRotatef(pitch * radToDeg, 1.0f, 0.0f, 0.0f);
+	// glRotatef(yaw * radToDeg, 0.0f, 1.0f, 0.0f);
 
 	glBegin(GL_TRIANGLES);
 		for (int i = 0; i < controlPoints.size() - 3; i++)
@@ -126,23 +130,24 @@ void Terrain::render()
 						Vector3 p2 = calculateSplinePoint(i, j, s, t + step);         // bottom-right
 						Vector3 p3 = calculateSplinePoint(i, j, s + step, t + step);  // top-right
 
-						Vector3 edge1 = p2 - p0;
-						Vector3 edge2 = p1 - p0;
-						Vector3 normal = edge2.crossProduct(edge1).normalize();
-						glNormal3f(normal.x, normal.y, normal.z);
+						Vector3 n0 = calculateVertexNormal(i, j, s, t);
+						Vector3 n1 = calculateVertexNormal(i, j, s + step, t);
+						Vector3 n2 = calculateVertexNormal(i, j, s, t + step);
+						Vector3 n3 = calculateVertexNormal(i, j, s + step, t + step);
 
-						// Draws triangles counter-clockwise (important for backface culling)
+						// 0-0: Draws triangles counter-clockwise (important for backface culling)
+						glNormal3f(n0.x, n0.y, n0.z);
 						glVertex3f(p0.x, p0.y, p0.z);
+						glNormal3f(n2.x, n2.y, n2.z);
 						glVertex3f(p2.x, p2.y, p2.z);
+						glNormal3f(n1.x, n1.y, n1.z);
 						glVertex3f(p1.x, p1.y, p1.z);
 
-						edge1 = p2 - p0;
-						edge2 = p1 - p0;
-						normal = edge2.crossProduct(edge1).normalize();
-						glNormal3f(normal.x, normal.y, normal.z);
-
+						glNormal3f(n1.x, n1.y, n1.z);
 						glVertex3f(p1.x, p1.y, p1.z);
+						glNormal3f(n2.x, n2.y, n2.z);
 						glVertex3f(p2.x, p2.y, p2.z);
+						glNormal3f(n3.x, n3.y, n3.z);
 						glVertex3f(p3.x, p3.y, p3.z);
 					}
 				}
@@ -150,11 +155,22 @@ void Terrain::render()
 		}
 	glEnd();
 
-	// Restores transformation state
-	glPopMatrix();
-
 	// Restores GL_FILL
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+Vector3 Terrain::calculateVertexNormal(int patchX, int patchZ, float s, float t)
+{
+	float e = 0.01f;
+
+	Vector3 p = calculateSplinePoint(patchX, patchZ, s, t);
+	Vector3 ps = calculateSplinePoint(patchX, patchZ, s + e, t);
+	Vector3 pt = calculateSplinePoint(patchX, patchZ, s, t + e);
+
+	Vector3 tangentS = ps - p;
+	Vector3 tangentT = pt - p;
+
+	return tangentS.crossProduct(tangentT).normalize();
 }
 
 Vector3 Terrain::getSurfacePoint(float x, float z)
@@ -198,14 +214,5 @@ Vector3 Terrain::getSurfacePoint(float x, float z)
 
 void Terrain::update()
 {
-	if (canRotate)
-	{
-		int deltaX = mouseX - oldMouseX;
-		int deltaY = mouseY - oldMouseY;
-
-		yaw += deltaX * SENSITIVITY;
-		pitch += deltaY * SENSITIVITY;
-	}
-
 	render();
 }

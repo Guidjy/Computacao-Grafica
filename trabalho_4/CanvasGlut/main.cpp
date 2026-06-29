@@ -61,8 +61,6 @@ void display()
 
 	// renderHUD();
 
-	glutSolidTeapot(1.2);
-
 	glPushMatrix();
 		glRotatef(scenePitch * radToDeg, 1.0f, 0.0f, 0.0f);
 		glRotatef(sceneYaw * radToDeg, 0.0f, 1.0f, 0.0f);
@@ -234,6 +232,7 @@ int main(int argc, char** argv)
 	// enables lighting
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_LIGHTING);
+	glEnable(GL_NORMALIZE);
 
 	// creates light source
 	glEnable(GL_LIGHT0);

@@ -1,6 +1,5 @@
 #include "Vehicle.h"
 #include "gl_canvas2d.h"
-#include "Camera.h"
 #include "GlobalSettings.h"
 #include "Keys.h"
 #include "Frames.h"
@@ -12,11 +11,6 @@ Vehicle::Vehicle(Terrain* _terrainReference)
 	pos = Vector3(0, 0, 0);
 	velocity = Vector2(0, 0);
 	direction = Vector2(0, 1);
-	wheels = std::array<Vector3, 3>({
-		Vector3(pos.x, pos.y, pos.z + lenght / 2),
-		Vector3(pos.x - width / 2, pos.y, pos.z - lenght / 2),
-		Vector3(pos.x + width / 2, pos.y, pos.z - lenght / 2)
-	});
 	currentHorizontalAngle = 0.0f;
 	terrainReference = _terrainReference;
 }
@@ -30,17 +24,17 @@ void Vehicle::handleKeyboardInput()
 	{
 		switch (key)
 		{
-		case UP:
+		case W:
 			direction.y = 1;
 			break;
-		case LEFT:
-			direction.x = -1;
+		case A:
+			direction.x = 1;
 			break;
-		case DOWN:
+		case S:
 			direction.y = -1;
 			break;
-		case RIGHT:
-			direction.x = 1;
+		case D:
+			direction.x = -1;
 			break;
 		default:
 			break;
@@ -50,50 +44,55 @@ void Vehicle::handleKeyboardInput()
 
 void Vehicle::rotate()
 {
-	// do not ask me abt this bih
-
 	pos.y = terrainReference->getSurfacePoint(pos.x, pos.z).y;
 
-	// rotates vehicle based on the velocity vector
 	if (abs(velocity.x) > 0.01 || abs(velocity.y) > 0.01)
 	{
 		currentHorizontalAngle = atan2(velocity.y, velocity.x) - PI / 2;
 	}
+
 	float cosA = cos(currentHorizontalAngle);
 	float sinA = sin(currentHorizontalAngle);
 
-	// vnot-yet rotated vehicle vertices
-	std::array<Vector3, 3> localVertices = std::array<Vector3, 3>({
+	std::array<Vector3, 3> localVertices = {
 		Vector3(0, 0, lenght / 2),            // tip
 		Vector3(-width / 2, 0, -lenght / 2),  // left back
 		Vector3(width / 2, 0, -lenght / 2)    // right back
-		});
+	};
 
-	// gets terrain position for the vertices
 	std::array<Vector3, 3> rotatedVertices;
 	for (int i = 0; i < 3; i++)
 	{
 		float rotatedX = localVertices[i].x * cosA - localVertices[i].z * sinA;
 		float rotatedZ = localVertices[i].x * sinA + localVertices[i].z * cosA;
-
 		float hitY = terrainReference->getSurfacePoint(pos.x + rotatedX, pos.z + rotatedZ).y;
-
 		rotatedVertices[i] = Vector3(pos.x + rotatedX, hitY, pos.z + rotatedZ);
 	}
 
-	// defins vehicle bodyy
-	Vector3 rearMidpoint = (rotatedVertices[1] + rotatedVertices[2]) / 2;
+	Vector3 rearMidpoint = (rotatedVertices[1] + rotatedVertices[2]) / 2.0f;
 	Vector3 forwardVec = (rotatedVertices[0] - rearMidpoint).normalize();
 	Vector3 approxRight = (rotatedVertices[2] - rotatedVertices[1]).normalize();
 	Vector3 upVec = forwardVec.crossProduct(approxRight).normalize();
 	Vector3 rightVec = upVec.crossProduct(forwardVec).normalize();
 
-	for (int i = 0; i < localVertices.size(); i++)
-	{
-		Vector3 rotatedPoint = (rightVec * localVertices[i].x) + (upVec * localVertices[i].y) + (forwardVec * localVertices[i].z);
-
-		wheels[i] = pos + rotatedPoint;
-	}
+	// OpenGl transformation matrix
+	transformMatrix[0] = rightVec.x;   
+	transformMatrix[1] = rightVec.y;   
+	transformMatrix[2] = rightVec.z;   
+	transformMatrix[3] = 0.0f;
+	transformMatrix[4] = upVec.x;      
+	transformMatrix[5] = upVec.y;     
+	transformMatrix[6] = upVec.z;      
+	transformMatrix[7] = 0.0f;
+	transformMatrix[8] = forwardVec.x; 
+	transformMatrix[9] = forwardVec.y; 
+	transformMatrix[10] = forwardVec.z; 
+	transformMatrix[11] = 0.0f;
+	// global car position
+	transformMatrix[12] = pos.x;       
+	transformMatrix[13] = pos.y;        
+	transformMatrix[14] = pos.z;        
+	transformMatrix[15] = 1.0f;
 }
 
 void Vehicle::move()
@@ -119,107 +118,62 @@ void Vehicle::move()
 	if (pos.z > hw) pos.z = hw;
 }
 
-void Vehicle::drawWheel(Vector3 p, float radius)
-{
-	Camera* cam = Camera::getInstance();
-	CV::color(0.5, 1, 0.3);
-
-	const int RESOLUTION = 8;
-
-	// renders vertical lines
-	for (int i = 0; i < RESOLUTION; i++)
-	{
-		float theta = (float)i / RESOLUTION * PI_2;
-		for (int j = 0; j < RESOLUTION; j++)
-		{
-			float phi1 = (float)j / RESOLUTION * PI;
-			float phi2 = (float)(j + 1) / RESOLUTION * PI;
-
-			Vector3 v1(
-				p.x + radius * sin(phi1) * cos(theta),
-				p.y + radius * cos(phi1),
-				p.z + radius * sin(phi1) * sin(theta)
-			);
-
-			Vector3 v2(
-				p.x + radius * sin(phi2) * cos(theta),
-				p.y + radius * cos(phi2),
-				p.z + radius * sin(phi2) * sin(theta)
-			);
-
-			Vector2 pA = cam->projectPoint(cam->alignPoint(v1));
-			Vector2 pB = cam->projectPoint(cam->alignPoint(v2));
-
-			CV::line(pA, pB);
-		}
-	}
-
-	// renders horizontal lines
-	for (int j = 1; j < RESOLUTION; j++)
-	{
-		float phi = (float)j / RESOLUTION * PI;
-		for (int i = 0; i < RESOLUTION; i++)
-		{
-			float theta1 = (float)i / RESOLUTION * PI_2;
-			float theta2 = (float)(i + 1) / RESOLUTION * PI_2;
-
-			Vector3 v1(
-				p.x + radius * sin(phi) * cos(theta1),
-				p.y + radius * cos(phi),
-				p.z + radius * sin(phi) * sin(theta1)
-			);
-
-			Vector3 v2(
-				p.x + radius * sin(phi) * cos(theta2),
-				p.y + radius * cos(phi),
-				p.z + radius * sin(phi) * sin(theta2)
-			);
-
-			Vector2 pA = cam->projectPoint(cam->alignPoint(v1));
-			Vector2 pB = cam->projectPoint(cam->alignPoint(v2));
-
-			CV::line(pA, pB);
-		}
-	}
-}
-
 void Vehicle::render()
 {
-	Camera* cam = Camera::getInstance();
+	GLfloat carDiffuse[] = { 0.2f, 0.4f, 0.8f, 1.0f };
+	GLfloat carSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat carShininess[] = { 50.0f };
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, carDiffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, carSpecular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, carShininess);
 
-	CV::color(0.5, 1, 0.3);
+	glPushMatrix();
 
-	// makes sure the wheels stick to the terrain even if its rotated
-	for (int i = 0; i < wheels.size(); i++)
-	{
-		// wheels[i] = terrainReference->applyRotation(wheels[i]);
-	}
+	// Aplica a matriz de transformação (que já calcula a inclinação nas 3 rodas)
+	glMultMatrixf(transformMatrix);
 
-	// wheels
-	for (auto wheel : wheels)
-	{
-		drawWheel(wheel, 0.5f);
-	}
+	// --- Desenho do Chassi ---
+	glPushMatrix();
+	glTranslatef(0.0f, 1.25f, 0.0f); // Levanta o chassi
+	glScalef(width, 1.5f, lenght);   // Achata o cubo
+	glutSolidCube(1.0);
+	glPopMatrix();
 
-	// base
-	Vector2 front = cam->projectPoint(cam->alignPoint(Vector3(wheels[0].x, wheels[0].y - 2, wheels[0].z)));
-	Vector2 backLeft = cam->projectPoint(cam->alignPoint(Vector3(wheels[1].x, wheels[1].y - 2, wheels[1].z)));
-	Vector2 backRight = cam->projectPoint(cam->alignPoint(Vector3(wheels[2].x, wheels[2].y - 2, wheels[2].z)));
+	// --- Desenho do Teto / Cabine (estilo Tuk-Tuk) ---
+	glPushMatrix();
+	glTranslatef(0.0f, 2.5f, -0.5f);
+	glScalef(width - 0.5f, 1.0f, lenght * 0.5f);
+	glutSolidCube(1.0);
+	glPopMatrix();
 
-	CV::line(front, backLeft);
-	CV::line(backLeft, backRight);
-	CV::line(backRight, front);
-	
-	// roof
-	Vector3 baseCenter = (wheels[0] + wheels[1] + wheels[2]) * (1.0f / 3.0f);
-	Vector3 upDirection = (wheels[1] - wheels[0]).crossProduct(wheels[2] - wheels[0]).normalize() * 3.0f;
-	Vector3 roofPos = baseCenter + upDirection;
+	// Material das rodas (Borracha escura)
+	GLfloat wheelDiffuse[] = { 0.15f, 0.15f, 0.15f, 1.0f };
+	GLfloat wheelSpecular[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, wheelDiffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, wheelSpecular);
 
-	Vector2 roof = cam->projectPoint(cam->alignPoint(roofPos));
+	float r = 0.8f; // Raio da roda
 
-	CV::line(front, roof);
-	CV::line(backLeft, roof);
-	CV::line(backRight, roof);
+	// 1. Roda Traseira Esquerda
+	glPushMatrix();
+	glTranslatef(-width / 2.0f, r, -lenght / 2.0f);
+	glutSolidSphere(r, 16, 16);
+	glPopMatrix();
+
+	// 2. Roda Traseira Direita
+	glPushMatrix();
+	glTranslatef(width / 2.0f, r, -lenght / 2.0f);
+	glutSolidSphere(r, 16, 16);
+	glPopMatrix();
+
+	// 3. Roda Dianteira (Centralizada, como num Tuk-Tuk)
+	glPushMatrix();
+	// O eixo X é 0.0f para ficar no meio, e o eixo Z fica na extremidade frontal
+	glTranslatef(0.0f, r, lenght / 2.0f);
+	glutSolidSphere(r, 16, 16);
+	glPopMatrix();
+
+	glPopMatrix();
 }
 
 void Vehicle::update()

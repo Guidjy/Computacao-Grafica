@@ -3,6 +3,7 @@
 #include "Vector3.h"
 #include "Terrain.h"
 #include <array>
+#include <GL/glut.h>
 
 
 class Vehicle
@@ -10,8 +11,8 @@ class Vehicle
 private:
 	const float width = 3;
 	const float lenght = 5;
-	std::array<Vector3, 3> wheels;
 	float currentHorizontalAngle; 
+	float transformMatrix[16];  // Stores position and rotation for OpenGL transformations
 
 	Vector3 pos;
 	Vector2 velocity;
@@ -21,15 +22,15 @@ private:
 	const float friction = 0.9f;
 	const float MAX_VELOCITY = 10.0f;
 
-	Terrain* terrainReference;
+	GLfloat matDiffuse[4] = { 0.2f, 0.4f, 0.8f, 1.0f };
+	GLfloat matSpecular[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat matShininess[4] = { 10.0f };
 
-	// renders a sphere around a point p
-	void drawWheel(Vector3 p, float radius=5.0f);
+	Terrain* terrainReference;
 
 	void handleKeyboardInput();
 
-	// rotates the vehicle based on its velocity vector
-	void rotate();
+	void rotate();  // rotates the vehicle based on its velocity vector
 
 	void move();
 

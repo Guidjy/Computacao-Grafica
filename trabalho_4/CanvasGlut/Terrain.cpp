@@ -67,35 +67,16 @@ void Terrain::changeHillSize(bool grow)
 	if (grow)
 	{
 		if (deltaY >= MAX_DELTA_Y) return;
-		deltaY += 10;
+		deltaY += 6;
 	}
 	else
 	{
 		if (deltaY <= MIN_DELTA_Y) return;
-		deltaY -= 10;
+		deltaY -= 6;
 	}
 
 	generateTerrain();
 }
-
-/*
-Vector3 Terrain::applyRotation(Vector3 p)
-{
-	Vector3 temp = p;
-
-	float y1 = temp.y * cos(pitch) - temp.z * sin(pitch);
-	float z1 = temp.y * sin(pitch) + temp.z * cos(pitch);
-	temp.y = y1;
-	temp.z = z1;
-
-	float x2 = temp.x * cos(yaw) + temp.z * sin(yaw);
-	float z2 = -temp.x * sin(yaw) + temp.z * cos(yaw);
-	temp.x = x2;
-	temp.z = z2;
-
-	return temp;
-}
-*/
 
 void Terrain::render()
 {
@@ -111,9 +92,6 @@ void Terrain::render()
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
-
-	// glRotatef(pitch * radToDeg, 1.0f, 0.0f, 0.0f);
-	// glRotatef(yaw * radToDeg, 0.0f, 1.0f, 0.0f);
 
 	glBegin(GL_TRIANGLES);
 		for (int i = 0; i < controlPoints.size() - 3; i++)
@@ -186,7 +164,7 @@ Vector3 Terrain::getSurfacePoint(float x, float z)
 	int patchX = (int)floor(gridX);
 	int patchZ = (int)floor(gridZ);
 
-	// getsh the parameters of that patch for (x, z)
+	// gets the parameters of that patch for (x, z)
 	float s = gridX - patchX;
 	float t = gridZ - patchZ;
 

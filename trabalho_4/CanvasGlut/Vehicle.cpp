@@ -5,7 +5,6 @@
 #include "Frames.h"
 #include <math.h>
 
-
 Vehicle::Vehicle(Terrain* _terrainReference)
 {
 	pos = Vector3(0, 0, 0);
@@ -46,11 +45,13 @@ void Vehicle::rotate()
 {
 	pos.y = terrainReference->getSurfacePoint(pos.x, pos.z).y;
 
+	// gets the vehicle's current horizontal angle
 	if (abs(velocity.x) > 0.01 || abs(velocity.y) > 0.01)
 	{
 		currentHorizontalAngle = atan2(velocity.y, velocity.x) - PI / 2;
 	}
 
+	// gets the position of the three wheels in world space
 	float cosA = cos(currentHorizontalAngle);
 	float sinA = sin(currentHorizontalAngle);
 
@@ -70,24 +71,29 @@ void Vehicle::rotate()
 	}
 
 	Vector3 rearMidpoint = (rotatedVertices[1] + rotatedVertices[2]) / 2.0f;
-	Vector3 forward = (rotatedVertices[0] - rearMidpoint).normalize();
-	Vector3 approxRight = (rotatedVertices[2] - rotatedVertices[1]).normalize();
-	Vector3 upVec = forward.crossProduct(approxRight).normalize();
-	Vector3 rightVec = upVec.crossProduct(forward).normalize();
+	Vector3 forward = (rotatedVertices[0] - rearMidpoint).normalize();	          // rear-mid point -> front wheel
+	Vector3 approxRight = (rotatedVertices[2] - rotatedVertices[1]).normalize();  // line between the reer wheels
+	Vector3 upVec = forward.crossProduct(approxRight).normalize();                // vehicle up direction
+	Vector3 rightVec = upVec.crossProduct(forward).normalize();					  // true right perpendicular to up and forward
 
 	// updates global car position and forward
 	carPosition = pos;
 	carForward = forward;
 
-	// OpenGl transformation matrix
+	// OpenGl transformation matrix. This is used to rotate and tilt the car based on the terrain.
+	// The last element of the axys columns are 0 because they represent directions, and the last
+	// element of the car position column is a 1 because it represents a point in space type shit.
+	// local X axys (used for pitch)
 	transformMatrix[0] = rightVec.x;   
 	transformMatrix[1] = rightVec.y;   
 	transformMatrix[2] = rightVec.z;   
 	transformMatrix[3] = 0.0f;
+	// local Y axys (used for yaw)
 	transformMatrix[4] = upVec.x;      
 	transformMatrix[5] = upVec.y;     
 	transformMatrix[6] = upVec.z;      
 	transformMatrix[7] = 0.0f;
+	// local Z axys (used for roll)
 	transformMatrix[8] = forward.x; 
 	transformMatrix[9] = forward.y; 
 	transformMatrix[10] = forward.z; 
@@ -124,56 +130,49 @@ void Vehicle::move()
 
 void Vehicle::render()
 {
-	GLfloat carDiffuse[] = { 0.2f, 0.4f, 0.8f, 1.0f };
-	GLfloat carSpecular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	GLfloat carShininess[] = { 50.0f };
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, carDiffuse);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, carSpecular);
-	glMaterialfv(GL_FRONT, GL_SHININESS, carShininess);
-
 	glPushMatrix();
-
-	// Aplica a matriz de transformação (que já calcula a inclinação nas 3 rodas)
+	// Applies the transformation matrix calculated in rotate() on the car
 	glMultMatrixf(transformMatrix);
 
-	// --- Desenho do Chassi ---
-	glPushMatrix();
-	glTranslatef(0.0f, 1.25f, 0.0f); // Levanta o chassi
-	glScalef(width, 1.5f, lenght);   // Achata o cubo
-	glutSolidCube(1.0);
-	glPopMatrix();
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, chassisDiffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, chassisSpecular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, chassisShininess);
 
-	// --- Desenho do Teto / Cabine (estilo Tuk-Tuk) ---
-	glPushMatrix();
-	glTranslatef(0.0f, 2.5f, -0.5f);
-	glScalef(width - 0.5f, 1.0f, lenght * 0.5f);
-	glutSolidCube(1.0);
-	glPopMatrix();
+		// chassis 
+		glPushMatrix();
+		glTranslatef(0.0f, 1.25f, 0.0f);
+		glScalef(width, 1.5f, lenght);
+		glutSolidCube(1.0);
+		glPopMatrix();
 
-	// Material das rodas (Borracha escura)
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, wheelDiffuse);
-	glMaterialfv(GL_FRONT, GL_SPECULAR, wheelSpecular);
+		// roof
+		glPushMatrix();
+		glTranslatef(0.0f, 2.5f, -0.5f);
+		glScalef(width - 0.5f, 1.0f, lenght * 0.5f);
+		glutSolidCube(1.0);
+		glPopMatrix();
 
-	float r = 0.8f; // Raio da roda
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, wheelDiffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, wheelSpecular);
+		float r = 0.8f;
 
-	// 1. Roda Traseira Esquerda
-	glPushMatrix();
-	glTranslatef(-width / 2.0f, r, -lenght / 2.0f);
-	glutSolidSphere(r, 16, 16);
-	glPopMatrix();
+		// rear left wheel
+		glPushMatrix();
+		glTranslatef(-width / 2.0f, r, -lenght / 2.0f);
+		glutSolidSphere(r, 16, 16);
+		glPopMatrix();
 
-	// 2. Roda Traseira Direita
-	glPushMatrix();
-	glTranslatef(width / 2.0f, r, -lenght / 2.0f);
-	glutSolidSphere(r, 16, 16);
-	glPopMatrix();
+		// rear right wheel
+		glPushMatrix();
+		glTranslatef(width / 2.0f, r, -lenght / 2.0f);
+		glutSolidSphere(r, 16, 16);
+		glPopMatrix();
 
-	// 3. Roda Dianteira (Centralizada, como num Tuk-Tuk)
-	glPushMatrix();
-	// O eixo X é 0.0f para ficar no meio, e o eixo Z fica na extremidade frontal
-	glTranslatef(0.0f, r, lenght / 2.0f);
-	glutSolidSphere(r, 16, 16);
-	glPopMatrix();
+		// front wheel
+		glPushMatrix();
+		glTranslatef(0.0f, r, lenght / 2.0f);
+		glutSolidSphere(r, 16, 16);
+		glPopMatrix();
 
 	glPopMatrix();
 }

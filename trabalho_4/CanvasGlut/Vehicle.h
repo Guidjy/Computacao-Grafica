@@ -11,8 +11,11 @@ class Vehicle
 private:
 	const float width = 3;
 	const float lenght = 5;
-	float currentHorizontalAngle; 
-	float transformMatrix[16];  // Stores position and rotation for OpenGL transformations
+	float currentHorizontalAngle;
+
+	// Stores position and rotation for OpenGL transformations
+	// matrixes in OpenGL are "Column-Major", meaning they're read column by column
+	float transformMatrix[16]; 
 
 	Vector3 pos;
 	Vector2 velocity;
@@ -22,9 +25,9 @@ private:
 	const float friction = 0.9f;
 	const float MAX_VELOCITY = 10.0f;
 
-	const GLfloat carDiffuse[4] = { 0.2f, 0.4f, 0.8f, 1.0f };
-	const GLfloat carSpecular[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	const GLfloat carShininess[4] = { 10.0f };
+	const GLfloat chassisDiffuse[4] = { 0.2f, 0.4f, 0.8f, 1.0f };
+	const GLfloat chassisSpecular[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	const GLfloat chassisShininess[4] = { 10.0f };
 
 	const GLfloat wheelDiffuse[4] = { 0.15f, 0.15f, 0.15f, 1.0f };
 	const GLfloat wheelSpecular[4] = { 0.0f, 0.0f, 0.0f, 1.0f };

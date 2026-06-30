@@ -30,14 +30,6 @@ private:
 
 	Camera(Vector3 _eye=Vector3(0, 150, -250), Vector3 _target=Vector3(0, 0, 0), Vector3 _up=Vector3(0, 1, 0), float _d=200);
 
-	// Returns a horizontal direction vector based on the keys that are currently pressed.
-	// Used to make the camera move forwards/backwards and sideways
-	Vector2 handleKeyboardInput();
-
-	// Returns a horizontal direction vector based on the target of the camera.
-	// Used to make the camera straife.
-	Vector2 handleMouseInput();
-
 public:
 	float fovY = 20.0;
 
@@ -49,17 +41,6 @@ public:
 
 	// fixed camera transformations
 	void applyTransformations();
-
-	// aligns camera and world space axes
-	void changeBasis();
-
-	// aligns a point in 3d space with the camera in the world origin.
-	Vector3 alignPoint(Vector3 p);
-
-	// projects a point in 3d space onto the projection plane
-	Vector2 projectPoint(Vector3 p3d);
-
-	void facePoint(Vector3 p);
 
 	void update();
 };

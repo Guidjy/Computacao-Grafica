@@ -172,7 +172,6 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Frames.cpp" />
     <ClCompile Include="GlobalSettings.cpp" />
-    <ClCompile Include="gl_canvas2d.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Vehicle.cpp" />
@@ -181,7 +180,6 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Frames.h" />
     <ClInclude Include="GlobalSettings.h" />
-    <ClInclude Include="gl_canvas2d.h" />
     <ClInclude Include="Keys.h" />
     <ClInclude Include="mouseStates.h" />
     <ClInclude Include="Terrain.h" />

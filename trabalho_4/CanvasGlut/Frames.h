@@ -43,6 +43,4 @@ public:
 	double getDeltaTime() { return deltaTime; }
 
 	int getCurrentFPS() { return currentFPS; }
-
-	void displayCurrentFPS();
 };

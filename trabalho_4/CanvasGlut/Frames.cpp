@@ -1,5 +1,4 @@
 #include "Frames.h"
-#include "gl_canvas2d.h"
 #include "GlobalSettings.h"
 #include <windows.h>
 #include <string>
@@ -45,11 +44,6 @@ void Frames::render()
 {
 	calculateCurrentFPS();
 
-	if (shouldDisplayCurrentFPS)
-	{
-		displayCurrentFPS();
-	}
-
 	clock_t endRenderTime = clock();
 	double timeTakenToRender = (double)(endRenderTime - currentFrameTime) / CLOCKS_PER_SEC;
 
@@ -58,11 +52,4 @@ void Frames::render()
 	{
 		Sleep(timeToSleep * 1000.0f);
 	}
-}
-
-void Frames::displayCurrentFPS()
-{
-	CV::color(1, 1, 1);
-	std::string FPS = "FPS: " + std::to_string(currentFPS);
-	CV::text(Vector2(screenWidth / 2 - 75, 20 - screenHeight / 2), FPS.c_str());
 }

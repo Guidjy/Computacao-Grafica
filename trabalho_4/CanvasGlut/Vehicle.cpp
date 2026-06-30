@@ -1,5 +1,4 @@
 #include "Vehicle.h"
-#include "gl_canvas2d.h"
 #include "GlobalSettings.h"
 #include "Keys.h"
 #include "Frames.h"

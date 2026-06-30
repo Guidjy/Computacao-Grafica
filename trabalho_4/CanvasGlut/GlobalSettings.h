@@ -43,8 +43,4 @@ extern Vector3 carForward;
 
 void updateMousePosition();
 
-void renderBackground();
-
-void renderHUD();
-
 Vector3 normalVector(Vector3 p0, Vector3 p1, Vector3 p2);

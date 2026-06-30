@@ -1,22 +1,20 @@
-/*********************************************************************
-// Canvas para desenho, criada sobre a API OpenGL. Nao eh necessario conhecimentos de OpenGL para usar.
-//  Autor: Cesar Tadeu Pozzer
-//         08/2025
-//
-//  Pode ser utilizada para fazer desenhos, animacoes, e jogos simples.
-//  Tem tratamento de mouse e teclado
-//  Estude o OpenGL antes de tentar compreender o arquivo gl_canvas.cpp
-//
-//  Versao 2.1
-//
-//  Instruções:
-//	  Para alterar a animacao, digite numeros entre 1 e 3
-//    Programa cheio de numeros magicos. Nao use isso nunca.
-// *********************************************************************/
+/*
+T4: OpenGl
+
+Controles:
+	- Rotacionar terreno: arrastar mouse
+	- Mover veículo: WASD
+	- Ligar backface culling: C
+	- Trocar entre terreno wireframe e preenchido: V
+	- Aumentar/Diminuir ondulação do terreno: Z/X
+	- Trocar entre câmera fixa e presa ao veículo: SPACE
+
+Requisitos implementados: todos os requisitos básicos do programa foram implementados
+*/
+
 
 #include <GL/glut.h>
 #include <GL/freeglut_ext.h> // mouse wheel callback
-
 #include <math.h>
 #include <stdio.h>
 #include <iostream>
@@ -44,13 +42,10 @@ Camera* cam = Camera::getInstance();
 // fps control
 Frames* frames = nullptr;
 
-// t3
+// t4
 Terrain* terrain = nullptr;
 Vehicle* car = nullptr;
 
-// Called continuously. Objects to be drawn should be controlled by global variables.
-// All of the method calls for drawing objects should be done here.
-// Should be kept as simple as possible.
 void display()
 {
 	frames->calculateDeltaTime();
@@ -130,9 +125,11 @@ void keyboard(unsigned char key, int, int)
 	case V:
 		terrain->isSmooth = !terrain->isSmooth;
 		break;
+
 	case Z:
 		terrain->changeHillSize(true);
 		break;
+
 	case X:
 		terrain->changeHillSize(false);
 		break;
@@ -153,7 +150,7 @@ void keyboardUp(unsigned char key, int, int)
 	printf("\nLiberou: %d", k);
 }
 
-// called on mouse click, movement or drag
+// called on mouse click or movement
 void mouse(int button, int state, int x, int y)
 {
 	// stores mouse coordinates to be displayed inside render()
@@ -182,6 +179,7 @@ void mouse(int button, int state, int x, int y)
 	}
 }
 
+// called on drag
 void mouseDrag(int x, int y)
 {
 	if (mouseState == CLICK)
@@ -202,6 +200,7 @@ void mouseDrag(int x, int y)
 	mouseY = y;
 }
 
+// called on window resize
 void reshape(int w, int h)
 {
 	// updates viewport size
@@ -248,12 +247,12 @@ int main(int argc, char** argv)
 	glPolygonMode(GL_BACK, GL_LINE);
 	glFrontFace(faceMode);
 	glCullFace(cullingMode);
-	// glEnable(GL_CULL_FACE);
 
 	// enables lighting
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_NORMALIZE);
+	glEnable(GL_DEPTH_TEST);  // z-buffer
 
 	// creates light source
 	glEnable(GL_LIGHT0);

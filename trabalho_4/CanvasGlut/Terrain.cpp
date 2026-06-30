@@ -1,5 +1,4 @@
 #include "Terrain.h"
-#include "gl_canvas2d.h"
 #include "GlobalSettings.h"
 #include "Camera.h"
 #include <time.h>

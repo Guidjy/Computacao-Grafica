@@ -36,11 +36,25 @@ void Camera::applyTransformations()
 	// configures perspective projection
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(FOV_Y, screenWidth / screenHeight, 0.1f, 1000.0f);
+	gluPerspective(fovY, screenWidth / screenHeight, 0.1f, 1000.0f);
+
+	if (isFixed)
+	{
+		eye = Vector3(0, 150, -250);
+		target = Vector3(0, 0, 0);
+	}
+	else
+	{
+		eye = carPosition - (carForward * 30.0f);
+		eye.y = 40;
+		target = eye + carForward;
+		target.y = 40;
+	}
 
 	// camera position
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
 	gluLookAt(
 		eye.x, eye.y, eye.z,
 		target.x, target.y, target.z,

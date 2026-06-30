@@ -70,10 +70,14 @@ void Vehicle::rotate()
 	}
 
 	Vector3 rearMidpoint = (rotatedVertices[1] + rotatedVertices[2]) / 2.0f;
-	Vector3 forwardVec = (rotatedVertices[0] - rearMidpoint).normalize();
+	Vector3 forward = (rotatedVertices[0] - rearMidpoint).normalize();
 	Vector3 approxRight = (rotatedVertices[2] - rotatedVertices[1]).normalize();
-	Vector3 upVec = forwardVec.crossProduct(approxRight).normalize();
-	Vector3 rightVec = upVec.crossProduct(forwardVec).normalize();
+	Vector3 upVec = forward.crossProduct(approxRight).normalize();
+	Vector3 rightVec = upVec.crossProduct(forward).normalize();
+
+	// updates global car position and forward
+	carPosition = pos;
+	carForward = forward;
 
 	// OpenGl transformation matrix
 	transformMatrix[0] = rightVec.x;   
@@ -84,9 +88,9 @@ void Vehicle::rotate()
 	transformMatrix[5] = upVec.y;     
 	transformMatrix[6] = upVec.z;      
 	transformMatrix[7] = 0.0f;
-	transformMatrix[8] = forwardVec.x; 
-	transformMatrix[9] = forwardVec.y; 
-	transformMatrix[10] = forwardVec.z; 
+	transformMatrix[8] = forward.x; 
+	transformMatrix[9] = forward.y; 
+	transformMatrix[10] = forward.z; 
 	transformMatrix[11] = 0.0f;
 	// global car position
 	transformMatrix[12] = pos.x;       
@@ -147,8 +151,6 @@ void Vehicle::render()
 	glPopMatrix();
 
 	// Material das rodas (Borracha escura)
-	GLfloat wheelDiffuse[] = { 0.15f, 0.15f, 0.15f, 1.0f };
-	GLfloat wheelSpecular[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, wheelDiffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, wheelSpecular);
 

@@ -11,7 +11,6 @@ private:
 
 	const float SPEED = 0.1f;
 	const float SENSITIVITY = 0.005f;
-	const float FOV_Y = 20.0;
 
 
 	// câmera vectors
@@ -40,7 +39,11 @@ private:
 	Vector2 handleMouseInput();
 
 public:
+	float fovY = 20.0;
+
 	bool canLookAround = true;
+
+	bool isFixed = true;
 
 	static Camera* getInstance();
 

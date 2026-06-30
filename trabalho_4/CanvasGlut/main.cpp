@@ -97,6 +97,20 @@ void keyboard(unsigned char key, int, int)
 	{
 	case 27:
 		exit(0);
+	case SPACE:
+		cam->isFixed = !cam->isFixed;
+		if (cam->isFixed)
+		{
+			cam->fovY = 20.0f;
+			terrain->canRotate = true;
+		}
+		else
+		{
+			cam->fovY = 120.0f;
+			terrain->canRotate = false;
+		}
+		break;
+
 	case C:
 		terrain->shouldCull = !terrain->shouldCull;
 		if (terrain->shouldCull)
@@ -108,6 +122,7 @@ void keyboard(unsigned char key, int, int)
 			glDisable(GL_CULL_FACE);
 		}
 		break;
+
 	case V:
 		terrain->isSmooth = !terrain->isSmooth;
 		break;
@@ -116,7 +131,6 @@ void keyboard(unsigned char key, int, int)
 		break;
 	case X:
 		terrain->changeHillSize(false);
-		break;
 		break;
 	}
 }
@@ -171,8 +185,11 @@ void mouseDrag(int x, int y)
 		int deltaX = x - oldMouseX;
 		int deltaY = y - oldMouseY;
 
-		sceneYaw += deltaX * ROTATION_SENSITIVITY;
-		scenePitch += deltaY * ROTATION_SENSITIVITY;
+		if (terrain->canRotate)
+		{
+			sceneYaw += deltaX * ROTATION_SENSITIVITY;
+			scenePitch += deltaY * ROTATION_SENSITIVITY;
+		}
 	}
 
 	oldMouseX = mouseX;

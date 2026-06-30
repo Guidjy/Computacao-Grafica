@@ -37,6 +37,10 @@ extern float scenePitch;  // horizontal rotation
 extern float sceneYaw;	  // vertical rotation
 extern const float ROTATION_SENSITIVITY;
 
+// car variables
+extern Vector3 carPosition;
+extern Vector3 carForward;
+
 void updateMousePosition();
 
 void renderBackground();

@@ -37,6 +37,10 @@ float scenePitch = 0.0f;  // horizontal rotation
 float sceneYaw = 0.0f;	  // vertical rotation
 const float ROTATION_SENSITIVITY = 0.005f;  // rotation sensitivity
 
+// car variables
+Vector3 carPosition = Vector3();
+Vector3 carForward = Vector3();
+
 void updateMousePosition()
 {
 	oldMouseX = mouseX;

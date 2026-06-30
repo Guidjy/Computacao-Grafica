@@ -22,9 +22,12 @@ private:
 	const float friction = 0.9f;
 	const float MAX_VELOCITY = 10.0f;
 
-	GLfloat matDiffuse[4] = { 0.2f, 0.4f, 0.8f, 1.0f };
-	GLfloat matSpecular[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	GLfloat matShininess[4] = { 10.0f };
+	const GLfloat carDiffuse[4] = { 0.2f, 0.4f, 0.8f, 1.0f };
+	const GLfloat carSpecular[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	const GLfloat carShininess[4] = { 10.0f };
+
+	const GLfloat wheelDiffuse[4] = { 0.15f, 0.15f, 0.15f, 1.0f };
+	const GLfloat wheelSpecular[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 	Terrain* terrainReference;
 

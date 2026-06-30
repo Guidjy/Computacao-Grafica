@@ -98,7 +98,11 @@ void keyboard(unsigned char key, int, int)
 	case 27:
 		exit(0);
 	case SPACE:
+		sceneYaw = 0.0f;
+		scenePitch = 0.0f;
+
 		cam->isFixed = !cam->isFixed;
+
 		if (cam->isFixed)
 		{
 			cam->fovY = 20.0f;

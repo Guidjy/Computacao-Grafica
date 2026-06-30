@@ -19,6 +19,10 @@ private:
 	const GLfloat matSpecular[4] = { 1, 1, 1, 1 };
 	const GLfloat matShininess[4] = { 526 };
 
+	// control points material
+	const GLfloat redDiffuse[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
+	const GLfloat zeroSpecular[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+
 	// B(t) B-Spline base functions
 	float b0(float t) { return 1.0f / 6.0f * pow(1 - t, 3); }
 	float b1(float t) { return 1.0f / 6.0f * (3 * pow(t, 3) - 6 * pow(t, 2) + 4); }

@@ -135,6 +135,21 @@ void Terrain::render()
 
 	// Restores GL_FILL
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, redDiffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, zeroSpecular);
+
+	for (int i = 0; i < controlPoints.size(); i++)
+	{
+		for (int j = 0; j < controlPoints[i].size(); j++)
+		{
+			glPushMatrix();
+				glTranslatef(controlPoints[i][j].x, controlPoints[i][j].y, controlPoints[i][j].z);
+				glutSolidSphere(0.5, 12, 12);
+			glPopMatrix();
+		}
+	}
 }
 
 Vector3 Terrain::calculateVertexNormal(int patchX, int patchZ, float s, float t)
